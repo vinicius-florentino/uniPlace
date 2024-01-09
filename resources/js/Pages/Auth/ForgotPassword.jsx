@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 export default function ForgotPassword({ status }) {
     
@@ -35,9 +36,8 @@ export default function ForgotPassword({ status }) {
                     <Grid item xs={12}>
                         <Typography>
                             Esqueceu sua senha? Sem problemas. Basta nos
-                            informar seu endereço de e-mail e enviaremos uma
-                            senha por e-mail link de redefinição que permitirá
-                            que você escolha um novo.
+                            informar seu endereço de e-mail e enviaremos por
+                            e-mail link de redefinição.
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -70,6 +70,15 @@ export default function ForgotPassword({ status }) {
                         >
                             Confirmar
                         </Button>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                    >
+                        <Link href={route("login")}>Fazer login</Link>
                     </Grid>
                 </Grid>
             </Box>

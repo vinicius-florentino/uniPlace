@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
-import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -17,9 +13,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import StorefrontIcon from "@mui/icons-material/Storefront";
 
 export default function Authenticated({ user, children }) {
+
     const pages = ["Testea", "Testeb", "Testec"];
 
     const [anchorElNav, setAnchorElNav] = useState(null);

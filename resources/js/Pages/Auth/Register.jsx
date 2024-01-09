@@ -16,6 +16,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export default function Register({ universities }) {
     
@@ -25,24 +26,14 @@ export default function Register({ universities }) {
         password: "",
         password_confirmation: "",
         is_student: false,
-        university: "",
+        university_id: "",
     });
-
-    const [showUniversitySelect, setShowUniversitySelect] = useState(false);
 
     useEffect(() => {
         return () => {
             reset("password", "password_confirmation");
         };
     }, []);
-
-    useEffect(() => {
-        if (data.is_student) {
-            setShowUniversitySelect(true);
-        } else {
-            setShowUniversitySelect(false);
-        }
-    }, [data.is_student]);
 
     const submit = (e) => {
         e.preventDefault();
@@ -56,9 +47,12 @@ export default function Register({ universities }) {
 
     const handleRadioChange = (event) => {
         const { name } = event.target;
-        const value = event.target.value === 'true';
+        const value =
+            event.target.value === "true" || event.target.value === true
+                ? true
+                : false;
         setData(name, value);
-    };    
+    };
 
     return (
         <GuestLayout>
@@ -120,7 +114,7 @@ export default function Register({ universities }) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl>
+                        <FormControl error={errors.is_student}>
                             <FormLabel id="demo-row-radio-buttons-group-label">
                                 Você é estudante?
                             </FormLabel>
@@ -142,31 +136,34 @@ export default function Register({ universities }) {
                                     label="Não"
                                 />
                             </RadioGroup>
+                            <FormHelperText>
+                                {errors.is_student ?? ""}
+                            </FormHelperText>
                         </FormControl>
                     </Grid>
-                    {showUniversitySelect && (
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="university-label">
-                                    Selecione sua universidade
-                                </InputLabel>
-                                <Select
-                                    labelId="university-label"
-                                    id="university"
-                                    name="university"
-                                    label="Selecione sua universidade"
-                                    value={data.university}
-                                    onChange={handleChange}
-                                >
-                                    {universities.map((uni) => (
-                                        <MenuItem key={uni.id} value={uni.id}>
-                                            {uni.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    )}
+                    <Grid item xs={12}>
+                        <FormControl fullWidth error={errors.university_id}>
+                            <InputLabel id="university-label">
+                                Selecione sua universidade
+                            </InputLabel>
+                            <Select
+                                labelId="university-label"
+                                name="university_id"
+                                label="Universidade de vínculo"
+                                value={data.university_id}
+                                onChange={handleChange}
+                            >
+                                {universities.map((uni) => (
+                                    <MenuItem key={uni.id} value={uni.id}>
+                                        {uni.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            <FormHelperText>
+                                {errors.university_id ?? ""}
+                            </FormHelperText>
+                        </FormControl>
+                    </Grid>
                     <Grid item xs={12}>
                         <Button
                             variant="contained"

@@ -1,8 +1,7 @@
 // import ApplicationLogo from '@/Components/ApplicationLogo';
-import * as React from "react";
+import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-// import { Link } from "@inertiajs/react";
 
 export default function Guest({ children }) {
     return (

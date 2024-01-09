@@ -41,18 +41,19 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'is_student' => 'required|boolean',
+            'university_id' => 'required|int'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'is_student' => $request->is_student,
+            'university_id' => $request->university_id,
         ]);
 
-        // event(new Registered($user));
-        if ($user){
-            Mail::to($user->email)->send(new VerifyEmailNotification($user));
-        }
+        event(new Registered($user));
         
         Auth::login($user);
 
