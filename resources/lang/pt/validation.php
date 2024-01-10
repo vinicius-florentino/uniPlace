@@ -115,6 +115,7 @@ return [
     'attributes' => [
         'name' => 'nome',
         'email' => 'e-mail',
+        'password' => 'senha',
         'university_id' => 'universidade',
         'is_student' => 'é estudante'
     ],

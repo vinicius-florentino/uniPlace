@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 
-function SignatureCard({ name, description, price, benefits, processing }) {
+function OfferCard({ name, description, price, benefits, processing }) {
     return (
         <Card sx={{ maxWidth: 250 }}>
             <CardContent sx={{ padding: 4 }}>
@@ -50,4 +50,4 @@ function SignatureCard({ name, description, price, benefits, processing }) {
     );
 }
 
-export default SignatureCard;
+export default OfferCard;

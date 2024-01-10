@@ -118,7 +118,6 @@ export default function Login({ status, canResetPassword }) {
                             Entrar
                         </Button>
                     </Grid>
-
                     <Grid
                         item
                         xs={12}
