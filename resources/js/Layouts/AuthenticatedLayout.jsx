@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { useForm } from "@inertiajs/react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,9 +14,21 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import HomeIcon from '@mui/icons-material/Home';
+import HelpIcon from '@mui/icons-material/Help';
+
 export default function Authenticated({ user, children }) {
 
-    const pages = ["Testea", "Testeb", "Testec"];
+    const { post } = useForm({});
+
+    const pageIconFontSize = "small";
+
+    const pages = [
+        { label: "Início", icon: <HomeIcon fontSize={pageIconFontSize}/>, href: "/" },
+        { label: "Planos", icon: <BusinessCenterIcon fontSize={pageIconFontSize} />, href: "/plans" },
+        { label: "Ajuda", icon: <HelpIcon fontSize={pageIconFontSize} />, href: "#" },
+    ];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -36,6 +48,12 @@ export default function Authenticated({ user, children }) {
         setAnchorElUser(null);
     };
 
+    const handleLogout = (e) => {
+        e.preventDefault();
+
+        post(route("logout"));
+    };
+
     return (
         <>
             <AppBar position="static">
@@ -46,13 +64,12 @@ export default function Authenticated({ user, children }) {
                             noWrap
                             component="a"
                             href={route("dashboard")}
-                            // active={route().current("dashboard")}
                             sx={{
                                 mr: 2,
                                 display: { xs: "none", md: "flex" },
                                 fontWeight: 700,
                                 fontFamily: "monospace",
-                                fontSize: 26,
+                                fontSize: 20,
                                 letterSpacing: "0",
                                 color: "var(--light-color)",
                                 textDecoration: "none",
@@ -95,13 +112,14 @@ export default function Authenticated({ user, children }) {
                                     display: { xs: "block", md: "none" },
                                 }}
                             >
-                                {pages.map((page) => (
+                                {pages.map((page, index) => (
                                     <MenuItem
-                                        key={page}
+                                        key={index}
                                         onClick={handleCloseNavMenu}
                                     >
                                         <Typography textAlign="center">
-                                            {page}
+                                            {page.icon}
+                                            {page.label}
                                         </Typography>
                                     </MenuItem>
                                 ))}
@@ -126,75 +144,91 @@ export default function Authenticated({ user, children }) {
                         >
                             UNIPLACE
                         </Typography>
+
                         <Box
                             sx={{
                                 flexGrow: 1,
                                 display: { xs: "none", md: "flex" },
                             }}
                         >
-                            {pages.map((page) => (
+                            {pages.map((page, index) => (
                                 <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                    key={index}
+                                    href={page.href}
                                     sx={{
                                         my: 2,
                                         color: "white",
-                                        display: "block",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        fontSize: "14px",
+                                        gap: "5px"
                                     }}
                                 >
-                                    {page}
+                                    {page.icon}
+                                    <span style={{marginTop: "5px"}}>{page.label}</span>
                                 </Button>
                             ))}
                         </Box>
 
                         <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton
-                                    onClick={handleOpenUserMenu}
-                                    sx={{ p: 0 }}
+                            {!user && (
+                                <Button
+                                    href="/login"
+                                    variant="contained"
+                                    disableElevation
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor:
+                                            "var(--secondary-color)",
+                                    }}
                                 >
-                                    <Avatar
-                                        alt={user.name.toUpperCase()}
-                                        src="/static/images/avatar/2.jpg"
-                                    />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: "45px" }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                <MenuItem
-                                    component="a"
-                                    onClick={handleCloseUserMenu}
-                                    href={route("profile.edit")}
-                                >
-                                    <Typography textAlign="center">
-                                        Perfil
-                                    </Typography>
-                                </MenuItem>
-
-                                <MenuItem>
-                                    <ResponsiveNavLink
-                                        method="post"
-                                        href={route("logout")}
-                                        as="button"
+                                    Entrar
+                                </Button>
+                            )}
+                            {user && (
+                                <>
+                                    <Tooltip title="Open settings">
+                                        <IconButton
+                                            onClick={handleOpenUserMenu}
+                                            sx={{ p: 0 }}
+                                        >
+                                            <Avatar
+                                                alt={user?.name.toUpperCase()}
+                                                src="/static/images/avatar/2.jpg"
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: "45px" }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
                                     >
-                                        Sair
-                                    </ResponsiveNavLink>
-                                </MenuItem>
-                            </Menu>
+                                        <MenuItem
+                                            component="a"
+                                            onClick={handleCloseUserMenu}
+                                            href={route("profile.edit")}
+                                        >
+                                            Perfil
+                                        </MenuItem>
+
+                                        <MenuItem onClick={handleLogout}>
+                                            Sair
+                                        </MenuItem>
+                                    </Menu>
+                                </>
+                            )}
                         </Box>
                     </Toolbar>
                 </Container>

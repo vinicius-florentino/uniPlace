@@ -3,13 +3,13 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 
-export default function Guest({ children }) {
+export default function Guest({ children, customWidth }) {
     return (
         <Box
             component="section"
             sx={{
-                height: "80vh",
-                maxWidth: "550px",
+                minHeight: "80vh",
+                width: customWidth ?? "550px",
                 margin: "0 auto",
                 display: "flex",
                 flexDirection: "column",

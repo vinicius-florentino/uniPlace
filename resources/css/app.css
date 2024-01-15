@@ -4,13 +4,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
-body {
-    font-family: "Roboto", sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --primary-color: #1d28ac;
     --secondary-color: #5758bd;
@@ -26,3 +19,12 @@ body {
     --warning-color: #e2c900;
     --danger-color: #f20d00;
 }
+
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
