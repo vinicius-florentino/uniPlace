@@ -24,10 +24,13 @@ const MuiThemeMod = {
                         "color": "var(--white-color)",
                         "background": "var(--hover-color)",
                     },
-                    textTransform: "none",
-                    fontSize: 16,
                     height: "40px",
                 },
+                root: {
+                    fontWeight: 400,
+                    fontSize: 16,
+                    textTransform: "none",
+                }
             }
         },
         MuiOutlinedInput: {
@@ -46,6 +49,15 @@ const MuiThemeMod = {
                     "&:hover": {
                         textDecoration: "underline",
                     }
+                },
+            },
+        },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "var(--white-color)",
+                    borderBottom: "var(--borders)",
+                    boxShadow: "none"
                 },
             },
         },

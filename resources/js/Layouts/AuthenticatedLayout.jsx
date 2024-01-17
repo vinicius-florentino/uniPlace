@@ -14,20 +14,29 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import HomeIcon from '@mui/icons-material/Home';
-import HelpIcon from '@mui/icons-material/Help';
+// import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+// import HomeIcon from "@mui/icons-material/Home";
+// import HelpIcon from "@mui/icons-material/Help";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Authenticated({ user, children }) {
-
     const { post } = useForm({});
 
-    const pageIconFontSize = "small";
+    // const pageIconFontSize = "small";
 
     const pages = [
-        { label: "Início", icon: <HomeIcon fontSize={pageIconFontSize}/>, href: "/" },
-        { label: "Planos", icon: <BusinessCenterIcon fontSize={pageIconFontSize} />, href: "/plans" },
-        { label: "Ajuda", icon: <HelpIcon fontSize={pageIconFontSize} />, href: "#" },
+        {
+            label: "Início",
+            href: "/",
+        },
+        {
+            label: "Planos",
+            href: "/plans",
+        },
+        {
+            label: "Ajuda",
+            href: "#",
+        },
     ];
 
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -71,7 +80,7 @@ export default function Authenticated({ user, children }) {
                                 fontFamily: "monospace",
                                 fontSize: 20,
                                 letterSpacing: "0",
-                                color: "var(--light-color)",
+                                color: "var(--primary-color)",
                                 textDecoration: "none",
                             }}
                         >
@@ -92,7 +101,7 @@ export default function Authenticated({ user, children }) {
                                 onClick={handleOpenNavMenu}
                                 color="inherit"
                             >
-                                <MenuIcon />
+                                <MenuIcon sx={{color: "var(--dark-color)"}}/>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -118,7 +127,6 @@ export default function Authenticated({ user, children }) {
                                         onClick={handleCloseNavMenu}
                                     >
                                         <Typography textAlign="center">
-                                            {page.icon}
                                             {page.label}
                                         </Typography>
                                     </MenuItem>
@@ -138,7 +146,7 @@ export default function Authenticated({ user, children }) {
                                 fontFamily: "monospace",
                                 fontWeight: 700,
                                 letterSpacing: "0",
-                                color: "var(--light-color)",
+                                color: "var(--primary-color)",
                                 textDecoration: "none",
                             }}
                         >
@@ -157,16 +165,14 @@ export default function Authenticated({ user, children }) {
                                     href={page.href}
                                     sx={{
                                         my: 2,
-                                        color: "white",
+                                        color: "var(--dark-color)",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        fontSize: "14px",
-                                        gap: "5px"
+                                        gap: "5px",
                                     }}
                                 >
-                                    {page.icon}
-                                    <span style={{marginTop: "5px"}}>{page.label}</span>
+                                    {page.label}
                                 </Button>
                             ))}
                         </Box>
@@ -175,12 +181,11 @@ export default function Authenticated({ user, children }) {
                             {!user && (
                                 <Button
                                     href="/login"
-                                    variant="contained"
                                     disableElevation
                                     fullWidth
                                     sx={{
-                                        backgroundColor:
-                                            "var(--secondary-color)",
+                                        my: 2,
+                                        color: "var(--dark-color)",
                                     }}
                                 >
                                     Entrar
@@ -193,10 +198,11 @@ export default function Authenticated({ user, children }) {
                                             onClick={handleOpenUserMenu}
                                             sx={{ p: 0 }}
                                         >
-                                            <Avatar
+                                            {/* <Avatar
                                                 alt={user?.name.toUpperCase()}
                                                 src="/static/images/avatar/2.jpg"
-                                            />
+                                            /> */}
+                                            <AccountCircleIcon color="var(--dark-color)" fontSize="large"/>
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
