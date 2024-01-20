@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,7 +12,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
 // import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 // import HomeIcon from "@mui/icons-material/Home";
 // import HelpIcon from "@mui/icons-material/Help";
@@ -23,6 +24,44 @@ export default function Authenticated({ user, children }) {
     const { post } = useForm({});
 
     // const pageIconFontSize = "small";
+
+    const Search = styled('div')(({ theme }) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        border: "var(--borders)",
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+          marginLeft: theme.spacing(1),
+          width: 'auto',
+        },
+    }));
+    
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }));
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+        color: 'inherit',
+        width: '100%',
+        '& .MuiInputBase-input': {
+          padding: theme.spacing(1, 1, 1, 0),
+          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+          transition: theme.transitions.create('width'),
+          [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+              width: '30ch',
+            },
+          },
+        },
+    }));
 
     const pages = [
         {
@@ -133,7 +172,6 @@ export default function Authenticated({ user, children }) {
                                 ))}
                             </Menu>
                         </Box>
-
                         <Typography
                             variant="h5"
                             noWrap
@@ -176,7 +214,22 @@ export default function Authenticated({ user, children }) {
                                 </Button>
                             ))}
                         </Box>
-
+                        <Box
+                            sx={{
+                                mr: { sm: 5 }, 
+                                color: "var(--dark-color)",
+                            }}
+                        >
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Pesquise"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Search>
+                        </Box>         
                         <Box sx={{ flexGrow: 0 }}>
                             {!user && (
                                 <Button

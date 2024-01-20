@@ -10,8 +10,6 @@ export default function Dashboard({ auth, status }) {
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Início" />
-
-            
         </AuthenticatedLayout>
     );
 }

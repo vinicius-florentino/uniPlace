@@ -21,17 +21,26 @@ const MuiThemeMod = {
             styleOverrides: {
                 contained: {
                     "&.Mui-disabled": {
-                        "color": "var(--white-color)",
-                        "background": "var(--hover-color)",
+                        color: "var(--white-color)",
+                        backgroundColor: "var(--hover-color)",
                     },
-                    height: "40px",
+                },
+                containedLight: {
+                    backgroundColor: "inherit",
+                    color: "var(--dark-color)",
+                    border: "var(--borders)",
+                },
+                containedDanger:{
+                    backgroundColor: "var(--danger-color)",
+                    color: "var(--white-color)",    
                 },
                 root: {
-                    fontWeight: 400,
-                    fontSize: 16,
+                    height: "40px",
                     textTransform: "none",
-                }
-            }
+                    fontWeight: 400,
+                    fontSize: 14,
+                },
+            },
         },
         MuiOutlinedInput: {
             styleOverrides: {
@@ -62,6 +71,6 @@ const MuiThemeMod = {
             },
         },
     }
-};
+};      
 
 export default MuiThemeMod;

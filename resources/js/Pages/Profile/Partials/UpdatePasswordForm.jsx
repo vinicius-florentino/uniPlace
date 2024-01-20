@@ -5,6 +5,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import Box from "@mui/system/Box";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
@@ -37,77 +42,75 @@ export default function UpdatePasswordForm({ className = '' }) {
     };
 
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
+        <Grid>
+            <Grid sx={{
+                my: "10px"
+            }}>
+                <Typography>Atualize sua senha</Typography>
+                <Typography>
+                    Certifique-se de que sua conta esteja usando uma senha longa e aleatória para permanecer segura.
+                </Typography>
+            </Grid>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay secure.
-                </p>
-            </header>
-
-            <form onSubmit={updatePassword} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" />
-
-                    <TextInput
-                        id="current_password"
-                        ref={currentPasswordInput}
-                        value={data.current_password}
-                        onChange={(e) => setData('current_password', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                    />
-
-                    <InputError message={errors.current_password} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="password" value="New Password" />
-
-                    <TextInput
-                        id="password"
-                        ref={passwordInput}
-                        value={data.password}
-                        onChange={(e) => setData('password', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        value={data.password_confirmation}
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        type="password"
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+            <Box onSubmit={updatePassword} noValidate component="form">
+                <Grid container spacing={0} rowGap={2}>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            id="current_password"
+                            name="current_password"
+                            label="Senha atual"
+                            ref={currentPasswordInput}
+                            value={data.current_password}
+                            onChange={(e) => setData('current_password', e.target.value)}
+                            type="password"
+                            fullWidth
+                        />
+                        <InputError message={errors.current_password} className="mt-2" />
+                    </Grid>
+                    <Grid item xs={12} md={6}></Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            id="password"
+                            name="password"
+                            label="Nova senha"
+                            ref={passwordInput}
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            type="password"
+                            fullWidth
+                        />
+                        <InputError message={errors.password} className="mt-2" />
+                    </Grid>
+                    <Grid item xs={12} md={6}></Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            label="Confirme a senha"
+                            value={data.password_confirmation}
+                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                            type="password"
+                            fullWidth
+                        />
+                        <InputError message={errors.password_confirmation} className="mt-2" />
+                    </Grid>
+                    <Grid item xs={12} md={6}></Grid>
+                    <Grid item xs={12} md={6}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={processing}
+                            disableElevation
+                            sx={{
+                                mb: "10px",
+                                width: { xs: "100%", md: "auto" }, 
+                            }}
+                        >
+                            Atualizar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Grid>
     );
 }

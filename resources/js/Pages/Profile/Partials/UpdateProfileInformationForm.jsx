@@ -4,6 +4,12 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import { Head } from "@inertiajs/react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/system/Box";
+import Button from "@mui/material/Button";
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
     const user = usePage().props.auth.user;
@@ -13,91 +19,92 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         email: user.email,
     });
 
-    const submit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-
         patch(route('profile.update'));
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(name, value);
+    };
+
     return (
-        <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+        <>
+            <Head title="Perfil" />
+            <Box sx={{
+                my: "20px",
+                width: "100%"
+            }}>
+                <Typography>Informações do perfil</Typography>
+                <Typography>Atualize as informações de perfil e endereço de e-mail da sua conta</Typography>
+            </Box>
+            <Box sx={{ width: "100%" }} noValidate component="form" onSubmit={onSubmit}>
+                <Grid container spacing={0} rowGap={2}>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            id="name"
+                            name="name"
+                            label="Nome"
+                            variant="outlined"
+                            value={data.name}
+                            onChange={handleChange}
+                            error={errors.name}
+                            helperText={errors.name}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}></Grid>
+                    <Grid item xs={12} md={6}>
+                        <TextField
+                            id="email"
+                            name="email"
+                            label="Email"
+                            variant="outlined"
+                            value={data.email}
+                            onChange={handleChange}
+                            error={errors.email}
+                            helperText={errors.email}
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={6}></Grid>
+                    {mustVerifyEmail && user.email_verified_at === null && (
+                        <Grid item xs={12} md={6}>
+                            <Typography className="text-sm mt-2 text-gray-800">
+                                Your email address is unverified.
+                                <Link
+                                    href={route('verification.send')}
+                                    method="post"
+                                    as="button"
+                                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Click here to re-send the verification email.
+                                </Link>
+                            </Typography>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
-                </p>
-            </header>
-
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        className="mt-1 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
-
-                    <InputError className="mt-2" message={errors.name} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
-                </div>
-
-                {mustVerifyEmail && user.email_verified_at === null && (
-                    <div>
-                        <p className="text-sm mt-2 text-gray-800">
-                            Your email address is unverified.
-                            <Link
-                                href={route('verification.send')}
-                                method="post"
-                                as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Click here to re-send the verification email.
-                            </Link>
-                        </p>
-
-                        {status === 'verification-link-sent' && (
-                            <div className="mt-2 font-medium text-sm text-green-600">
-                                A new verification link has been sent to your email address.
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
-
-                    <Transition
-                        show={recentlySuccessful}
-                        enter="transition ease-in-out"
-                        enterFrom="opacity-0"
-                        leave="transition ease-in-out"
-                        leaveTo="opacity-0"
-                    >
-                        <p className="text-sm text-gray-600">Saved.</p>
-                    </Transition>
-                </div>
-            </form>
-        </section>
+                            {status === 'verification-link-sent' && (
+                                <Grid className="mt-2 font-medium text-sm text-green-600">
+                                    A new verification link has been sent to your email address.
+                                </Grid>
+                            )}
+                        </Grid>
+                    )}  
+                    <Grid item xs={12} md={6}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={processing}
+                            disableElevation
+                            sx={{
+                                width: { xs: "100%", md: "auto" }, 
+                            }}
+                        >
+                            Salvar
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Box>
+        </>
     );
 }
