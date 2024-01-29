@@ -11,6 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { toast } from "react-toastify";
 
 const DeleteUserDialog = ({ onClose, open }) => {
     const passwordInput = useRef();
@@ -31,8 +32,14 @@ const DeleteUserDialog = ({ onClose, open }) => {
 
         destroy(route("profile.destroy"), {
             preserveScroll: true,
-            onSuccess: () => onClose(),
-            onError: () => passwordInput.current.focus(),
+            onSuccess: () => {
+                toast.success("Alteração de dados concluída!");
+                onClose();
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+                passwordInput.current.focus();
+            },
             onFinish: () => reset(),
         });
     };

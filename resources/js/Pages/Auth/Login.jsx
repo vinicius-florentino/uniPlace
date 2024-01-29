@@ -8,6 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import { toast } from "react-toastify";
 
 export default function Login({ status, canResetPassword }) {
     
@@ -30,7 +31,14 @@ export default function Login({ status, canResetPassword }) {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        post(route("login"));
+        post(route("login"), {
+            onSuccess: () => {
+                toast.success("Ação realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
 
     useEffect(() => {

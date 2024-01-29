@@ -2,23 +2,36 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, useForm } from "@inertiajs/react";
 
 import Box from "@mui/system/Box";
-import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 
 export default function VerifyEmail({ status }) {
+    
     const { post, processing } = useForm({});
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("verification.send"));
+        post(route("verification.send"), {
+            onSuccess: () => {
+                toast.success("Ação realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
 
     const handleLogout = (e) => {
         e.preventDefault();
-        post(route("logout"));
+        post(route("logout"), {
+            onSuccess: () => {
+                toast.success("Saída realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
 
     return (

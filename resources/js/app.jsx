@@ -1,11 +1,15 @@
-import "./bootstrap";
-import "../css/app.css";
-
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import muiThemeMod from "../css/theme/muiThemeMod";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import "./bootstrap";
+import "../css/app.css";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -23,6 +27,7 @@ createInertiaApp({
 
         root.render(
             <ThemeProvider theme={theme}>
+                <ToastContainer position="bottom-left" autoClose={3000} hideProgressBar/>
                 <App {...props} />
             </ThemeProvider>
         );

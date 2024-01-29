@@ -21,6 +21,12 @@
 
     --borders: 1px solid var(--hover-color);
     --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    /* Lib toastify de alerts */
+    --toastify-icon-color-info: var(--info-color);
+    --toastify-icon-color-success: var(--success-color);
+    --toastify-icon-color-warning: var(--warning-color);
+    --toastify-icon-color-error: var(--danger-color);
 }
 
 body {

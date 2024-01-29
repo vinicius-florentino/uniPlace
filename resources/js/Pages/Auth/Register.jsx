@@ -36,7 +36,14 @@ export default function Register({ universities }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("register"));
+        post(route("register"), {
+            onSuccess: () => {
+                toast.success("Conta criada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
 
     const handleChange = (event) => {

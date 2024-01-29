@@ -15,7 +15,14 @@ export default function ForgotPassword({ status }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("password.email"));
+        post(route("password.email"), {
+            onSuccess: () => {
+                toast.success("Ação realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
     const handleChange = (event) => {
         const { name, value } = event.target;

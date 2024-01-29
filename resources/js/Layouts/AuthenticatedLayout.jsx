@@ -26,6 +26,7 @@ import ListItemText from "@mui/material/ListItemText";
 // import HomeIcon from "@mui/icons-material/Home";
 // import HelpIcon from "@mui/icons-material/Help";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { toast } from "react-toastify";
 
 export default function Authenticated({ user, children }) {
     const { post } = useForm({});
@@ -95,18 +96,10 @@ export default function Authenticated({ user, children }) {
         setOpenMenuDrawer(false);
     };
 
-    const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
     };
 
     const handleCloseUserMenu = () => {
@@ -116,7 +109,14 @@ export default function Authenticated({ user, children }) {
     const handleLogout = (e) => {
         e.preventDefault();
 
-        post(route("logout"));
+        post(route("logout"), {
+            onSuccess: () => {
+                toast.success("Ação realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
     };
 
     return (
@@ -176,7 +176,9 @@ export default function Authenticated({ user, children }) {
                                                 key={index}
                                                 disablePadding
                                             >
-                                                <ListItemButton href={page.href}>
+                                                <ListItemButton
+                                                    href={page.href}
+                                                >
                                                     <ListItemText
                                                         primary={page.label}
                                                     />
@@ -261,7 +263,7 @@ export default function Authenticated({ user, children }) {
                             )}
                             {user && (
                                 <>
-                                    <Tooltip title="Open settings">
+                                    <Tooltip title="Menu pessoal">
                                         <IconButton
                                             onClick={handleOpenUserMenu}
                                             sx={{ p: 0 }}

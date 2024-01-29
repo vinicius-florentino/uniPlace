@@ -18,7 +18,7 @@ export default function Guest({ children, customWidth }) {
                 p: 2,
             }}
         >
-            <Typography
+            {/* <Typography
                 noWrap
                 sx={{
                     m: 0,
@@ -44,7 +44,7 @@ export default function Guest({ children, customWidth }) {
                 }}
             >
                 Marketplace universitário
-            </Typography>
+            </Typography> */}
 
             <div>{children}</div>
         </Box>

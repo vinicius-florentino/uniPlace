@@ -4,9 +4,9 @@ import Box from "@mui/system/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { toast } from 'react-toastify';
 
 export default function UpdatePasswordForm({}) {
-    
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
@@ -29,7 +29,10 @@ export default function UpdatePasswordForm({}) {
 
         put(route("password.update"), {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                toast.success("Alteração de dados concluída!");
+                reset();
+            },
             onError: (errors) => {
                 if (errors.password) {
                     reset("password", "password_confirmation");
@@ -40,6 +43,8 @@ export default function UpdatePasswordForm({}) {
                     reset("current_password");
                     currentPasswordInput.current.focus();
                 }
+
+                toast.error("Ocorreu um erro!");
             },
         });
     };
