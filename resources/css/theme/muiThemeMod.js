@@ -29,11 +29,15 @@ const MuiThemeMod = {
                     color: "var(--dark-color)",
                     border: "var(--borders)",
                 },
+                containedDanger:{
+                    backgroundColor: "var(--danger-color)",
+                    color: "var(--white-color)",    
+                },
                 root: {
                     height: "40px",
                     textTransform: "none",
                     fontWeight: 400,
-                    fontSize: 16,
+                    fontSize: 14,
                 },
             },
         },
@@ -65,7 +69,7 @@ const MuiThemeMod = {
                 },
             },
         },
-    },
-};
+    }
+};      
 
 export default MuiThemeMod;

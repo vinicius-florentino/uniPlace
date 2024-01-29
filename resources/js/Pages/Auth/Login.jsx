@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Head, useForm } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
-
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
