@@ -1,19 +1,18 @@
 const MuiThemeMod = {
-
     palette: {
-        primary : {
+        primary: {
             main: "#1d28ac",
         },
-        success : {
+        success: {
             main: "#00a059",
         },
-        warning : {
+        warning: {
             main: "#e2c900",
         },
-        error : {
+        error: {
             main: "#f20d00",
         },
-        outline: '#E0E2E4'
+        outline: "#E0E2E4",
     },
 
     components: {
@@ -21,25 +20,30 @@ const MuiThemeMod = {
             styleOverrides: {
                 contained: {
                     "&.Mui-disabled": {
-                        "color": "var(--white-color)",
-                        "background": "var(--hover-color)",
+                        color: "var(--white-color)",
+                        backgroundColor: "var(--hover-color)",
                     },
-                    height: "40px",
+                },
+                containedLight: {
+                    backgroundColor: "inherit",
+                    color: "var(--dark-color)",
+                    border: "var(--borders)",
                 },
                 root: {
+                    height: "40px",
+                    textTransform: "none",
                     fontWeight: 400,
                     fontSize: 16,
-                    textTransform: "none",
-                }
-            }
+                },
+            },
         },
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    borderRadius: "8px"
+                    borderRadius: "8px",
                 },
             },
-        },       
+        },
         MuiLink: {
             styleOverrides: {
                 root: {
@@ -48,7 +52,7 @@ const MuiThemeMod = {
                     fontWeight: 300,
                     "&:hover": {
                         textDecoration: "underline",
-                    }
+                    },
                 },
             },
         },
@@ -57,11 +61,11 @@ const MuiThemeMod = {
                 root: {
                     backgroundColor: "var(--white-color)",
                     borderBottom: "var(--borders)",
-                    boxShadow: "none"
+                    boxShadow: "none",
                 },
             },
         },
-    }
+    },
 };
 
 export default MuiThemeMod;

@@ -183,9 +183,9 @@ export default function Authenticated({ user, children }) {
                                     href="/login"
                                     disableElevation
                                     fullWidth
+                                    variant="containedLight"
                                     sx={{
                                         my: 2,
-                                        color: "var(--dark-color)",
                                     }}
                                 >
                                     Entrar

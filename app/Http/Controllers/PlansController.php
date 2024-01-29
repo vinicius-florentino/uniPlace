@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
@@ -17,7 +17,7 @@ class PlansController extends Controller
 
         $plans = Plan::all();
 
-        return Inertia::render('Auth/Plans', [
+        return Inertia::render('Plans', [
             'status' => session('status'), 'plans' => $plans
         ]);
     }
