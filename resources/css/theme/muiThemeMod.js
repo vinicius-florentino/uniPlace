@@ -39,7 +39,7 @@ const MuiThemeMod = {
                     textTransform: "none",
                     fontWeight: 400,
                     fontSize: 14,
-                    borderRadius: "360px",
+                    borderRadius: "32px",
                     minWidth: "80px",
                 },
             },
@@ -81,8 +81,7 @@ const MuiThemeMod = {
                     fontWeight: 300,
                     "&:hover": {
                         textDecoration: "underline",
-                    },
-                    fontSize: "14px",
+                    }
                 },
             },
         },

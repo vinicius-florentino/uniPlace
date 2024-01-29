@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const DeleteUserDialog = ({ onClose, open }) => {
     const passwordInput = useRef();
@@ -37,8 +39,15 @@ const DeleteUserDialog = ({ onClose, open }) => {
 
     return (
         <Dialog onClose={onClose} open={open}>
-            <DialogTitle>Deletar conta</DialogTitle>
-            <DialogContent>
+            <DialogTitle>Excluir conta</DialogTitle>
+            <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{ position: "absolute", right: 16, top: 12 }}
+            >
+                <CloseIcon />
+            </IconButton>
+            <DialogContent dividers>
                 <Box noValidate component="form" onSubmit={deleteUser}>
                     <Grid container spacing={0} rowSpacing={2}>
                         <Grid item xs={12}>
@@ -90,7 +99,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
                                 disabled={processing}
                                 type="submit"
                             >
-                                Deletar conta
+                                Excluir conta
                             </Button>
                         </Grid>
                     </Grid>
@@ -122,7 +131,7 @@ export default function DeleteUserForm() {
                 }}
                 onClick={handleOpenDeleteDialog}
             >
-                Delete sua conta
+                Excluir conta
             </Button>
 
             {openDeleteDialog && (

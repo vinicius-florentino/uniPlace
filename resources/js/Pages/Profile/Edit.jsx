@@ -36,7 +36,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     </Grid>
                     <Grid item xs={12}>
                         <PageBox
-                            title="Deletar sua conta"
+                            title="Excluir conta"
                             subTitle="Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Antes
                             excluir sua conta, baixe quaisquer dados ou informações que você deseja reter."
                         >

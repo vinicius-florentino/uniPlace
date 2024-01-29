@@ -12,55 +12,61 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import SearchIcon from '@mui/icons-material/Search';
-import { styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 // import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 // import HomeIcon from "@mui/icons-material/Home";
 // import HelpIcon from "@mui/icons-material/Help";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function Authenticated({ user, children }) {
-    
     const { post } = useForm({});
 
     // const pageIconFontSize = "small";
 
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
+    const Search = styled("div")(({ theme }) => ({
+        position: "relative",
         borderRadius: theme.shape.borderRadius,
         border: "var(--borders)",
         marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(1),
-          width: 'auto',
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: theme.spacing(1),
+            width: "auto",
         },
     }));
-    
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
+
+    const SearchIconWrapper = styled("div")(({ theme }) => ({
         padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: "100%",
+        position: "absolute",
+        pointerEvents: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     }));
 
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        width: '100%',
-        '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-              width: '30ch',
+        color: "inherit",
+        width: "100%",
+        "& .MuiInputBase-input": {
+            padding: theme.spacing(1, 1, 1, 0),
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create("width"),
+            [theme.breakpoints.up("sm")]: {
+                width: "12ch",
+                "&:focus": {
+                    width: "30ch",
+                },
             },
-          },
         },
     }));
 
@@ -78,6 +84,16 @@ export default function Authenticated({ user, children }) {
             href: "#",
         },
     ];
+
+    const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+
+    const handleOpenMenuDrawer = () => {
+        setOpenMenuDrawer(true);
+    };
+
+    const handleCloseMenuDrawer = () => {
+        setOpenMenuDrawer(false);
+    };
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -138,42 +154,40 @@ export default function Authenticated({ user, children }) {
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
+                                onClick={handleOpenMenuDrawer}
                                 color="inherit"
                             >
-                                <MenuIcon sx={{color: "var(--dark-color)"}}/>
+                                <MenuIcon sx={{ color: "var(--dark-color)" }} />
                             </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: "bottom",
-                                    horizontal: "left",
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "left",
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{
-                                    display: { xs: "block", md: "none" },
-                                }}
+                            <Drawer
+                                anchor={"left"}
+                                open={openMenuDrawer}
+                                onClose={handleCloseMenuDrawer}
                             >
-                                {pages.map((page, index) => (
-                                    <MenuItem
-                                        key={index}
-                                        onClick={handleCloseNavMenu}
-                                    >
-                                        <Typography textAlign="center">
-                                            {page.label}
-                                        </Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                                <Box
+                                    sx={{ width: 250 }}
+                                    role="presentation"
+                                    // onClick={toggleDrawer(anchor, false)}
+                                    // onKeyDown={toggleDrawer(anchor, false)}
+                                >
+                                    <List>
+                                        {pages.map((page, index) => (
+                                            <ListItem
+                                                key={index}
+                                                disablePadding
+                                            >
+                                                <ListItemButton href={page.href}>
+                                                    <ListItemText
+                                                        primary={page.label}
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
+                                        ))}
+                                    </List>
+                                </Box>
+                            </Drawer>
                         </Box>
-                        <Typography
+                        {/* <Typography
                             variant="h5"
                             noWrap
                             component="a"
@@ -190,7 +204,7 @@ export default function Authenticated({ user, children }) {
                             }}
                         >
                             UNIPLACE
-                        </Typography>
+                        </Typography> */}
 
                         <Box
                             sx={{
@@ -217,7 +231,7 @@ export default function Authenticated({ user, children }) {
                         </Box>
                         <Box
                             sx={{
-                                mr: { sm: 5 }, 
+                                mr: { sm: 5 },
                                 color: "var(--dark-color)",
                             }}
                         >
@@ -227,10 +241,10 @@ export default function Authenticated({ user, children }) {
                                 </SearchIconWrapper>
                                 <StyledInputBase
                                     placeholder="Pesquise"
-                                    inputProps={{ 'aria-label': 'search' }}
+                                    inputProps={{ "aria-label": "search" }}
                                 />
                             </Search>
-                        </Box>         
+                        </Box>
                         <Box sx={{ flexGrow: 0 }}>
                             {!user && (
                                 <Button
@@ -256,7 +270,10 @@ export default function Authenticated({ user, children }) {
                                                 alt={user?.name.toUpperCase()}
                                                 src="/static/images/avatar/2.jpg"
                                             /> */}
-                                            <AccountCircleIcon color="var(--dark-color)" fontSize="large"/>
+                                            <AccountCircleIcon
+                                                color="var(--dark-color)"
+                                                fontSize="large"
+                                            />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
