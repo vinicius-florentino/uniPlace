@@ -1,18 +1,16 @@
-import { useRef, useState } from 'react';
-import DangerButton from '@/Components/DangerButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
-import TextInput from '@/Components/TextInput';
-import { useForm } from '@inertiajs/react';
+import { useRef, useState } from "react";
+import { useForm } from "@inertiajs/react";
+
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-export default function DeleteUserForm() {
-    const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+
+const DeleteUserDialog = ({ onClose, open }) => {
     const passwordInput = useRef();
 
     const {
@@ -23,96 +21,116 @@ export default function DeleteUserForm() {
         reset,
         errors,
     } = useForm({
-        password: '',
+        password: "",
     });
-
-    const confirmUserDeletion = () => {
-        setConfirmingUserDeletion(true);
-    };
 
     const deleteUser = (e) => {
         e.preventDefault();
 
-        destroy(route('profile.destroy'), {
+        destroy(route("profile.destroy"), {
             preserveScroll: true,
-            onSuccess: () => closeModal(),
+            onSuccess: () => onClose(),
             onError: () => passwordInput.current.focus(),
             onFinish: () => reset(),
         });
     };
 
-    const closeModal = () => {
-        setConfirmingUserDeletion(false);
-
-        reset();
-    };
-
     return (
-        <Grid>
-            <Grid sx={{
-                mb: "10px"
-            }}>
-                <Typography>Deletar sua conta</Typography>
-                <Typography>
-                    Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Antes
-                    excluir sua conta, baixe quaisquer dados ou informações que você deseja reter.
-                </Typography>
-            </Grid>
-            <Grid sx={{
-                alignItems: "center",
-                mt: "10px",
-            }}>
-                <Button 
-                    variant="containedDanger"
-                    type="submit"
-                    disabled={processing}
-                    disableElevation
-                    sx={{
-                        backgroundColor: "var(--danger-color)",
-                        width: { xs: "100%", md: "auto" }, 
-                    }} onClick={confirmUserDeletion}>
-                        Delete sua conta
-                </Button>
-            </Grid>
+        <Dialog onClose={onClose} open={open}>
+            <DialogTitle>Deletar conta</DialogTitle>
+            <DialogContent>
+                <Box noValidate component="form" onSubmit={deleteUser}>
+                    <Grid container spacing={0} rowSpacing={2}>
+                        <Grid item xs={12}>
+                            <Typography>
+                                Depois que sua conta for excluída, todos os seus
+                                recursos e dados serão excluídos
+                                permanentemente. Por favor digite sua senha para
+                                confirmar que deseja excluir permanentemente sua
+                                conta.
+                            </Typography>
+                        </Grid>
 
-            <Modal show={confirmingUserDeletion} onClose={closeModal}>
-                <Box noValidate component="form" onSubmit={deleteUser} className="p-6">
-                    <Grid>
-                        <Typography>
-                            Você tem certeza que deseja excluir sua conta?
-                        </Typography>
-
-                        <Typography>
-                            Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Por favor
-                            digite sua senha para confirmar que deseja excluir permanentemente sua conta.
-                        </Typography>
-
-                        <Grid>
-                            <InputLabel htmlFor="password" value="Password" className="sr-only" />
-                            <TextField 
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="outlined"
                                 id="password"
                                 type="password"
                                 name="password"
+                                label="Senha"
                                 ref={passwordInput}
                                 value={data.password}
-                                onChange={(e) => setData('password', e.target.value)}
-                                isFocused
-                                placeholder="Password"
+                                error={!!errors.password}
+                                helperText={errors.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                                fullWidth
                             />
-                            <InputError message={errors.password} className="mt-2" />
                         </Grid>
 
-                        <Grid className="mt-6 flex justify-end">
-                            <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
-                            <DangerButton className="ms-3" disabled={processing} sx={{
-                                    backgroundColor: "--danger-color"
-                                }}>
-                                Delete Account
-                            </DangerButton>
+                        <Grid
+                            item
+                            xs={12}
+                            display={"flex"}
+                            justifyContent={"end"}
+                            alignItems={"center"}
+                            gap={"5px"}
+                        >
+                            <Button
+                                variant="containedLight"
+                                disableElevation
+                                onClick={onClose}
+                            >
+                                Cancelar
+                            </Button>
+                            <Button
+                                variant="containedDanger"
+                                disableElevation
+                                disabled={processing}
+                                type="submit"
+                            >
+                                Deletar conta
+                            </Button>
                         </Grid>
                     </Grid>
                 </Box>
-            </Modal>
-        </Grid>
+            </DialogContent>
+        </Dialog>
+    );
+};
+
+export default function DeleteUserForm() {
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+
+    const handleOpenDeleteDialog = () => {
+        setOpenDeleteDialog(true);
+    };
+
+    const handleCloseDeleteDialog = () => {
+        setOpenDeleteDialog(false);
+    };
+
+    return (
+        <>
+            <Button
+                variant="containedDanger"
+                type="submit"
+                disableElevation
+                sx={{
+                    width: { xs: "100%", md: "auto" },
+                }}
+                onClick={handleOpenDeleteDialog}
+            >
+                Delete sua conta
+            </Button>
+
+            {openDeleteDialog && (
+                <DeleteUserDialog
+                    open={openDeleteDialog}
+                    onClose={handleCloseDeleteDialog}
+                />
+            )}
+        </>
     );
 }

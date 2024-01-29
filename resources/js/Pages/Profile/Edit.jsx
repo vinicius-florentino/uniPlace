@@ -1,36 +1,50 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import DeleteUserForm from './Partials/DeleteUserForm';
-import UpdatePasswordForm from './Partials/UpdatePasswordForm';
-import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
-import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import DeleteUserForm from "./Partials/DeleteUserForm";
+import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
+import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
+import { Head } from "@inertiajs/react";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import PageBox from "@/Components/pagebox/PageBox";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>}
-        >
-            <Head title="Profile" />
+        <AuthenticatedLayout user={auth.user}>
+            <Head title="Perfil" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdateProfileInformationForm
-                            mustVerifyEmail={mustVerifyEmail}
-                            status={status}
-                            className="max-w-xl"
-                        />
-                    </div>
+            <Box noValidate sx={{ width: "100%", py: 2 }}>
+                <Grid container spacing={0} rowSpacing={2}>
+                    <Grid item xs={12}>
+                        <PageBox
+                            title="Informações do perfil"
+                            subTitle="Atualize as informações de perfil e endereço de email da sua conta"
+                        >
+                            <UpdateProfileInformationForm
+                                mustVerifyEmail={mustVerifyEmail}
+                                status={status}
+                            />
+                        </PageBox>
+                    </Grid>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdatePasswordForm className="max-w-xl" />
-                    </div>
-
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
-                    </div>
-                </div>
-            </div>
+                    <Grid item xs={12}>
+                        <PageBox
+                            title="Atualize sua senha"
+                            subTitle="Certifique-se de que sua conta esteja usando uma senha longa e aleatória para permanecer segura."
+                        >
+                            <UpdatePasswordForm />
+                        </PageBox>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <PageBox
+                            title="Deletar sua conta"
+                            subTitle="Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Antes
+                            excluir sua conta, baixe quaisquer dados ou informações que você deseja reter."
+                        >
+                            <DeleteUserForm />
+                        </PageBox>
+                    </Grid>
+                </Grid>
+            </Box>
         </AuthenticatedLayout>
     );
 }

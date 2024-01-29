@@ -117,6 +117,7 @@ return [
         'email' => 'e-mail',
         'password' => 'senha',
         'university_id' => 'universidade',
-        'is_student' => 'é estudante'
+        'is_student' => 'é estudante',
+        'current_password' => 'senha atual'
     ],
 ];

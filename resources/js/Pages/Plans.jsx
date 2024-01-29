@@ -1,14 +1,7 @@
-import React, { useEffect } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import React from "react";
+import { Head } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 
-import Box from "@mui/system/Box";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 

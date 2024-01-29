@@ -13,7 +13,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 // import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 // import HomeIcon from "@mui/icons-material/Home";
@@ -21,6 +21,7 @@ import InputBase from '@mui/material/InputBase';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Authenticated({ user, children }) {
+    
     const { post } = useForm({});
 
     // const pageIconFontSize = "small";

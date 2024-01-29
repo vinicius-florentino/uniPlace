@@ -1,17 +1,11 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
-import { Head } from "@inertiajs/react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
+export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
@@ -31,14 +25,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
     return (
         <>
-            <Head title="Perfil" />
-            <Box sx={{
-                my: "20px",
-                width: "100%"
-            }}>
-                <Typography>Informações do perfil</Typography>
-                <Typography>Atualize as informações de perfil e endereço de e-mail da sua conta</Typography>
-            </Box>
             <Box sx={{ width: "100%" }} noValidate component="form" onSubmit={onSubmit}>
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12} md={6}>

@@ -17,9 +17,10 @@
     --info-color: #00b9ff;
     --success-color: #00a059;
     --warning-color: #e2c900;
-    --danger-color: #f20d00;
+    --danger-color: #dc3545;
 
     --borders: 1px solid var(--hover-color);
+    --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: var(--light-color);
 }
 
 

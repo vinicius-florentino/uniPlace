@@ -29,15 +29,18 @@ const MuiThemeMod = {
                     color: "var(--dark-color)",
                     border: "var(--borders)",
                 },
-                containedDanger:{
-                    backgroundColor: "var(--danger-color)",
-                    color: "var(--white-color)",    
+                containedDanger: {
+                    border: "1px solid var(--danger-color)",
+                    backgroundColor: "var(--white-color)",
+                    color: "var(--danger-color)",
                 },
                 root: {
                     height: "40px",
                     textTransform: "none",
                     fontWeight: 400,
                     fontSize: 14,
+                    borderRadius: "360px",
+                    minWidth: "80px",
                 },
             },
         },
@@ -45,6 +48,28 @@ const MuiThemeMod = {
             styleOverrides: {
                 root: {
                     borderRadius: "8px",
+                    height: "50px"
+                },
+            },
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                root: {
+                    fontSize: "14px",
+                },
+            },
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    fontSize: "14px",
+                },
+            },
+        },
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    margin: "5px 0px",
                 },
             },
         },
@@ -57,6 +82,7 @@ const MuiThemeMod = {
                     "&:hover": {
                         textDecoration: "underline",
                     },
+                    fontSize: "14px",
                 },
             },
         },
@@ -69,7 +95,7 @@ const MuiThemeMod = {
                 },
             },
         },
-    }
-};      
+    },
+};
 
 export default MuiThemeMod;
