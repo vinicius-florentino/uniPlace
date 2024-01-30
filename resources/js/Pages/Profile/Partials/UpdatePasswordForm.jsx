@@ -4,9 +4,10 @@ import Box from "@mui/system/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function UpdatePasswordForm({}) {
+
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
@@ -49,6 +50,11 @@ export default function UpdatePasswordForm({}) {
         });
     };
 
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setData(name, value);
+    }
+
     return (
         <Box onSubmit={updatePassword} noValidate component="form">
             <Grid container spacing={0} rowGap={2}>
@@ -59,9 +65,7 @@ export default function UpdatePasswordForm({}) {
                         label="Senha atual"
                         ref={currentPasswordInput}
                         value={data.current_password}
-                        onChange={(e) =>
-                            setData("current_password", e.target.value)
-                        }
+                        onChange={handleChange}
                         type="password"
                         fullWidth
                         error={!!errors.current_password}
@@ -76,7 +80,7 @@ export default function UpdatePasswordForm({}) {
                         label="Nova senha"
                         ref={passwordInput}
                         value={data.password}
-                        onChange={(e) => setData("password", e.target.value)}
+                        onChange={handleChange}
                         type="password"
                         fullWidth
                         error={!!errors.password}
@@ -90,9 +94,7 @@ export default function UpdatePasswordForm({}) {
                         name="password_confirmation"
                         label="Confirme a senha"
                         value={data.password_confirmation}
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
+                        onChange={handleChange}
                         type="password"
                         fullWidth
                         error={!!errors.password_confirmation}
