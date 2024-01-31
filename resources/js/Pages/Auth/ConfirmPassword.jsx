@@ -5,10 +5,18 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
+import { Box, Grid, TextField } from '@mui/material';
 
 export default function ConfirmPassword() {
     
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { 
+    data, 
+    setData, 
+    post, 
+    processing, 
+    errors, 
+    reset 
+    } = useForm({
         password: '',
     });
 
@@ -20,41 +28,52 @@ export default function ConfirmPassword() {
 
     const submit = (e) => {
         e.preventDefault();
+        post(route("confirm-password"), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success("Alteração de dados concluída!");
+                reset();
+            },
+            onError: () => {
+                if (errors.password) {
+                    reset("password");
+                }
+                toast.error("Ocorreu um erro!");
+            },
+        });
+    };
 
-        post(route('password.confirm'));
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(name, value);
     };
 
     return (
         <GuestLayout>
-            <Head title="Confirm Password" />
-
-            <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your password before continuing.
-            </div>
-
-            <form onSubmit={submit}>
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Confirm
-                    </PrimaryButton>
-                </div>
-            </form>
+            <Head title="Confirmar senha"/>
+            <Grid sx={{
+                mb: "20px",
+                width: "100%"
+            }}>
+                Esta é uma área segura do aplicativo. Por favor, confirme sua senha antes de continuar.
+            </Grid>
+            <Box onSubmit={submit} noValidate component="form">
+                <Grid container spacing={0} rowGap={2}>
+                    <Grid item xs={12} md={12}>
+                    <TextField
+                            id="password"
+                            name="confirm_password"
+                            label="Senha atual"
+                            value={data.password}
+                            onChange={handleChange}
+                            type="password"
+                            fullWidth
+                            error={!!errors.password}
+                            helperText={errors.password}
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
         </GuestLayout>
     );
 }

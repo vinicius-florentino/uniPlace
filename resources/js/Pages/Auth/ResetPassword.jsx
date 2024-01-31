@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
+import { Box, Grid, Button, TextField } from '@mui/material';
 
 export default function ResetPassword({ token, email }) {
     
@@ -21,71 +18,79 @@ export default function ResetPassword({ token, email }) {
         };
     }, []);
 
-    const submit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
+        post(route('password.store'), {
+            onSuccess: () => {
+                toast.success("Senha atualizada!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
+    };
 
-        post(route('password.store'));
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(name, value);
     };
 
     return (
         <GuestLayout>
-            <Head title="Reset Password" />
-
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Reset Password
-                    </PrimaryButton>
-                </div>
-            </form>
+            <Head title="Resetar a senha"/>
+            <Box onSubmit={onSubmit} noValidate component="form">
+                <Grid container spacing={0} rowGap={2}>
+                    <Grid item xs={12} md={12}>
+                        <TextField
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            onChange={handleChange}
+                            label="Email"
+                            fullWidth
+                            error={!!errors.email}
+                            helperText={errors.email}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <TextField
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            onChange={handleChange}
+                            label="Senha"
+                            fullWidth
+                            error={!!errors.password}
+                            helperText={errors.password}    
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={12}>
+                        <TextField
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            onChange={handleChange}
+                            fullWidth
+                            label="Confirmação da senha"
+                            error={!!errors.password_confirmation}
+                            helperText={errors.password_confirmation}    
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={processing}
+                            disableElevation
+                            fullWidth
+                        >
+                            Resetar senha
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Box>
         </GuestLayout>
     );
 }

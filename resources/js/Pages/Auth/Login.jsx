@@ -49,14 +49,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Entrar" />
-
-            {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
-                    {status}
-                </div>
-            )}
-
+            <Head title="Entrar"/>
             <Box noValidate component="form" onSubmit={onSubmit}>
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12}>
