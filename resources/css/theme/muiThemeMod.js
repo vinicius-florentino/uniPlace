@@ -10,18 +10,42 @@ const MuiThemeMod = {
             main: "#e2c900",
         },
         error: {
-            main: "#f20d00",
+            main: "#dc3545",
         },
         outline: "#E0E2E4",
+    },
+
+    typography: {
+        allVariants: {
+            fontFamily: "var(--font-family)",
+            textTransform: "none",
+            fontSize: 14
+        },
     },
 
     components: {
         MuiButton: {
             styleOverrides: {
+                root: {
+                    height: "40px",
+                    textTransform: "none",
+                    fontWeight: 400,
+                    fontSize: 14,
+                    borderRadius: "32px",
+                    minWidth: "80px",
+                },
                 contained: {
                     "&.Mui-disabled": {
                         color: "var(--white-color)",
                         backgroundColor: "var(--hover-color)",
+                    },
+                },
+                text: {
+                    borderRadius: "0px",
+                    borderBottom: "2px solid var(--white-color)",
+                    "&:hover": {
+                        backgroundColor: "inherit",
+                        borderBottom: "2px solid var(--dark-color)"
                     },
                 },
                 containedLight: {
@@ -34,35 +58,13 @@ const MuiThemeMod = {
                     backgroundColor: "var(--white-color)",
                     color: "var(--danger-color)",
                 },
-                root: {
-                    height: "40px",
-                    textTransform: "none",
-                    fontWeight: 400,
-                    fontSize: 14,
-                    borderRadius: "32px",
-                    minWidth: "80px",
-                },
             },
         },
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
                     borderRadius: "8px",
-                    height: "50px"
-                },
-            },
-        },
-        MuiInputLabel: {
-            styleOverrides: {
-                root: {
-                    fontSize: "14px",
-                },
-            },
-        },
-        MuiInputBase: {
-            styleOverrides: {
-                root: {
-                    fontSize: "14px",
+                    height: "50px",
                 },
             },
         },
@@ -78,10 +80,11 @@ const MuiThemeMod = {
                 root: {
                     color: "var(--dark-color)",
                     textDecoration: "none",
-                    fontWeight: 300,
+                    fontWeight: 400,
                     "&:hover": {
                         textDecoration: "underline",
-                    }
+                    },
+                    fontSize: 14
                 },
             },
         },
@@ -94,6 +97,13 @@ const MuiThemeMod = {
                 },
             },
         },
+        MuiDialogTitle: {
+            styleOverrides: {
+                root: {
+                    fontSize: 20
+                },
+            },
+        }
     },
 };
 

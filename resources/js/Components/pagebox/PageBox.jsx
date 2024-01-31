@@ -7,16 +7,14 @@ const PageBox = ({ title, subTitle, children }) => {
         <Box
             noValidate
             sx={{
-                minwidth: "100%",
-                maxwidth: "100%",
                 p: 3,
                 boxShadow: "var(--box-shadow)",
                 borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
             }}
         >
-            <Typography sx={{ fontWeight: 500 }}>{title}</Typography>
-            <Typography sx={{ fontWeight: 300, fontSize: 14 }}>
+            <Typography sx={{ fontWeight: 500, fontSize: 16 }}>{title}</Typography>
+            <Typography sx={{ fontWeight: 300 }}>
                 {subTitle}
             </Typography>
 

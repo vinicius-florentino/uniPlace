@@ -2,9 +2,13 @@
 @tailwind components;
 @tailwind utilities; */
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"); */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap');
 
 :root {
+    --font-family: "Open Sans", sans-serif;
+
     --primary-color: #1d28ac;
     --secondary-color: #5758bd;
 
@@ -27,14 +31,16 @@
     --toastify-icon-color-success: var(--success-color);
     --toastify-icon-color-warning: var(--warning-color);
     --toastify-icon-color-error: var(--danger-color);
+    --toastify-font-family: var(--font-family);
 }
 
 body {
-    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
     background-color: var(--light-color);
+    font-family: var(--font-family);
 }
 
 

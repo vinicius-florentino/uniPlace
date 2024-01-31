@@ -22,16 +22,15 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-// import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-// import HomeIcon from "@mui/icons-material/Home";
-// import HelpIcon from "@mui/icons-material/Help";
+import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { toast } from "react-toastify";
 
 export default function Authenticated({ user, children }) {
-    const { post } = useForm({});
 
-    // const pageIconFontSize = "small";
+    const { post } = useForm({});
 
     const Search = styled("div")(({ theme }) => ({
         position: "relative",
@@ -75,14 +74,17 @@ export default function Authenticated({ user, children }) {
         {
             label: "Início",
             href: "/",
+            startIcon: <HomeOutlined />,
         },
         {
             label: "Planos",
             href: "/plans",
+            startIcon: <BusinessCenterOutlinedIcon />,
         },
         {
             label: "Ajuda",
             href: "#",
+            startIcon: <HelpOutlineOutlinedIcon />,
         },
     ];
 
@@ -124,29 +126,11 @@ export default function Authenticated({ user, children }) {
             <AppBar position="static">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href={route("dashboard")}
-                            sx={{
-                                mr: 2,
-                                display: { xs: "none", md: "flex" },
-                                fontWeight: 700,
-                                fontFamily: "monospace",
-                                fontSize: 20,
-                                letterSpacing: "0",
-                                color: "var(--primary-color)",
-                                textDecoration: "none",
-                            }}
-                        >
-                            UNIPLACE
-                        </Typography>
-
                         <Box
                             sx={{
-                                flexGrow: 1,
+                                flexGrow: 0,
                                 display: { xs: "flex", md: "none" },
+                                mr: 1
                             }}
                         >
                             <IconButton
@@ -179,6 +163,9 @@ export default function Authenticated({ user, children }) {
                                                 <ListItemButton
                                                     href={page.href}
                                                 >
+                                                    <ListItemIcon>
+                                                        {page.startIcon}
+                                                    </ListItemIcon>
                                                     <ListItemText
                                                         primary={page.label}
                                                     />
@@ -189,25 +176,6 @@ export default function Authenticated({ user, children }) {
                                 </Box>
                             </Drawer>
                         </Box>
-                        {/* <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: "flex", md: "none" },
-                                flexGrow: 1,
-                                fontFamily: "monospace",
-                                fontWeight: 700,
-                                letterSpacing: "0",
-                                color: "var(--primary-color)",
-                                textDecoration: "none",
-                            }}
-                        >
-                            UNIPLACE
-                        </Typography> */}
-
                         <Box
                             sx={{
                                 flexGrow: 1,
@@ -216,16 +184,14 @@ export default function Authenticated({ user, children }) {
                         >
                             {pages.map((page, index) => (
                                 <Button
+                                    variant="text"
                                     key={index}
                                     href={page.href}
                                     sx={{
                                         my: 2,
                                         color: "var(--dark-color)",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        gap: "5px",
                                     }}
+                                    startIcon={page.startIcon}
                                 >
                                     {page.label}
                                 </Button>
@@ -233,8 +199,9 @@ export default function Authenticated({ user, children }) {
                         </Box>
                         <Box
                             sx={{
-                                mr: { sm: 5 },
+                                flexGrow: 1,
                                 color: "var(--dark-color)",
+                                // border: "1px solid red"
                             }}
                         >
                             <Search>
@@ -255,7 +222,7 @@ export default function Authenticated({ user, children }) {
                                     fullWidth
                                     variant="containedLight"
                                     sx={{
-                                        my: 2,
+                                        ml: 1
                                     }}
                                 >
                                     Entrar
@@ -266,7 +233,7 @@ export default function Authenticated({ user, children }) {
                                     <Tooltip title="Menu pessoal">
                                         <IconButton
                                             onClick={handleOpenUserMenu}
-                                            sx={{ p: 0 }}
+                                            sx={{ ml: 1 }}
                                         >
                                             {/* <Avatar
                                                 alt={user?.name.toUpperCase()}
@@ -301,6 +268,16 @@ export default function Authenticated({ user, children }) {
                                         >
                                             Perfil
                                         </MenuItem>
+
+                                        <Divider />
+                                        <MenuItem
+                                            component="a"
+                                            onClick={handleCloseUserMenu}
+                                            // href={route("profile.edit")}
+                                        >
+                                            Painel vendedor
+                                        </MenuItem>
+                                        <Divider />
 
                                         <MenuItem onClick={handleLogout}>
                                             Sair
