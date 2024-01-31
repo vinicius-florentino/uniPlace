@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import { toast } from "react-toastify";
 
 export default function ForgotPassword({ status }) {
     
@@ -24,6 +25,7 @@ export default function ForgotPassword({ status }) {
             },
         });
     };
+    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setData(name, value);

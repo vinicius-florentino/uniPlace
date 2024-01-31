@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { Box, Grid, Button, TextField } from '@mui/material';
+import { toast } from "react-toastify";
 
 export default function ResetPassword({ token, email }) {
     

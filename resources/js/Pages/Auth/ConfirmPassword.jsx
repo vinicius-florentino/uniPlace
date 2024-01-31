@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
 import { Head, useForm } from '@inertiajs/react';
-import { Box, Grid, TextField } from '@mui/material';
+import { Box, Grid, TextField, Button } from '@mui/material';
+import { toast } from "react-toastify";
 
 export default function ConfirmPassword() {
     
@@ -28,7 +25,7 @@ export default function ConfirmPassword() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("confirm-password"), {
+        post(route("password.confirm"), {
             preserveScroll: true,
             onSuccess: () => {
                 toast.success("Alteração de dados concluída!");
@@ -60,9 +57,9 @@ export default function ConfirmPassword() {
             <Box onSubmit={submit} noValidate component="form">
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12} md={12}>
-                    <TextField
+                        <TextField
                             id="password"
-                            name="confirm_password"
+                            name="password"
                             label="Senha atual"
                             value={data.password}
                             onChange={handleChange}
@@ -71,6 +68,17 @@ export default function ConfirmPassword() {
                             error={!!errors.password}
                             helperText={errors.password}
                         />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            disabled={processing}
+                            disableElevation
+                            fullWidth
+                        >
+                            Confirmar senha
+                        </Button>
                     </Grid>
                 </Grid>
             </Box>
