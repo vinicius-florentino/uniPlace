@@ -1,13 +1,12 @@
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
-
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -20,12 +19,10 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
         e.preventDefault();
         patch(route("profile.update"), {
             preserveScroll: true,
-            onSuccess: () => (
-                toast.success("Alteração de dados concluída!")
-            ),
+            onSuccess: () => toast.success("Alteração de dados concluída!"),
             onError: () => {
-                toast.error("Ocorreu um erro!")
-            }
+                toast.error("Ocorreu um erro!");
+            },
         });
     };
 
@@ -71,7 +68,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}></Grid>
-                    {mustVerifyEmail && user.email_verified_at === null && (
+                    {/* {mustVerifyEmail && user.email_verified_at === null && (
                         <Grid item xs={12} md={6}>
                             <Typography className="text-sm mt-2 text-gray-800">
                                 Your email address is unverified.
@@ -93,7 +90,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
                                 </Grid>
                             )}
                         </Grid>
-                    )}
+                    )} */}
                     <Grid item xs={12} md={6}>
                         <Button
                             variant="contained"

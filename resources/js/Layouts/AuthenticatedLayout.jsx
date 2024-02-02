@@ -27,9 +27,9 @@ import HomeOutlined from "@mui/icons-material/HomeOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { toast } from "react-toastify";
+import Logo from "@/Components/Logo";
 
 export default function Authenticated({ user, children }) {
-
     const { post } = useForm({});
 
     const Search = styled("div")(({ theme }) => ({
@@ -123,14 +123,34 @@ export default function Authenticated({ user, children }) {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
+                        <Box component="a" href="/">
+                            <Logo/>
+                        </Box>
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                color: "var(--dark-color)",
+                                // border: "1px solid red"
+                            }}
+                        >
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Pesquise"
+                                    inputProps={{ "aria-label": "search" }}
+                                />
+                            </Search>
+                        </Box>
                         <Box
                             sx={{
                                 flexGrow: 0,
                                 display: { xs: "flex", md: "none" },
-                                mr: 1
+                                ml: 1,
                             }}
                         >
                             <IconButton
@@ -180,6 +200,7 @@ export default function Authenticated({ user, children }) {
                             sx={{
                                 flexGrow: 1,
                                 display: { xs: "none", md: "flex" },
+                                justifyContent: "end"
                             }}
                         >
                             {pages.map((page, index) => (
@@ -197,23 +218,6 @@ export default function Authenticated({ user, children }) {
                                 </Button>
                             ))}
                         </Box>
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                color: "var(--dark-color)",
-                                // border: "1px solid red"
-                            }}
-                        >
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Pesquise"
-                                    inputProps={{ "aria-label": "search" }}
-                                />
-                            </Search>
-                        </Box>
                         <Box sx={{ flexGrow: 0 }}>
                             {!user && (
                                 <Button
@@ -222,7 +226,7 @@ export default function Authenticated({ user, children }) {
                                     fullWidth
                                     variant="containedLight"
                                     sx={{
-                                        ml: 1
+                                        ml: 1,
                                     }}
                                 >
                                     Entrar
@@ -233,7 +237,6 @@ export default function Authenticated({ user, children }) {
                                     <Tooltip title="Menu pessoal">
                                         <IconButton
                                             onClick={handleOpenUserMenu}
-                                            sx={{ ml: 1 }}
                                         >
                                             {/* <Avatar
                                                 alt={user?.name.toUpperCase()}
@@ -293,6 +296,20 @@ export default function Authenticated({ user, children }) {
             <main>
                 <Container maxWidth="xl">{children}</Container>
             </main>
+
+            {/* <footer>
+                <Box
+                    sx={{
+                        width: "100%",
+                        py: 5,
+                        backgroundColor: "var(--primary-color)",
+                    }}
+                >
+                    <Container maxWidth="xl">
+
+                    </Container>
+                </Box>
+            </footer> */}
         </>
     );
 }

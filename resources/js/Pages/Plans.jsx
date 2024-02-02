@@ -1,22 +1,16 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 
-export default function Plans({ status, plans }) {
+export default function Plans({ plans }) {
     return (
-        <GuestLayout customWidth={"auto"}>
+        <AuthenticatedLayout>
             <Head title="Planos" />
 
-            {status && (
-                <div className="mb-4 font-medium text-sm text-green-600">
-                    {status}
-                </div>
-            )}
-
-            <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+            <Stack direction="row" spacing={0} useFlexGap flexWrap="wrap">
                 {plans?.map((plan) => (
                     <OfferCard
                         key={plan.id}
@@ -27,6 +21,6 @@ export default function Plans({ status, plans }) {
                     />
                 ))}
             </Stack>
-        </GuestLayout>
+        </AuthenticatedLayout>
     );
 }

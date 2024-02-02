@@ -22,6 +22,10 @@ Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+Route::get('/invalid-subscription', function () {
+    return Inertia::render('Auth/InvalidSubscription');
+})->name('invalid.subscription');
+
 Route::get('/plans', [PlansController::class, 'index'])->name('plans');
 
 Route::middleware(['auth', 'verified'])->group(function () {

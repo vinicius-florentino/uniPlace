@@ -8,6 +8,10 @@ import Grid from "@mui/material/Grid";
 import PageBox from "@/Components/pagebox/PageBox";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
+
+    const csrfToken = document.cookie;
+    console.log(document);
+
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Perfil" />
