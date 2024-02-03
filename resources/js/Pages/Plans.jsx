@@ -1,13 +1,13 @@
 import React from "react";
 import { Head } from "@inertiajs/react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import NavigationLayout from "@/Layouts/NavigationLayout";
 
 import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 
-export default function Plans({ plans }) {
+export default function Plans({ auth, plans }) {
     return (
-        <AuthenticatedLayout>
+        <NavigationLayout user={auth.user}>
             <Head title="Planos" />
 
             <Stack direction="row" spacing={0} useFlexGap flexWrap="wrap">
@@ -21,6 +21,6 @@ export default function Plans({ plans }) {
                     />
                 ))}
             </Stack>
-        </AuthenticatedLayout>
+        </NavigationLayout>
     );
 }

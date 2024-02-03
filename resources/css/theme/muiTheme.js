@@ -1,4 +1,4 @@
-const MuiThemeMod = {
+const MuiTheme = {
     palette: {
         primary: {
             main: "#1d28ac",
@@ -107,4 +107,4 @@ const MuiThemeMod = {
     },
 };
 
-export default MuiThemeMod;
+export default MuiTheme;

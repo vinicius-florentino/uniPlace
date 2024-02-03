@@ -1,4 +1,4 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import NavigationLayout from "@/Layouts/NavigationLayout";
 import DeleteUserForm from "./Partials/DeleteUserForm";
 import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
@@ -9,11 +9,8 @@ import PageBox from "@/Components/pagebox/PageBox";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
 
-    const csrfToken = document.cookie;
-    console.log(document);
-
     return (
-        <AuthenticatedLayout user={auth.user}>
+        <NavigationLayout user={auth.user}>
             <Head title="Perfil" />
 
             <Box noValidate sx={{ width: "100%", py: 2 }}>
@@ -49,6 +46,6 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     </Grid>
                 </Grid>
             </Box>
-        </AuthenticatedLayout>
+        </NavigationLayout>
     );
 }
