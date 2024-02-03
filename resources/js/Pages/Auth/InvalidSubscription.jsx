@@ -6,21 +6,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 
-export default function InvalidSubscription({ status }) {
+export default function InvalidSubscription() {
     
     const { post, processing } = useForm({});
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        post(route("verification.send"), {
-            onSuccess: () => {
-                toast.success("Ação realizada com sucesso!");
-            },
-            onError: () => {
-                toast.error("Ocorreu um erro!");
-            },
-        });
-    };
 
     const handleLogout = (e) => {
         e.preventDefault();
