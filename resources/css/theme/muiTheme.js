@@ -68,6 +68,16 @@ const MuiTheme = {
                 },
             },
         },
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "var(--secondary-color)",
+                    width: "32px",
+                    height: "32px",
+                    fontSize: 16
+                },
+            },
+        },
         MuiFormHelperText: {
             styleOverrides: {
                 root: {
@@ -87,6 +97,24 @@ const MuiTheme = {
                     fontSize: 14
                 },
             },
+        },
+        MuiDrawer: {
+            styleOverrides: {
+              root: {
+                
+              },
+              paper: {
+                width: '300px',
+              },
+            },
+          },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                  minWidth: "44px",
+                //   height: "24px"
+                },
+            }
         },
         MuiAppBar: {
             styleOverrides: {

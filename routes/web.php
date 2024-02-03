@@ -32,7 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/seller-dashboard', [SellerDashboardController::class, 'index'])->name('seller.dashboard');
+    Route::get('/seller-profile', [SellerDashboardController::class, 'index'])->name('seller.profile');
 });
 
 require __DIR__ . '/auth.php';

@@ -67,7 +67,7 @@ export default function NavigationMenu({}) {
                     open={openMenuDrawer}
                     onClose={handleCloseMenuDrawer}
                 >
-                    <Box sx={{ width: 250 }} role="presentation">
+                    <Box sx={{ width: "100%" }} role="presentation">
                         <List>
                             {pages.map((page, index) => (
                                 <ListItem key={index} disablePadding>

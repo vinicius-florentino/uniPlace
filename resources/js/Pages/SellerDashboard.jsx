@@ -7,6 +7,7 @@ import PageBox from "@/Components/pagebox/PageBox";
 export default function SellerDashboard({ auth, seller }) {
     return (
         <NavigationLayout user={auth.user}>
+            
             <Head title="Painel vendedor" />
 
             <Box noValidate sx={{ width: "100%", py: 2 }}>
