@@ -1,15 +1,15 @@
 import React from "react";
-
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import CheckIcon from "@mui/icons-material/Check";
-
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import CheckIcon from '@mui/icons-material/Check';
+import formatPrice from "@/Utils/formatPrice";
 const BenefitLine = ({ label }) => {
     return (
         <Typography
@@ -21,8 +21,7 @@ const BenefitLine = ({ label }) => {
                 justifyContent: "start",
             }}
         >
-            <CheckIcon sx={{ color: "var(--success-color)" }} />
-            &nbsp;
+            <CheckIcon sx={{ color: "var(--success-color)", mr: 1 }} />
             {label}
         </Typography>
     );
@@ -30,7 +29,7 @@ const BenefitLine = ({ label }) => {
 
 function OfferCard({ name, description, price, benefits, processing }) {
     return (
-        <Card sx={{ width: "300px", margin: "0 auto", maxHeight: "auto" }}>
+        <Card sx={{ width: "250px", maxHeight: "auto" }}>
             <CardContent sx={{ p: 0 }}>
                 <Box
                     noValidate
@@ -52,7 +51,7 @@ function OfferCard({ name, description, price, benefits, processing }) {
                 <Box
                     noValidate
                     sx={{
-                        p: 2,
+                        p: 2
                     }}
                 >
                     <Typography>{description}</Typography>
@@ -65,10 +64,12 @@ function OfferCard({ name, description, price, benefits, processing }) {
                     }}
                 >
                     <Typography sx={{ fontSize: 20, fontWeight: 700 }}>
-                        R$ {price}
+                        {formatPrice(price)}
                     </Typography>
                 </Box>
-
+                <Divider sx={{
+                    mx: "10px"
+                }} />
                 <Box
                     noValidate
                     sx={{
@@ -78,21 +79,22 @@ function OfferCard({ name, description, price, benefits, processing }) {
                     <Typography>Benefícios:</Typography>
                 </Box>
 
-                <Box
-                    noValidate
-                    sx={{
-                        p: 2,
-                    }}
-                >
-                    <Stack direction="column" spacing={2}>
+                <Box>
+                    <List>
                         {benefits?.map((benefit, index) => (
-                            <BenefitLine key={index} label={benefit} />
+                            <React.Fragment key={index}>
+                                {index > 0}
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{cursor: "default"}}>
+                                        <BenefitLine label={benefit} />
+                                    </ListItemButton>
+                                </ListItem>
+                            </React.Fragment>
                         ))}
-                    </Stack>
+                    </List>
                 </Box>
 
                 <Box
-                    noValidate
                     sx={{
                         p: 2,
                     }}
