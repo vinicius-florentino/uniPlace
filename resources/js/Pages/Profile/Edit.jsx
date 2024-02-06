@@ -9,6 +9,7 @@ import PageBox from "@/Components/pagebox/PageBox";
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
 
+
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Perfil" />

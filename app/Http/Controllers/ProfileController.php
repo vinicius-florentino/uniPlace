@@ -60,19 +60,4 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-
-    public function teste(Request $request): Response
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'id' => 'required|int',
-            'fodase' => 'required'
-        ]);
-
-        $requestData = $request->all();
-
-        return Inertia::render('Dashboard', [
-            'data' => $requestData
-        ]);
-    }
 }

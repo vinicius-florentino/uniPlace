@@ -28,6 +28,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 
 export default function PersonalMenu({ userName }) {
+
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
@@ -128,13 +129,13 @@ export default function PersonalMenu({ userName }) {
                         </ListItemButton>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding sx={{ pl: 4 }}>
-                                <ListItemButton href={route("seller.profile")}>
+                                <ListItemButton href={route("seller.dashboard.profile")}>
                                     <ListItemIcon>
                                         <AssignmentIndOutlinedIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="Meu perfil de vendas" />
                                 </ListItemButton>
-                                <ListItemButton disabled>
+                                <ListItemButton href={route("seller.dashboard.ads")}>
                                     <ListItemIcon>
                                         <LocalOfferOutlinedIcon />
                                     </ListItemIcon>

@@ -32,7 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/seller-profile', [SellerDashboardController::class, 'index'])->name('seller.profile');
+    Route::get('/seller-dashboard/profile', [SellerDashboardController::class, 'profile'])->name('seller.dashboard.profile');
+    Route::get('/seller-dashboard/ads', [SellerDashboardController::class, 'ads'])->name('seller.dashboard.ads');
 });
 
 require __DIR__ . '/auth.php';

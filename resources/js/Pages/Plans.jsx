@@ -4,9 +4,10 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-export default function Plans({ plans, auth }) {
+export default function Plans(props) {
+    console.log(props);
     return (
-        <NavigationLayout user={auth.user}>
+        <NavigationLayout user={props.auth.user}>
             <Head title="Planos" />
             <Box noValidate sx={{ width: "100%", py: 2 }}>
                 <Stack direction="row" spacing={5} useFlexGap flexWrap="wrap" sx={{
