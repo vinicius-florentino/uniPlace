@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SellerDashboard;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
@@ -8,12 +8,12 @@ use Inertia\Response;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 
-class SellerDashboardController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display the password reset link request view.
      */
-    public function profile(Request $request): Response
+    public function index(Request $request): Response
     {
         $user = $request->user();
         $seller = $user->seller;
@@ -23,24 +23,19 @@ class SellerDashboardController extends Controller
         ]);
     }
 
-    public function ads(Request $request): Response
-    {
-        $user = $request->user();
-        $userId = $user->id;
-
-        $ads = Seller::where("user_id", $userId)->first();
-
-        return Inertia::render('SellerDashboard/Ads', [
-            'status' => session('status'), 'ads' => $ads
-        ]);
-    }
-
     public function store(Request $request): Response
     {
         $user = $request->user();
         $userId = $user->id;
 
-        $seller = Seller::where("user_id", $userId)->first();
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $seller = Seller::create([
+            'user_id' => $userId,
+            'name' => $request->name,
+        ]);
 
         return Inertia::render('SellerDashboard', [
             'status' => session('status'), 'seller' => $seller
@@ -52,7 +47,14 @@ class SellerDashboardController extends Controller
         $user = $request->user();
         $userId = $user->id;
 
-        $seller = Seller::where("user_id", $userId)->first();
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $seller = Seller::where('user_id', $userId)
+        ->update([
+            'name' => $request->name
+        ]);
 
         return Inertia::render('SellerDashboard', [
             'status' => session('status'), 'seller' => $seller

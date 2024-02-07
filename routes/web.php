@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SellerDashboardController;
+use App\Http\Controllers\SellerDashboard\ProfileController as SellerDashboardProfileController;
+use App\Http\Controllers\SellerDashboard\AdsController as SellerDashboardAdsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PlansController;
@@ -32,8 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/seller-dashboard/profile', [SellerDashboardController::class, 'profile'])->name('seller.dashboard.profile');
-    Route::get('/seller-dashboard/ads', [SellerDashboardController::class, 'ads'])->name('seller.dashboard.ads');
+    Route::resource('/seller-dashboard/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
+    // Route::resource('/seller-dashboard/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
 });
 
 require __DIR__ . '/auth.php';

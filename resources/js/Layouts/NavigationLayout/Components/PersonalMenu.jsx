@@ -129,13 +129,13 @@ export default function PersonalMenu({ userName }) {
                         </ListItemButton>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding sx={{ pl: 4 }}>
-                                <ListItemButton href={route("seller.dashboard.profile")}>
+                                <ListItemButton href={"/seller-dashboard/profile"}>
                                     <ListItemIcon>
                                         <AssignmentIndOutlinedIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="Meu perfil de vendas" />
                                 </ListItemButton>
-                                <ListItemButton href={route("seller.dashboard.ads")}>
+                                <ListItemButton href={"/seller-dashboard/ads"}>
                                     <ListItemIcon>
                                         <LocalOfferOutlinedIcon />
                                     </ListItemIcon>

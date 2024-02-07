@@ -5,7 +5,6 @@ import { Box, Grid } from "@mui/material";
 import PageBox from "@/Components/pagebox/PageBox";
 
 export default function Profile({ auth, seller }) {
-    console.log(seller);
     return (
         <NavigationLayout user={auth.user}>
             
