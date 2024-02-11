@@ -43,7 +43,7 @@ export default function InvalidSubscription() {
                         display={"flex"}
                         alignItems={"center"}
                         justifyContent={"center"}
-                    ></Grid>
+                    ></Grid>    
                     <Grid
                         item
                         xs={12}
