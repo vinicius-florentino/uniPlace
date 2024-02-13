@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from "@inertiajs/react";
 
 import Grid from "@mui/material/Grid";
@@ -67,7 +67,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
                             </Typography>
                         </Grid>
 
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
                                 id="password"
@@ -117,14 +117,15 @@ const DeleteUserDialog = ({ onClose, open }) => {
 };
 
 export default function DeleteUserForm() {
-    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
-    const handleOpenDeleteDialog = () => {
-        setOpenDeleteDialog(true);
+    const [openDeleteUserDialog, setOpenDeleteUserDialog] = useState(false);
+
+    const handleOpenDeleteUserDialog = () => {
+        setOpenDeleteUserDialog(true);
     };
 
-    const handleCloseDeleteDialog = () => {
-        setOpenDeleteDialog(false);
+    const handleCloseDeleteUserDialog = () => {
+        setOpenDeleteUserDialog(false);
     };
 
     return (
@@ -136,15 +137,15 @@ export default function DeleteUserForm() {
                 sx={{
                     width: { xs: "100%", md: "auto" },
                 }}
-                onClick={handleOpenDeleteDialog}
+                onClick={handleOpenDeleteUserDialog}
             >
                 Excluir conta
             </Button>
 
-            {openDeleteDialog && (
+            {openDeleteUserDialog && (
                 <DeleteUserDialog
-                    open={openDeleteDialog}
-                    onClose={handleCloseDeleteDialog}
+                    open={openDeleteUserDialog}
+                    onClose={handleCloseDeleteUserDialog}
                 />
             )}
         </>

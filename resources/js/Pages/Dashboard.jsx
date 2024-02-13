@@ -9,7 +9,7 @@ export default function Dashboard({ auth, status }) {
 
     return (
         <NavigationLayout user={auth.user}>
-            <Head title="Início" />
+            <Head title="Página inicial" />
         </NavigationLayout>
     );
 }

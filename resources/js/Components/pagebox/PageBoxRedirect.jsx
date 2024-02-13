@@ -10,12 +10,12 @@ const PageBoxRedirect = ({ title, subTitle, href }) => {
             href={href}
             noValidate
             sx={{
-                p: 3,
+                px: 3,
+                py: 4,
                 boxShadow: "var(--box-shadow)",
                 borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
                 display: "flex",
-                minHeight: "48px",
                 justifyContent: "space-between",
                 alignItems: "center",
                 color: "var(--dark-color)",

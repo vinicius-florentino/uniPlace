@@ -64,7 +64,7 @@ const MuiTheme = {
             styleOverrides: {
                 root: {
                     borderRadius: "8px",
-                    height: "50px",
+                    minHeight: "50px",
                 },
             },
         },
