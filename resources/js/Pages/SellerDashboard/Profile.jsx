@@ -150,7 +150,7 @@ export default function Profile({ auth, seller }) {
                             </PageBox>
                         </Grid>
                     }
-                    {!seller &&
+                    {seller &&
                         <>
                             <Grid item xs={12}>
                                 <PageBox title="Informações do perfil de vendedor" 
