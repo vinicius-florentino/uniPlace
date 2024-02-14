@@ -1,24 +1,23 @@
 import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-const PageBoxRedirect = ({ title, subTitle, href }) => {
+const PageBoxRedirect = ({ title, href }) => {
     return (
         <Box 
             component={"a"}
             href={href}
             noValidate
             sx={{
-                p: 3,
+                px: 3,
+                py: 4,
                 boxShadow: "var(--box-shadow)",
                 borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
                 display: "flex",
-                minHeight: "48px",
                 justifyContent: "space-between",
                 alignItems: "center",
-                color: "var(--dark-color)",
+                color: "var(--dark-color)", 
                 textDecoration: "none"
             }}
         >
