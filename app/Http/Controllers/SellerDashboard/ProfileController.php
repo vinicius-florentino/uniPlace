@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
@@ -16,14 +18,16 @@ class ProfileController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $seller = $user->seller;
+        $userId = $user->id;
+
+        $seller = Seller::where('user_id', $userId)->first();
 
         return Inertia::render('SellerDashboard/Profile', [
             'status' => session('status'), 'seller' => $seller
         ]);
     }
 
-    public function store(Request $request): Response
+    public function store(Request $request): RedirectResponse
     {
         $user = $request->user();
         $userId = $user->id;
@@ -32,17 +36,15 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $seller = Seller::create([
+        Seller::create([
             'user_id' => $userId,
             'name' => $request->name,
         ]);
 
-        return Inertia::render('SellerDashboard', [
-            'status' => session('status'), 'seller' => $seller
-        ]);
+        return back();
     }
 
-    public function update(Request $request): Response
+    public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
         $userId = $user->id;
@@ -51,13 +53,11 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $seller = Seller::where('user_id', $userId)
-        ->update([
-            'name' => $request->name
-        ]);
+        Seller::where('user_id', $userId)
+            ->update([
+                'name' => $request->name
+            ]);
 
-        return Inertia::render('SellerDashboard', [
-            'status' => session('status'), 'seller' => $seller
-        ]);
+        return back();
     }
 }

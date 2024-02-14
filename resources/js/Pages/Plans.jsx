@@ -4,7 +4,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-export default function Plans({plans, auth}) {
+
+export default function Plans({auth, plans}) {;
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Planos" />

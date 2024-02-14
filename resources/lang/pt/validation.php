@@ -118,6 +118,9 @@ return [
         'password' => 'senha',
         'university_id' => 'universidade',
         'is_student' => 'é estudante',
-        'current_password' => 'senha atual'
+        'current_password' => 'senha atual',
+        'title' => 'título',
+        'description' => 'descrição',
+        'price' => 'preço'
     ],
 ];
