@@ -13,6 +13,7 @@ class Ad extends Model
 
     protected $casts = [
         'is_able' => 'boolean',
+        'price' => 'double'
     ];
 
     public function seller()

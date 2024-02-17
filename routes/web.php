@@ -35,7 +35,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('/seller-dashboard/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
     Route::resource('/seller-dashboard/ads', SellerDashboardAdsController::class)->only(['index', 'store']);
-    
     Route::get('/seller-dashboard/ad/{id}', [SellerDashboardAdsController::class, 'edit'])->name('seller.dashboard.ad.edit');
 });
 

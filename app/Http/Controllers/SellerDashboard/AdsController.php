@@ -25,7 +25,7 @@ class AdsController extends Controller
         $seller = Seller::where('user_id', $userId)->first();
         $sellerId = $seller->id;
 
-        $ads = Ad::where('seller_id', $sellerId)->simplePaginate();
+        $ads = Ad::where('seller_id', $sellerId)->paginate(2);
 
         return Inertia::render('SellerDashboard/Ads', [
             'status' => session('status'), 'ads' => $ads

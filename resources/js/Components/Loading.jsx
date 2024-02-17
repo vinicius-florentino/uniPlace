@@ -3,7 +3,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const Loading = () => {
     return (
-        <CircularProgress size={20}/>
+        <div style={{height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: "16px"}}>
+            <CircularProgress size={25} disableShrink />
+        </div>
+        
     );
 };
 

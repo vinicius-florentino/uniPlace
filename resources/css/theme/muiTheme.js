@@ -3,6 +3,9 @@ const MuiTheme = {
         primary: {
             main: "#1d28ac",
         },
+        secondary: {
+            main: "#5758bd",
+        },
         success: {
             main: "#00a059",
         },
@@ -19,7 +22,22 @@ const MuiTheme = {
         allVariants: {
             fontFamily: "var(--font-family)",
             textTransform: "none",
-            fontSize: 14
+            fontSize: 14,
+        },
+    },
+
+    overrides: {
+        MuiCssBaseline: {
+            "@global": {
+                "*": {
+                    "scrollbar-width": "thin",
+                    "scrollbar-color": "red"
+                },
+                "*::-webkit-scrollbar": {
+                    width: "4px",
+                    height: "4px",
+                },
+            },
         },
     },
 
@@ -45,7 +63,7 @@ const MuiTheme = {
                     borderBottom: "2px solid var(--white-color)",
                     "&:hover": {
                         backgroundColor: "inherit",
-                        borderBottom: "2px solid var(--dark-color)"
+                        borderBottom: "2px solid var(--dark-color)",
                     },
                 },
                 containedLight: {
@@ -74,7 +92,7 @@ const MuiTheme = {
                     backgroundColor: "var(--secondary-color)",
                     width: "32px",
                     height: "32px",
-                    fontSize: 16
+                    fontSize: 16,
                 },
             },
         },
@@ -94,27 +112,25 @@ const MuiTheme = {
                     "&:hover": {
                         textDecoration: "underline",
                     },
-                    fontSize: 14
+                    fontSize: 14,
                 },
             },
         },
         MuiDrawer: {
             styleOverrides: {
-              root: {
-                
-              },
-              paper: {
-                width: '300px',
-              },
+                root: {},
+                paper: {
+                    width: "300px",
+                },
             },
-          },
+        },
         MuiListItemIcon: {
             styleOverrides: {
                 root: {
-                  minWidth: "44px",
-                //   height: "24px"
+                    minWidth: "44px",
+                    //   height: "24px"
                 },
-            }
+            },
         },
         MuiAppBar: {
             styleOverrides: {
@@ -128,10 +144,17 @@ const MuiTheme = {
         MuiDialogTitle: {
             styleOverrides: {
                 root: {
-                    fontSize: 20
+                    fontSize: 20,
                 },
             },
-        }
+        },
+        MuiIcon: {
+            styleOverrides: {
+                root: {
+                    color: "var(--dark-color)",
+                },
+            },
+        },
     },
 };
 
