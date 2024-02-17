@@ -6,19 +6,70 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import React, { useState } from "react";
 import Switch from '@mui/material/Switch';
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
-
-export default function Profile({ auth, seller }) {
-
-    const { post, errors } = useForm({
+const SellerProfileForm = ({userName}) => {
+    const { data, setData, processing, put, errors } = useForm({
         name: "",
     });
-
-    const [NameUser, setNameUser] = useState('');
-    const [sellerChoice, setSellerChoice] = useState('0');
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(name, value);
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post(route("password.email"), {
+        put("/seller-dashboard/profile", {
+            onSuccess: () => {
+                toast.success("Ação realizada com sucesso!");
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+            },
+        });
+    };
+    return (
+        <Box component="form" onSubmit={onSubmit} noValidate>
+            <Grid container spacing={0} rowGap={2}>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="name"
+                        name="name"
+                        label="Nome de vendedor"
+                        variant="outlined"
+                        value={data.name}
+                        onChange={handleChange}
+                        error={errors.name}
+                        helperText={errors.name}
+                        fullWidth
+                    />
+                </Grid>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        disableElevation
+                        disabled={processing}
+                        sx={{
+                            mb: "10px",
+                            width: { xs: "100%", md: "auto" },
+                        }}
+                    >
+                        Confirmar
+                    </Button>
+                </Grid>
+            </Grid>
+        </Box>
+    );
+}
+const NotSellerProfileForm = ({userName}) => {
+    const { data, setData, processing, post, errors } = useForm({
+        name: "",
+    });
+    const [sellerNameFromUser, setSellerNameFromUser] = useState(false);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        post("/seller-dashboard/profile", {
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -29,18 +80,60 @@ export default function Profile({ auth, seller }) {
     };
 
     const handleSwitchChange = (event) => {
-        const isSwitchOn = event.target.checked;
-        setSellerChoice(isSwitchOn ? 'true' : 'false');
-        if (isSwitchOn) {
-            setNameUser(auth.user.name || '');
+        const { checked } = event.target;
+        setSellerNameFromUser(checked);
+        if (checked) {
+            setData('name', userName);
         } else {
-            setNameUser('');
+            setData('name', '');
         }
     };
+
     const handleChange = (event) => {
-        const { value } = event.target;
-        setNameUser(value);
+        const { name, value } = event.target;
+        setData(name, value);
     };
+
+    return (<Box component="form" onSubmit={onSubmit} noValidate>
+        <Grid container spacing={0} rowGap={2}>
+            <Grid item xs={12} md={6}>
+                <TextField
+                    id="name"
+                    name="name"
+                    label="Nome de vendedor"
+                    variant="outlined"
+                    value={data.name}
+                    onChange={handleChange}
+                    error={errors.name}
+                    helperText={errors.name}
+                    fullWidth
+                    disabled={sellerNameFromUser}
+                />
+            </Grid>
+            <Grid item xs={12} md={6} />
+            <Grid item xs={12} md={6}>
+                <FormControlLabel control={<Switch />} value={sellerNameFromUser} onChange={handleSwitchChange} label="Usar nome de usuário como nome de vendedor" />
+            </Grid>
+            <Grid item xs={12} md={6} />
+            <Grid item xs={12} md={6}>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    disableElevation
+                    disabled={processing}
+                    sx={{
+                        mb: "10px",
+                        width: { xs: "100%", md: "auto" },
+                    }}
+                >
+                    Confirmar
+                </Button>
+            </Grid>
+        </Grid>
+    </Box>);
+}
+
+export default function Profile({ auth, seller }) {
 
     return (
         <NavigationLayout user={auth.user}>
@@ -51,61 +144,28 @@ export default function Profile({ auth, seller }) {
                         <Grid item xs={12}>
                             <PageBox
                                 title="Você precisa virar vendedor para ver suas informações"
-                                subTitle="Deseja usar seu nome de usuário como nome de vendedor?"
+                                subTitle="Preencha os campos para virar um vendedor"
                             >
-                                <Box component="form" onSubmit={onSubmit} noValidate>
-                                    <Grid container spacing={0} rowGap={2}>
-                                        <Grid item xs={12} md={6}>
-                                            <TextField
-                                                id="name"
-                                                name="name"
-                                                label="Nome de vendedor"
-                                                variant="outlined"
-                                                value={NameUser}
-                                                onChange={handleChange}
-                                                error={errors.name}
-                                                helperText={errors.name}
-                                                fullWidth
-                                                disabled={sellerChoice === 'true'}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} md={6} />
-
-                                        <Grid item xs={12} md={6}>
-                                            <FormControlLabel control={<Switch />} onChange={handleSwitchChange} label="Usar nome de usuário como nome de vendedor" />
-                                        </Grid>
-                                        <Grid item xs={12} md={6} />
-
-                                        <Grid item md={12}>
-                                            <Button
-                                                variant="contained"
-                                                type="submit"
-                                                disableElevation
-                                            >
-                                                Confirmar
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
+                                <NotSellerProfileForm userName={auth.user.name} />
                             </PageBox>
                         </Grid>
                     }
                     {seller &&
-                        <Grid item xs={12}>
-                            <PageBox
-                                title="Suas informações"
-                                subTitle="Veja suas informações como vendedor"
-                            ></PageBox>
-                        </Grid>
+                        <>
+                            <Grid item xs={12}>
+                                <PageBox title="Informações do perfil de vendedor" 
+                                        subTitle="Atualize as informações de perfil de vendedor">
+                                    <SellerProfileForm userName={auth.user.name} />
+                                </PageBox>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <PageBoxRedirect
+                                    title="Meus anúncios"
+                                    href="/seller-dashboard/ads"
+                                ></PageBoxRedirect>
+                            </Grid>
+                        </>
                     }
-                    <Grid item xs={12}>
-                        <PageBoxRedirect
-                            title="Suas informações"
-                            subTitle="Veja suas informações como vendedor"
-                            href="/"
-                        >
-                        </PageBoxRedirect>
-                    </Grid>
                 </Grid>
             </Box>
         </NavigationLayout>

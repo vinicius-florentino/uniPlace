@@ -1,9 +1,8 @@
 import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-const PageBoxRedirect = ({ title, subTitle, href }) => {
+const PageBoxRedirect = ({ title, href }) => {
     return (
         <Box 
             component={"a"}
@@ -18,7 +17,7 @@ const PageBoxRedirect = ({ title, subTitle, href }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                color: "var(--dark-color)",
+                color: "var(--dark-color)", 
                 textDecoration: "none"
             }}
         >
