@@ -9,13 +9,14 @@
 :root {
     --font-family: "Open Sans", sans-serif;
 
-    --primary-color: #1d28ac;
+    --primary-color: #1c28ab;
     --secondary-color: #5758bd;
 
     --hover-color: #c3c3c3;
     
     --dark-color: #424242;
-    --light-color: rgb(236, 237, 242);
+    --light-color: #ecedf2;
+    --ultra-light-color: #ecedf240;
     --white-color: #ffffff;
 
     --info-color: #00b9ff;
@@ -24,7 +25,7 @@
     --danger-color: #dc3545;
 
     --borders: 1px solid var(--hover-color);
-    --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    --box-shadow: #00000029 0px 1px 4px;
 
     /* Lib toastify de alerts */
     --toastify-icon-color-info: var(--info-color);

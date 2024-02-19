@@ -6,9 +6,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import React, { useState } from "react";
 import Switch from '@mui/material/Switch';
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
-const SellerProfileForm = ({userName}) => {
+import { toast } from "react-toastify";
+
+const SellerProfileForm = ({seller}) => {
+
     const { data, setData, processing, put, errors } = useForm({
-        name: "",
+        name: seller.name,
     });
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -17,7 +20,7 @@ const SellerProfileForm = ({userName}) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        put("/seller-dashboard/profile", {
+        put(`/seller-dashboard/profile/${seller.id}`, {
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -54,7 +57,7 @@ const SellerProfileForm = ({userName}) => {
                             width: { xs: "100%", md: "auto" },
                         }}
                     >
-                        Confirmar
+                        Salvar
                     </Button>
                 </Grid>
             </Grid>
@@ -126,7 +129,7 @@ const NotSellerProfileForm = ({userName}) => {
                         width: { xs: "100%", md: "auto" },
                     }}
                 >
-                    Confirmar
+                    Salvar
                 </Button>
             </Grid>
         </Grid>
@@ -155,7 +158,7 @@ export default function Profile({ auth, seller }) {
                             <Grid item xs={12}>
                                 <PageBox title="Informações do perfil de vendedor" 
                                         subTitle="Atualize as informações de perfil de vendedor">
-                                    <SellerProfileForm userName={auth.user.name} />
+                                    <SellerProfileForm seller={seller} />
                                 </PageBox>
                             </Grid>
                             <Grid item xs={12}>

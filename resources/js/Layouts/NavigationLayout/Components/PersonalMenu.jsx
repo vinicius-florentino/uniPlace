@@ -114,7 +114,7 @@ export default function PersonalMenu({ userName }) {
                             </IconButton>
                         </ListItem>
                         <Divider />
-                        <ListItemButton href={route("profile.edit")}>
+                        <ListItemButton href={"/profile"}>
                             <ListItemIcon>
                                 <Person2OutlinedIcon />
                             </ListItemIcon>

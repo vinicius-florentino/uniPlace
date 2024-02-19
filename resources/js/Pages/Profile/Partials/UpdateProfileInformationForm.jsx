@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
+    
     const user = usePage().props.auth.user;
 
     const { data, setData, patch, errors, processing, recentlySuccessful } =
@@ -17,7 +18,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        patch(route("profile.update"), {
+        patch("/profile", {
             preserveScroll: true,
             onSuccess: () => toast.success("Alteração de dados concluída!"),
             onError: () => {

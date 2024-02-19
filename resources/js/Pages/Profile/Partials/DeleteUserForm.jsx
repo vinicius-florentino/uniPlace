@@ -30,7 +30,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
     const deleteUser = (e) => {
         e.preventDefault();
 
-        destroy(route("profile.destroy"), {
+        destroy("/profile", {
             preserveScroll: true,
             onSuccess: () => {
                 toast.success("Alteração de dados concluída!");

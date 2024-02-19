@@ -31,7 +31,7 @@ const MuiTheme = {
             "@global": {
                 "*": {
                     "scrollbar-width": "thin",
-                    "scrollbar-color": "red"
+                    "scrollbar-color": "red",
                 },
                 "*::-webkit-scrollbar": {
                     width: "4px",
@@ -42,6 +42,33 @@ const MuiTheme = {
     },
 
     components: {
+        MuiTableContainer: {
+            styleOverrides: {
+                root: {
+                    boxShadow: "var(--box-shadow)",
+                },
+            },
+        },
+        MuiTableHead: {
+            styleOverrides: {
+                root: {
+                    "& .MuiTableCell-root": {
+                        color: "var(--dark-color)",
+                        fontSize: 14,
+                        fontWeight: 700
+                    },
+                },
+            },
+        },
+        MuiTableBody: {
+            styleOverrides: {
+                root: {
+                    '& .MuiTableRow-root:nth-of-type(odd)': {
+                        backgroundColor: 'var(--ultra-light-color)',
+                    },
+                },
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
@@ -89,7 +116,7 @@ const MuiTheme = {
         MuiAvatar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "var(--secondary-color)",
+                    backgroundColor: "var(--primary-color)",
                     width: "32px",
                     height: "32px",
                     fontSize: 16,

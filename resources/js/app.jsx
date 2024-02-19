@@ -26,7 +26,11 @@ createInertiaApp({
 
         root.render(
             <ThemeProvider theme={theme}>
-                <ToastContainer position="bottom-left" autoClose={3000} hideProgressBar/>
+                <ToastContainer
+                    position="bottom-left"
+                    autoClose={3000}
+                    hideProgressBar
+                />
                 <App {...props} />
             </ThemeProvider>
         );

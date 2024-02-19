@@ -44,7 +44,7 @@ class ProfileController extends Controller
         return back();
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
         $userId = $user->id;
@@ -53,7 +53,7 @@ class ProfileController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        Seller::where('user_id', $userId)
+        Seller::where('user_id', $userId)->where('id', $id)
             ->update([
                 'name' => $request->name
             ]);

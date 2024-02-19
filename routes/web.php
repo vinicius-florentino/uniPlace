@@ -26,16 +26,18 @@ Route::get('/invalid-subscription', function () {
     return Inertia::render('Auth/InvalidSubscription');
 })->name('invalid.subscription');
 
-Route::get('/plans', [PlansController::class, 'index'])->name('plans');
+Route::get('/plans', [PlansController::class, 'index']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('/seller-dashboard/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
-    Route::resource('/seller-dashboard/ads', SellerDashboardAdsController::class)->only(['index', 'store']);
-    Route::get('/seller-dashboard/ad/{id}', [SellerDashboardAdsController::class, 'edit'])->name('seller.dashboard.ad.edit');
+    Route::get('/profile', [ProfileController::class, 'edit']);
+    Route::patch('/profile', [ProfileController::class, 'update']);
+    Route::delete('/profile', [ProfileController::class, 'destroy']);
+
+    Route::prefix('/seller-dashboard')->group(function () {
+        Route::resource('/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
+        Route::resource('/ads', SellerDashboardAdsController::class)->only(['index', 'store', 'update', 'destroy']);
+    });
 });
 
 require __DIR__ . '/auth.php';
