@@ -119,7 +119,7 @@ const MuiTheme = {
                     backgroundColor: "var(--primary-color)",
                     width: "32px",
                     height: "32px",
-                    fontSize: 16,
+                    fontSize: 14,
                 },
             },
         },
