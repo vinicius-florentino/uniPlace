@@ -16,7 +16,7 @@ class DashboardController extends Controller
 {
     public function index(): Response
     {
-        $ads = Ad::with('seller')->get();
+        $ads = Ad::with('seller')->paginate(config('paginate.dashboard'));
         return Inertia::render('Dashboard', [
             'ads' => $ads
          ]);
