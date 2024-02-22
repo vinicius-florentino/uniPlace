@@ -137,7 +137,7 @@ const NotSellerProfileForm = ({userName}) => {
 }
 
 export default function Profile({ auth, seller }) {
-
+    
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Painel vendedor - Perfil" />

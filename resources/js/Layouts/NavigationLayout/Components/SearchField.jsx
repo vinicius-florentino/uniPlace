@@ -1,7 +1,7 @@
 import React from "react";
-import SearchIcon from '@mui/icons-material/Search';
 import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
+import RemixIcon from "@/Components/RemixIcon";
 
 export default function SearchField({}) {
 
@@ -46,7 +46,7 @@ export default function SearchField({}) {
     return (
         <Search sx={{ color: "var(--dark-color)" }}>
             <SearchIconWrapper>
-                <SearchIcon />
+                <RemixIcon className="ri-search-line"/>
             </SearchIconWrapper>
             <StyledInputBase
                 placeholder="Buscar"

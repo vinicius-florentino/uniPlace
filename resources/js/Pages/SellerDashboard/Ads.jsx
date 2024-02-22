@@ -8,10 +8,7 @@ import Loading from "@/Components/Loading";
 import PriceFormatMask from "@/Components/masks/PriceFormatMask";
 import formatPrice from "@/Utils/formatPrice";
 
-import CloseIcon from "@mui/icons-material/Close";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import RemixIcon from "@/Components/RemixIcon";
 
 import {
     Box,
@@ -81,8 +78,8 @@ const DeleteAdDialog = ({ id, title, price, description }) => {
 
     return (
         <>
-            <IconButton onClick={handleOpen} sx={{color: "var(--danger-color)"}} size="small">
-                <DeleteOutlineOutlinedIcon fontSize="small"/>
+            <IconButton onClick={handleOpen}>
+                <RemixIcon className="ri-delete-bin-line" color="var(--danger-color)"/>
             </IconButton>
 
             {open && (
@@ -93,7 +90,7 @@ const DeleteAdDialog = ({ id, title, price, description }) => {
                         onClick={handleClose}
                         sx={{ position: "absolute", right: 16, top: 12 }}
                     >
-                        <CloseIcon />
+                        <RemixIcon className="ri-close-line" />
                     </IconButton>
                     <DialogContent dividers>
                         <Box noValidate component="form" onSubmit={editAd}>
@@ -224,8 +221,8 @@ const EditAdDialog = ({ id, title, price, description }) => {
 
     return (
         <>
-            <IconButton onClick={handleOpen} size="small">
-                <EditOutlinedIcon fontSize="small"/>
+            <IconButton onClick={handleOpen}>
+                <RemixIcon className="ri-edit-line"/>
             </IconButton>
 
             {open && (
@@ -236,7 +233,7 @@ const EditAdDialog = ({ id, title, price, description }) => {
                         onClick={handleClose}
                         sx={{ position: "absolute", right: 16, top: 12 }}
                     >
-                        <CloseIcon />
+                        <RemixIcon className="ri-close-line" />
                     </IconButton>
                     <DialogContent dividers>
                         <Box noValidate component="form" onSubmit={editAd}>
@@ -356,7 +353,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                 onClick={onClose}
                 sx={{ position: "absolute", right: 16, top: 12 }}
             >
-                <CloseIcon />
+                <RemixIcon className="ri-close-line" />
             </IconButton>
             <DialogContent dividers>
                 <Box noValidate component="form" onSubmit={createAd}>
@@ -485,7 +482,7 @@ export default function Ads({ auth, ads }) {
                                                 handleOpenCreateAdDialog()
                                             }
                                         >
-                                            <AddOutlinedIcon />
+                                            <RemixIcon className="ri-add-line" />
                                             Criar anúncio
                                         </Button>
 

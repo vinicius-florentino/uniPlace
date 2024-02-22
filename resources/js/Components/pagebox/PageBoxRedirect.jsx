@@ -1,7 +1,8 @@
 import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
-import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
+import RemixIcon from "../RemixIcon";
+
 const PageBoxRedirect = ({ title, href }) => {
     return (
         <Box 
@@ -27,7 +28,7 @@ const PageBoxRedirect = ({ title, href }) => {
             {/* <Typography sx={{ fontWeight: 300 }}>
                             {subTitle}
                         </Typography> */}
-            <OpenInNewOutlinedIcon />
+            <RemixIcon className="ri-external-link-line"/>
         </Box>
     );
 };

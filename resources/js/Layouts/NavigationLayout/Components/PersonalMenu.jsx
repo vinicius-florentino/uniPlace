@@ -3,11 +3,8 @@ import { useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 
 import IconButton from "@mui/material/IconButton";
-// import Menu from "@mui/material/Menu";
-// import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -15,20 +12,13 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
-import CloseIcon from "@mui/icons-material/Close";
-import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
+
 import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import SettingsIcon from '@mui/icons-material/Settings';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+
+import RemixIcon from "@/Components/RemixIcon";
 
 export default function PersonalMenu({ userName }) {
-
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
@@ -110,34 +100,40 @@ export default function PersonalMenu({ userName }) {
                                     top: 2,
                                 }}
                             >
-                                <CloseIcon />
+                                <RemixIcon className="ri-close-line" />
                             </IconButton>
                         </ListItem>
                         <Divider />
                         <ListItemButton href={"/profile"}>
                             <ListItemIcon>
-                                <Person2OutlinedIcon />
+                                <RemixIcon className="ri-user-line" />
                             </ListItemIcon>
                             <ListItemText primary={"Meu perfil"} />
                         </ListItemButton>
                         <ListItemButton onClick={handleClick}>
                             <ListItemIcon>
-                                <SpaceDashboardOutlinedIcon />
+                                <RemixIcon className="ri-dashboard-line" />
                             </ListItemIcon>
                             <ListItemText primary="Painel para vendedores" />
-                            {open ? <ExpandLess /> : <ExpandMore />}
+                            {open ? (
+                                <RemixIcon className="ri-arrow-up-wide-line" />
+                            ) : (
+                                <RemixIcon className="ri-arrow-down-wide-line" />
+                            )}
                         </ListItemButton>
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding sx={{ pl: 4 }}>
-                                <ListItemButton href={"/seller-dashboard/profile"}>
+                                <ListItemButton
+                                    href={"/seller-dashboard/profile"}
+                                >
                                     <ListItemIcon>
-                                        <AssignmentIndOutlinedIcon />
+                                        <RemixIcon className="ri-user-2-line" />
                                     </ListItemIcon>
                                     <ListItemText primary="Meu perfil de vendas" />
                                 </ListItemButton>
                                 <ListItemButton href={"/seller-dashboard/ads"}>
                                     <ListItemIcon>
-                                        <LocalOfferOutlinedIcon />
+                                        <RemixIcon className="ri-price-tag-3-line" />
                                     </ListItemIcon>
                                     <ListItemText primary="Meus anúncios" />
                                 </ListItemButton>
@@ -146,13 +142,13 @@ export default function PersonalMenu({ userName }) {
                         <Divider />
                         <ListItemButton disabled>
                             <ListItemIcon>
-                                <SettingsIcon />
+                                <RemixIcon className="ri-settings-line" />
                             </ListItemIcon>
                             <ListItemText primary={"Configurações"} />
                         </ListItemButton>
                         <ListItemButton onClick={handleLogout}>
-                            <ListItemIcon sx={{ color: "var(--danger-color)" }}>
-                                <LogoutOutlinedIcon />
+                            <ListItemIcon>
+                                <RemixIcon className="ri-logout-box-line" color={"var(--danger-color)"}/>
                             </ListItemIcon>
                             <ListItemText
                                 sx={{ color: "var(--danger-color)" }}

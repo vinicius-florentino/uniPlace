@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -10,26 +9,24 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
-import HomeOutlined from "@mui/icons-material/HomeOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import RemixIcon from "@/Components/RemixIcon";
 
 export default function NavigationMenu({}) {
     const pages = [
         {
             label: "Início",
             href: "/",
-            startIcon: <HomeOutlined />,
+            startIcon: <RemixIcon className="ri-home-4-line"/>,
         },
         {
             label: "Planos",
             href: "/plans",
-            startIcon: <BusinessCenterOutlinedIcon />,
+            startIcon: <RemixIcon className="ri-briefcase-line"/>,
         },
         {
             label: "Ajuda",
             href: "#",
-            startIcon: <HelpOutlineOutlinedIcon />,
+            startIcon: <RemixIcon className="ri-question-line"/>,
         },
     ];
 
@@ -60,7 +57,7 @@ export default function NavigationMenu({}) {
                     onClick={handleOpenMenuDrawer}
                     color="inherit"
                 >
-                    <MenuIcon sx={{ color: "var(--dark-color)" }} />
+                    <RemixIcon className="ri-menu-line"/>
                 </IconButton>
                 <Drawer
                     anchor={"left"}

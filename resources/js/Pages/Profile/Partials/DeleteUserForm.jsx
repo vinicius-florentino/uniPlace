@@ -10,8 +10,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
+import RemixIcon from "@/Components/RemixIcon";
 
 const DeleteUserDialog = ({ onClose, open }) => {
     const passwordInput = useRef();
@@ -52,7 +52,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
                 onClick={onClose}
                 sx={{ position: "absolute", right: 16, top: 12 }}
             >
-                <CloseIcon />
+                <RemixIcon className="ri-close-line"/>
             </IconButton>
             <DialogContent dividers>
                 <Box noValidate component="form" onSubmit={deleteUser}>

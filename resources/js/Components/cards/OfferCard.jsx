@@ -8,8 +8,10 @@ import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import CheckIcon from '@mui/icons-material/Check';
+
 import formatPrice from "@/Utils/formatPrice";
+import RemixIcon from "../RemixIcon";
+
 const BenefitLine = ({ label }) => {
     return (
         <Typography
@@ -19,10 +21,11 @@ const BenefitLine = ({ label }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "start",
+                gap: "5px"
             }}
         >
-            <CheckIcon sx={{ color: "var(--success-color)", mr: 1 }} />
-            {label}
+            <RemixIcon className="ri-check-line" color="var(--success-color)"/>
+            <span>{label}</span>
         </Typography>
     );
 };
@@ -34,7 +37,7 @@ function OfferCard({ name, description, price, benefits, processing }) {
                 <Box
                     noValidate
                     sx={{
-                        backgroundColor: "var(--secondary-color)",
+                        backgroundColor: "var(--primary-color)",
                         p: 2,
                     }}
                 >
