@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerDashboard\ProfileController as SellerDashboardProfileController;
 use App\Http\Controllers\SellerDashboard\AdsController as SellerDashboardAdsController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\PlansController;
 Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('/', [DashboardController::class, 'index'])->name('index');
 
 Route::get('/invalid-subscription', function () {
     return Inertia::render('Auth/InvalidSubscription');
