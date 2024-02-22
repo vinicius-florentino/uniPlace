@@ -13,7 +13,7 @@ export default function Header({ user }) {
     return (
         <>
             <AppBar position="sticky">
-                <Container maxWidth="xl">
+                <Container maxWidth="lg">
                     <Toolbar disableGutters>
                         <Box component="a" href="/">
                             <Logo />

@@ -12,7 +12,7 @@ export default function NavigationLayout({ user, children }) {
             </header>
 
             <main>
-                <Container maxWidth="xl">{children}</Container>
+                <Container maxWidth="lg">{children}</Container>
             </main>
 
             <footer>

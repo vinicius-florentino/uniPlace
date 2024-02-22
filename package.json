@@ -27,6 +27,7 @@
         "concurrently": "^8.2.2",
         "laravel-echo": "^1.15.3",
         "pusher-js": "^8.4.0-rc2",
+        "react-material-ui-carousel": "^3.4.2",
         "react-number-format": "^5.3.1",
         "react-toastify": "^10.0.4",
         "remixicon": "^4.1.0"
