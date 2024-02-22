@@ -6,9 +6,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-
 import PersonalMenu from "./PersonalMenu";
-import SearchField from "./SearchField";
 import NavigationMenu from "./NavigationMenu";
 
 export default function Header({ user }) {
@@ -19,14 +17,6 @@ export default function Header({ user }) {
                     <Toolbar disableGutters>
                         <Box component="a" href="/">
                             <Logo />
-                        </Box>
-
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                            }}
-                        >
-                            <SearchField />
                         </Box>
 
                         <NavigationMenu/>

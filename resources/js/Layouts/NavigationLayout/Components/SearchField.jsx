@@ -7,12 +7,12 @@ export default function SearchField({}) {
 
     const Search = styled("div")(({ theme }) => ({
         position: "relative",
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: "16px",
         border: "var(--borders)",
         marginLeft: 0,
         width: "100%",
+        backgroundColor: "#FFF",
         [theme.breakpoints.up("sm")]: {
-            marginLeft: theme.spacing(1),
             width: "auto",
         },
     }));
@@ -23,6 +23,7 @@ export default function SearchField({}) {
         position: "absolute",
         pointerEvents: "none",
         display: "flex",
+        color: "var(--dark-color)",
         alignItems: "center",
         justifyContent: "center",
     }));
@@ -33,13 +34,6 @@ export default function SearchField({}) {
         "& .MuiInputBase-input": {
             padding: theme.spacing(1, 1, 1, 0),
             paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create("width"),
-            [theme.breakpoints.up("sm")]: {
-                width: "12ch",
-                "&:focus": {
-                    width: "30ch",
-                },
-            },
         },
     }));
 
