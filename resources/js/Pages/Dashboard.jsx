@@ -36,8 +36,8 @@ export default function Dashboard({ auth, ads }) {
                     <Box sx={{ pb: 2 }}>
                         <Grid container spacing={2} rowSpacing={0}>
                             {ads.data.map((ad, index) => (
-                                <Grid item xs={6} md={3} xl={2} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                    <AdCard key={index} sellerName={ad.seller.name} price={ad.price} title={ad.title} />
+                                <Grid key={index} item xs={6} sm={4} md={3} lg={2} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <AdCard sellerName={ad.seller.name} price={ad.price} title={ad.title} />
                                 </Grid>
                             ))}
                         </Grid>

@@ -3,24 +3,33 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Brigadeiro from "../../Assets/brigadeiro.webp"
+import Brigadeiro from "../../Assets/brigadeiro.webp";
 import formatPrice from "@/Utils/formatPrice";
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
+import RemixIcon from "../RemixIcon";
 
 export default function AdCard({ title, sellerName, price, href }) {
     return (
-        <Card sx={{ width: "100%", maxHeight: "auto", borderRadius: "16px" }} >
+        <Card sx={{ width: "250px", maxHeight: "auto", borderRadius: "16px" }}>
             {/* colocar link quando tiver pagina de ad */}
             <CardContent sx={{ p: 0 }}>
-                <Box sx={{
-                    m: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}>
-                    <img style={{
-                        maxWidth: "230px", minWidth: "200px", maxHeight: "230px", minHeight: "200px", borderRadius: "16px"
-                    }} src={Brigadeiro} alt="Brigadeiro" />
+                <Box
+                    sx={{
+                        p: 0,
+                        m: 0,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <img
+                        style={{
+                            width: "100%",
+                            height: "170px",
+                            objectFit: "cover",
+                        }}
+                        src={Brigadeiro}
+                        alt="Brigadeiro"
+                    />
                 </Box>
                 <Box
                     noValidate
@@ -49,15 +58,14 @@ export default function AdCard({ title, sellerName, price, href }) {
                             color: "var(--dark-color)",
                             alignItems: "center",
                             display: "flex",
-                            gap: "5px"
+                            gap: "5px",
                         }}
                     >
-                        <AssignmentIndOutlinedIcon />
+                        <RemixIcon className={"ri-user-2-line"} />
                         {sellerName}
                     </Typography>
                 </Box>
-                <Box>
-                </Box>
+                <Box></Box>
                 <Box
                     noValidate
                     sx={{
@@ -71,4 +79,4 @@ export default function AdCard({ title, sellerName, price, href }) {
             </CardContent>
         </Card>
     );
-};
+}

@@ -16,17 +16,17 @@ export default function NavigationMenu({}) {
         {
             label: "Início",
             href: "/",
-            startIcon: <RemixIcon className="ri-home-4-line"/>,
+            // startIcon: <RemixIcon className="ri-home-4-line"/>,
         },
         {
             label: "Planos",
             href: "/plans",
-            startIcon: <RemixIcon className="ri-briefcase-line"/>,
+            // startIcon: <RemixIcon className="ri-briefcase-line"/>,
         },
         {
             label: "Ajuda",
             href: "#",
-            startIcon: <RemixIcon className="ri-question-line"/>,
+            // startIcon: <RemixIcon className="ri-question-line"/>,
         },
     ];
 
@@ -44,9 +44,8 @@ export default function NavigationMenu({}) {
         <>
             <Box
                 sx={{
-                    flexGrow: 0,
+                    flexGrow: 1,
                     display: { xs: "flex", md: "none" },
-                    ml: 1,
                 }}
             >
                 <IconButton
@@ -84,7 +83,7 @@ export default function NavigationMenu({}) {
                 sx={{
                     flexGrow: 1,
                     display: { xs: "none", md: "flex" },
-                    justifyContent: "end",
+                    justifyContent: "center",
                 }}
             >
                 {pages.map((page, index) => (

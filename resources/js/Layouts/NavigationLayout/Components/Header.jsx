@@ -19,7 +19,7 @@ export default function Header({ user }) {
                             <Logo />
                         </Box>
 
-                        <NavigationMenu/>
+                        <NavigationMenu />
 
                         <Box sx={{ flexGrow: 0 }}>
                             {!user ? (
@@ -35,7 +35,7 @@ export default function Header({ user }) {
                                     Entrar
                                 </Button>
                             ) : (
-                                <PersonalMenu userName={user.name}/>
+                                <PersonalMenu userName={user.name} />
                             )}
                         </Box>
                     </Toolbar>

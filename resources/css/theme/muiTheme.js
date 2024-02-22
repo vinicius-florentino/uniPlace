@@ -42,6 +42,13 @@ const MuiTheme = {
     },
 
     components: {
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    boxShadow: "var(--box-shadow)",
+                },
+            },
+        },
         MuiTableContainer: {
             styleOverrides: {
                 root: {
@@ -172,13 +179,6 @@ const MuiTheme = {
             styleOverrides: {
                 root: {
                     fontSize: 20,
-                },
-            },
-        },
-        MuiIcon: {
-            styleOverrides: {
-                root: {
-                    color: "var(--dark-color)",
                 },
             },
         },
