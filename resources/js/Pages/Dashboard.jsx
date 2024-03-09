@@ -44,7 +44,7 @@ export default function Dashboard({ auth, ads }) {
                             key={item.id}
                             sx={{
                                 height: "320px",
-                                backgroundColor: "var(--primary-color)",
+                                backgroundColor: "var(--white-color)",
                                 color: "#FFF",
                                 display: "flex",
                                 justifyContent: "center",
