@@ -1,4 +1,5 @@
 const MuiTheme = {
+    
     palette: {
         primary: {
             main: "#1d28ac",
@@ -26,20 +27,20 @@ const MuiTheme = {
         },
     },
 
-    overrides: {
-        MuiCssBaseline: {
-            "@global": {
-                "*": {
-                    "scrollbar-width": "thin",
-                    "scrollbar-color": "red",
-                },
-                "*::-webkit-scrollbar": {
-                    width: "4px",
-                    height: "4px",
-                },
-            },
-        },
-    },
+    // overrides: {
+    //     MuiCssBaseline: {
+    //         "@global": {
+    //             "*": {
+    //                 "scrollbar-width": "thin",
+    //                 "scrollbar-color": "red",
+    //             },
+    //             "*::-webkit-scrollbar": {
+    //                 width: "4px",
+    //                 height: "4px",
+    //             },
+    //         },
+    //     },
+    // },
 
     components: {
         MuiCard: {

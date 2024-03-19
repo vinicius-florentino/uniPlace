@@ -465,7 +465,7 @@ export default function Ads({ auth, ads }) {
         <NavigationLayout user={auth.user}>
             <Head title="Painel vendedor - Anúncios" />
 
-            <Box noValidate sx={{ width: "100%", py: 2 }}>
+            <Box noValidate sx={{ width: "100%" }}>
                 <Grid container spacing={0} rowSpacing={2}>
                     <Grid item xs={12}>
                         <PageBox

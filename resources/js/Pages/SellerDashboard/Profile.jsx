@@ -141,7 +141,7 @@ export default function Profile({ auth, seller }) {
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Painel vendedor - Perfil" />
-            <Box noValidate sx={{ width: "100%", pt: 2 }}>
+            <Box noValidate sx={{ width: "100%" }}>
                 <Grid container spacing={0} rowSpacing={2}>
                     {!seller &&
                         <Grid item xs={12}>

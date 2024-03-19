@@ -18,7 +18,8 @@ import Avatar from "@mui/material/Avatar";
 
 import RemixIcon from "@/Components/RemixIcon";
 
-export default function PersonalMenu({ userName }) {
+export default function PersonalMenu({ user }) {
+
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
@@ -67,8 +68,8 @@ export default function PersonalMenu({ userName }) {
             <Tooltip title="Menu pessoal">
                 <IconButton onClick={handleOpenMenuDrawer}>
                     <Avatar
-                        {...stringAvatar(userName)}
-                        alt={userName.toUpperCase()}
+                        {...stringAvatar(user.name)}
+                        alt={user.name.toUpperCase()}
                     />
                     {/* <AccountCircleIcon
                         color="var(--dark-color)"
@@ -86,11 +87,11 @@ export default function PersonalMenu({ userName }) {
                         <ListItem>
                             <ListItemIcon>
                                 <Avatar
-                                    {...stringAvatar(userName)}
-                                    alt={userName.toUpperCase()}
+                                    {...stringAvatar(user.name)}
+                                    alt={user.name.toUpperCase()}
                                 />
                             </ListItemIcon>
-                            <ListItemText primary={userName} />
+                            <ListItemText primary={user.name} />
                             <IconButton
                                 aria-label="close"
                                 onClick={handleCloseMenuDrawer}

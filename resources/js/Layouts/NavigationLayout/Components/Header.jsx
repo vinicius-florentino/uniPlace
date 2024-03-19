@@ -28,14 +28,11 @@ export default function Header({ user }) {
                                     disableElevation
                                     fullWidth
                                     variant="containedLight"
-                                    sx={{
-                                        ml: 1,
-                                    }}
                                 >
                                     Entrar
                                 </Button>
                             ) : (
-                                <PersonalMenu userName={user.name} />
+                                <PersonalMenu user={user} />
                             )}
                         </Box>
                     </Toolbar>

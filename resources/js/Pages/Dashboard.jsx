@@ -37,7 +37,7 @@ export default function Dashboard({ auth, ads }) {
         <NavigationLayout user={auth.user}>
             <Head title="Página inicial" />
 
-            <Box sx={{ py: 2 }}>
+            <Box sx={{ pb: 2 }}>
                 <Carousel navButtonsAlwaysVisible animation={"slide"}>
                     {items.map((item) => (
                         <Paper
@@ -60,6 +60,7 @@ export default function Dashboard({ auth, ads }) {
             <Box sx={{ pb: 2 }}>
                 <SearchField />
             </Box>
+
             {!loading && (
                 <>
                     <Box sx={{ pb: 2 }}>

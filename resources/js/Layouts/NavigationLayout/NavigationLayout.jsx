@@ -4,14 +4,13 @@ import Header from "./Components/Header";
 import Container from "@mui/material/Container";
 
 export default function NavigationLayout({ user, children }) {
-
     return (
         <>
             <header>
-                <Header user={user}/>
+                <Header user={user} />
             </header>
 
-            <main>
+            <main style={{ padding: "16px 0px" }}>
                 <Container maxWidth="lg">{children}</Container>
             </main>
 

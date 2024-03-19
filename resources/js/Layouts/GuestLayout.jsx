@@ -1,6 +1,6 @@
-// import ApplicationLogo from '@/Components/ApplicationLogo';
 import React from "react";
 import Box from "@mui/system/Box";
+import Logo from "@/Components/Logo";
 
 export default function Guest({ children, customWidth }) {
     return (
@@ -17,6 +17,10 @@ export default function Guest({ children, customWidth }) {
                 p: 2,
             }}
         >
+            <Box component="a" href="/" sx={{ mb: 2 }}>
+                <Logo height="48px" width="48px" />
+            </Box>
+
             <div>{children}</div>
         </Box>
     );
