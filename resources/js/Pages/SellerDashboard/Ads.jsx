@@ -81,7 +81,7 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
         setData(name, value);
     };
 
-    const editAd = (e) => {
+    const deleteAd = (e) => {
         e.preventDefault();
 
         destroy(`/seller-dashboard/ads/${id}`, {
@@ -106,7 +106,12 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
             </IconButton>
 
             {open && (
-                <Dialog onClose={onClose} open={open}>
+                <Dialog
+                    onClose={onClose}
+                    open={open}
+                    component="form"
+                    onSubmit={deleteAd}
+                >
                     <DialogTitle>Excluir anúncio</DialogTitle>
                     <IconButton
                         aria-label="close"
@@ -116,7 +121,7 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                         <RemixIcon className="ri-close-line" />
                     </IconButton>
                     <DialogContent dividers>
-                        <Box noValidate component="form" onSubmit={editAd}>
+                        <Box noValidate>
                             <Grid container spacing={0} rowSpacing={2}>
                                 <Grid
                                     item
@@ -186,33 +191,26 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                         disabled
                                     />
                                 </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    display={"flex"}
-                                    justifyContent={"end"}
-                                    alignItems={"center"}
-                                    gap={"5px"}
-                                >
-                                    <Button
-                                        variant="containedLight"
-                                        disableElevation
-                                        onClick={onClose}
-                                    >
-                                        Cancelar
-                                    </Button>
-                                    <Button
-                                        variant="containedDanger"
-                                        disableElevation
-                                        disabled={processing}
-                                        type="submit"
-                                    >
-                                        Excluir
-                                    </Button>
-                                </Grid>
                             </Grid>
                         </Box>
                     </DialogContent>
+                    <DialogActions>
+                        <Button
+                            variant="containedLight"
+                            disableElevation
+                            onClick={onClose}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            variant="containedDanger"
+                            disableElevation
+                            disabled={processing}
+                            type="submit"
+                        >
+                            Excluir
+                        </Button>
+                    </DialogActions>
                 </Dialog>
             )}
         </>
@@ -489,7 +487,12 @@ const CreateAdDialog = ({ onClose, open }) => {
     };
 
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog
+            onClose={onClose}
+            open={open}
+            component="form"
+            onSubmit={createAd}
+        >
             <DialogTitle>Criar anúncio</DialogTitle>
             <IconButton
                 aria-label="close"
@@ -499,7 +502,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                 <RemixIcon className="ri-close-line" />
             </IconButton>
             <DialogContent dividers>
-                <Box noValidate component="form" onSubmit={createAd}>
+                <Box noValidate>
                     <Grid container spacing={0} rowSpacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -583,33 +586,26 @@ const CreateAdDialog = ({ onClose, open }) => {
                                 {errors.image ?? null}
                             </FormHelperText>
                         </Grid>
-                        <Grid
-                            item
-                            xs={12}
-                            display={"flex"}
-                            justifyContent={"end"}
-                            alignItems={"center"}
-                            gap={"5px"}
-                        >
-                            <Button
-                                variant="containedLight"
-                                disableElevation
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                variant="contained"
-                                disableElevation
-                                disabled={processing}
-                                type="submit"
-                            >
-                                Confirmar
-                            </Button>
-                        </Grid>
                     </Grid>
                 </Box>
             </DialogContent>
+            <DialogActions>
+                <Button
+                    variant="containedLight"
+                    disableElevation
+                    onClick={onClose}
+                >
+                    Cancelar
+                </Button>
+                <Button
+                    variant="contained"
+                    disableElevation
+                    disabled={processing}
+                    type="submit"
+                >
+                    Confirmar
+                </Button>
+            </DialogActions>
         </Dialog>
     );
 };

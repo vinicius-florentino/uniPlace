@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import { toast } from "react-toastify";
 import RemixIcon from "@/Components/RemixIcon";
@@ -45,17 +46,22 @@ const DeleteUserDialog = ({ onClose, open }) => {
     };
 
     return (
-        <Dialog onClose={onClose} open={open}>
+        <Dialog
+            onClose={onClose}
+            open={open}
+            component="form"
+            onSubmit={deleteUser}
+        >
             <DialogTitle>Excluir conta</DialogTitle>
             <IconButton
                 aria-label="close"
                 onClick={onClose}
                 sx={{ position: "absolute", right: 16, top: 12 }}
             >
-                <RemixIcon className="ri-close-line"/>
+                <RemixIcon className="ri-close-line" />
             </IconButton>
             <DialogContent dividers>
-                <Box noValidate component="form" onSubmit={deleteUser}>
+                <Box noValidate>
                     <Grid container spacing={0} rowSpacing={2}>
                         <Grid item xs={12}>
                             <Typography>
@@ -84,40 +90,31 @@ const DeleteUserDialog = ({ onClose, open }) => {
                                 fullWidth
                             />
                         </Grid>
-
-                        <Grid
-                            item
-                            xs={12}
-                            display={"flex"}
-                            justifyContent={"end"}
-                            alignItems={"center"}
-                            gap={"5px"}
-                        >
-                            <Button
-                                variant="containedLight"
-                                disableElevation
-                                onClick={onClose}
-                            >
-                                Cancelar
-                            </Button>
-                            <Button
-                                variant="containedDanger"
-                                disableElevation
-                                disabled={processing}
-                                type="submit"
-                            >
-                                Excluir conta
-                            </Button>
-                        </Grid>
                     </Grid>
                 </Box>
             </DialogContent>
+            <DialogActions>
+                <Button
+                    variant="containedLight"
+                    disableElevation
+                    onClick={onClose}
+                >
+                    Cancelar
+                </Button>
+                <Button
+                    variant="containedDanger"
+                    disableElevation
+                    disabled={processing}
+                    type="submit"
+                >
+                    Excluir conta
+                </Button>
+            </DialogActions>
         </Dialog>
     );
 };
 
 export default function DeleteUserForm() {
-
     const [openDeleteUserDialog, setOpenDeleteUserDialog] = useState(false);
 
     const handleOpenDeleteUserDialog = () => {
