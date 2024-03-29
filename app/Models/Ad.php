@@ -40,9 +40,9 @@ class Ad extends Model
             }
         });
         static::saving(function ($ad) {
-            if ($ad->isDirty('image_path') && $ad->getOriginal('image_path')) {
+            if ($ad->image_path !== $ad->getOriginal('image_path') && $ad->getOriginal('image_path') !== null) {
                 Storage::disk('public')->delete($ad->getOriginal('image_path'));
             }
-        });        
+        });
     }
 }

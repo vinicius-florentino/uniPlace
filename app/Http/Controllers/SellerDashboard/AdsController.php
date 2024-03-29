@@ -88,8 +88,7 @@ class AdsController extends Controller
             $ad->title = $request->title;
             $ad->description = $request->description;
             $ad->price = $request->price;
-            $ad->image_path = $imagePath ?? null;
-        
+            $ad->image_path = $imagePath ?? $ad->getOriginal('image_path');
             $ad->save();
         }        
 
