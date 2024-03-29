@@ -9,6 +9,7 @@ import PriceFormatMask from "@/Components/masks/PriceFormatMask";
 import formatPrice from "@/Utils/formatPrice";
 
 import getErrorsMessage from "@/Utils/getErrorsMessage";
+import formatDate from "@/Utils/formatDate";
 
 import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
@@ -137,6 +138,7 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                             width: "120px",
                                             height: "120px",
                                             borderRadius: "300px",
+                                            opacity: "50%"
                                         }}
                                         src={imageUrl}
                                     ></Image>
@@ -691,11 +693,17 @@ export default function Ads({ auth, ads }) {
                                                             <TableCell>
                                                                 Título
                                                             </TableCell>
-                                                            <TableCell align="left">
+                                                            <TableCell align="center">
                                                                 Descrição
                                                             </TableCell>
-                                                            <TableCell align="left">
+                                                            <TableCell align="center">
                                                                 Preço
+                                                            </TableCell>
+                                                            <TableCell align="center">
+                                                                Data de criação
+                                                            </TableCell>
+                                                            <TableCell align="center">
+                                                                Estado
                                                             </TableCell>
                                                             <TableCell align="right"></TableCell>
                                                         </TableRow>
@@ -742,15 +750,21 @@ export default function Ads({ auth, ads }) {
                                                                             ad.title
                                                                         }
                                                                     </TableCell>
-                                                                    <TableCell align="left">
+                                                                    <TableCell align="center">
                                                                         {
                                                                             ad.description
                                                                         }
                                                                     </TableCell>
-                                                                    <TableCell align="left">
+                                                                    <TableCell align="center">
                                                                         {formatPrice(
                                                                             ad.price
                                                                         )}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                        {formatDate(ad.created_at)}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                        {ad.is_able ? "Ativo" : "Inativo"}
                                                                     </TableCell>
                                                                     <TableCell align="right">
                                                                         <IconButton

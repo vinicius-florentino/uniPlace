@@ -25,6 +25,7 @@
         "@emotion/styled": "^11.11.0",
         "@mui/material": "^5.14.18",
         "concurrently": "^8.2.2",
+        "dayjs": "^1.11.10",
         "laravel-echo": "^1.15.3",
         "pusher-js": "^8.4.0-rc2",
         "react-material-ui-carousel": "^3.4.2",
