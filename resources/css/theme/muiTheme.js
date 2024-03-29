@@ -1,5 +1,4 @@
 const MuiTheme = {
-    
     palette: {
         primary: {
             main: "#1d28ac",
@@ -12,6 +11,9 @@ const MuiTheme = {
         },
         warning: {
             main: "#e2c900",
+        },
+        info: {
+            main: "#00b9ff",
         },
         error: {
             main: "#dc3545",
@@ -26,21 +28,6 @@ const MuiTheme = {
             fontSize: 14,
         },
     },
-
-    // overrides: {
-    //     MuiCssBaseline: {
-    //         "@global": {
-    //             "*": {
-    //                 "scrollbar-width": "thin",
-    //                 "scrollbar-color": "red",
-    //             },
-    //             "*::-webkit-scrollbar": {
-    //                 width: "4px",
-    //                 height: "4px",
-    //             },
-    //         },
-    //     },
-    // },
 
     components: {
         MuiCard: {
@@ -63,7 +50,7 @@ const MuiTheme = {
                     "& .MuiTableCell-root": {
                         color: "var(--dark-color)",
                         fontSize: 14,
-                        fontWeight: 700
+                        fontWeight: 700,
                     },
                 },
             },
@@ -71,8 +58,8 @@ const MuiTheme = {
         MuiTableBody: {
             styleOverrides: {
                 root: {
-                    '& .MuiTableRow-root:nth-of-type(odd)': {
-                        backgroundColor: 'var(--ultra-light-color)',
+                    "& .MuiTableRow-root:nth-of-type(odd)": {
+                        backgroundColor: "var(--ultra-light-color)",
                     },
                 },
             },
@@ -180,6 +167,26 @@ const MuiTheme = {
             styleOverrides: {
                 root: {
                     fontSize: 20,
+                },
+            },
+        },
+        MuiDialogActions: {
+            styleOverrides: {
+                root: {
+                    padding: "16px",
+                },
+            },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    fontSize: 20,
+                },
+            },
+            defaultProps: {
+                InputLabelProps: {
+                    shrink: true,
+                    disableAnimation: true,
                 },
             },
         },

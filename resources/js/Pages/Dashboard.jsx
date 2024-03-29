@@ -83,6 +83,7 @@ export default function Dashboard({ auth, ads }) {
                                         sellerName={ad.seller.name}
                                         price={ad.price}
                                         title={ad.title}
+                                        imageSrc={ad.image_url}
                                     />
                                 </Grid>
                             ))}

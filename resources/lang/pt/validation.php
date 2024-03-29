@@ -121,6 +121,7 @@ return [
         'current_password' => 'senha atual',
         'title' => 'título',
         'description' => 'descrição',
-        'price' => 'preço'
+        'price' => 'preço',
+        'image' => 'imagem'
     ],
 ];

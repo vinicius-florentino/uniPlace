@@ -19,6 +19,9 @@ const PageBoxRedirect = ({ title, href }) => {
                 alignItems: "center",
                 color: "var(--dark-color)",
                 textDecoration: "none",
+                "&:hover": {
+                    backgroundColor: "var(--hover-color)",
+                },
             }}
         >
             <Typography sx={{ fontWeight: 500, fontSize: 16 }}>

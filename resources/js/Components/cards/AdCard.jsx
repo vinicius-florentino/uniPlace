@@ -3,14 +3,13 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Brigadeiro from "../../Assets/brigadeiro.webp";
 import formatPrice from "@/Utils/formatPrice";
 import RemixIcon from "../RemixIcon";
+import Image from "../Image";
 
-export default function AdCard({ title, sellerName, price, href }) {
+export default function AdCard({ title, sellerName, imageSrc, price, href }) {
     return (
         <Card sx={{ width: "250px", maxHeight: "auto", borderRadius: "16px" }}>
-            {/* colocar link quando tiver pagina de ad */}
             <CardContent sx={{ p: 0 }}>
                 <Box
                     sx={{
@@ -21,14 +20,13 @@ export default function AdCard({ title, sellerName, price, href }) {
                         alignItems: "center",
                     }}
                 >
-                    <img
+                    <Image
                         style={{
                             width: "100%",
                             height: "170px",
                             objectFit: "cover",
                         }}
-                        src={Brigadeiro}
-                        alt="Brigadeiro"
+                        src={imageSrc}
                     />
                 </Box>
                 <Box

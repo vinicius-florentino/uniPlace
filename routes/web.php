@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('/seller-dashboard/profile', SellerDashboardProfileController::class)->only(['index', 'store', 'update']);
     Route::resource('/seller-dashboard/ads', SellerDashboardAdsController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::put('/seller-dashboard/ads/{id}/delete-image', [SellerDashboardAdsController::class, 'deleteImage']);
 });
 
 require __DIR__ . '/auth.php';

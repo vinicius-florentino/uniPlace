@@ -28,7 +28,8 @@ class AdsController extends Controller
         $ads = Ad::where('seller_id', $sellerId)->paginate();
 
         return Inertia::render('SellerDashboard/Ads', [
-            'status' => session('status'), 'ads' => $ads
+            'status' => session('status'),
+            'ads' => $ads
         ]);
     }
 
@@ -43,14 +44,20 @@ class AdsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'price' => 'required|numeric|max:999999.99'
+            'price' => 'required|numeric|max:999999.99',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('imgs/ads', 'public');
+        }
 
         Ad::create([
             'seller_id' => $sellerId,
             'title' => $request->title,
             'description' => $request->description,
-            'price' => $request->price
+            'price' => $request->price,
+            'image_path' => $imagePath ?? null
         ]);
 
         return back();
@@ -60,22 +67,31 @@ class AdsController extends Controller
     {
         $user = $request->user();
         $userId = $user->id;
-
+         
         $seller = Seller::where('user_id', $userId)->first();
         $sellerId = $seller->id;
 
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'price' => 'required|numeric|max:999999.99'
+            'price' => 'required|numeric|max:999999.99',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        Ad::where('seller_id', $sellerId)->where('id', $id)
-            ->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'price' => $request->price
-            ]);
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('imgs/ads', 'public');
+        }
+
+        $ad = Ad::where('seller_id', $sellerId)->where('id', $id)->first();
+
+        if ($ad) {
+            $ad->title = $request->title;
+            $ad->description = $request->description;
+            $ad->price = $request->price;
+            $ad->image_path = $imagePath ?? null;
+        
+            $ad->save();
+        }        
 
         return back();
     }
@@ -83,6 +99,7 @@ class AdsController extends Controller
     public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
+
         $userId = $user->id;
 
         $seller = Seller::where('user_id', $userId)->first();
@@ -92,6 +109,24 @@ class AdsController extends Controller
             ->where('id', $id)
             ->first()
             ->delete();
+
+        return back();
+    }
+
+    public function deleteImage(Request $request, $id): RedirectResponse
+    {
+        $user = $request->user();
+        $userId = $user->id;
+
+        $seller = Seller::where('user_id', $userId)->first();
+        $sellerId = $seller->id;
+
+        $ad = Ad::where('seller_id', $sellerId)
+            ->where('id', $id)
+            ->first();
+
+        $ad->image_path = null;
+        $ad->save();
 
         return back();
     }

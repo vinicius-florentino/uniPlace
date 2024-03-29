@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function seller()
+    {
+        return $this->belongsTo(Seller::class);
+    }
 }

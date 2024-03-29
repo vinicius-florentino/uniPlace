@@ -8,7 +8,10 @@ import Loading from "@/Components/Loading";
 import PriceFormatMask from "@/Components/masks/PriceFormatMask";
 import formatPrice from "@/Utils/formatPrice";
 
+import getErrorsMessage from "@/Utils/getErrorsMessage";
+
 import RemixIcon from "@/Components/RemixIcon";
+import Image from "@/Components/Image";
 
 import {
     Box,
@@ -27,9 +30,26 @@ import {
     TableHead,
     TableRow,
     Paper,
+    Alert,
+    DialogActions,
+    FormHelperText,
 } from "@mui/material";
 
-const DeleteAdDialog = ({ id, title, price, description }) => {
+import { styled } from "@mui/material/styles";
+
+const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
+    height: 1,
+    overflow: "hidden",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    whiteSpace: "nowrap",
+    width: 1,
+});
+
+const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
     const {
         data,
         setData,
@@ -79,7 +99,10 @@ const DeleteAdDialog = ({ id, title, price, description }) => {
     return (
         <>
             <IconButton onClick={handleOpen}>
-                <RemixIcon className="ri-delete-bin-line" color="var(--danger-color)"/>
+                <RemixIcon
+                    className="ri-delete-bin-line"
+                    color="var(--danger-color)"
+                />
             </IconButton>
 
             {open && (
@@ -95,6 +118,24 @@ const DeleteAdDialog = ({ id, title, price, description }) => {
                     <DialogContent dividers>
                         <Box noValidate component="form" onSubmit={editAd}>
                             <Grid container spacing={0} rowSpacing={2}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    display="flex"
+                                    flexDirection="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    gap={"8px"}
+                                >
+                                    <Image
+                                        style={{
+                                            width: "120px",
+                                            height: "120px",
+                                            borderRadius: "300px",
+                                        }}
+                                        src={imageUrl}
+                                    ></Image>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
@@ -178,11 +219,12 @@ const DeleteAdDialog = ({ id, title, price, description }) => {
     );
 };
 
-const EditAdDialog = ({ id, title, price, description }) => {
+const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
     const { data, setData, put, processing, errors } = useForm({
         title: title,
         description: description,
         price: price,
+        image: "",
     });
 
     const [open, setOpen] = useState(false);
@@ -204,14 +246,46 @@ const EditAdDialog = ({ id, title, price, description }) => {
         setData(name, value);
     };
 
+    const handleImageChange = (e) => {
+        const { name, files } = e.target;
+        setData(name, files[0]);
+    };
+
+    const handleRemoveImageClick = (e) => {
+        setData("image", "");
+    };
+
     const editAd = (e) => {
         e.preventDefault();
 
-        put(`/seller-dashboard/ads/${id}`, {
+        router.post(
+            `/seller-dashboard/ads/${id}`,
+            {
+                _method: "put",
+                title: data.title,
+                description: data.description,
+                price: data.price,
+                image: data.image,
+            },
+            {
+                onSuccess: () => {
+                    toast.success("Anúncio editado com sucesso!");
+                    onClose();
+                },
+                onError: () => {
+                    toast.error("Ocorreu um erro!");
+                },
+            }
+        );
+    };
+
+    const handleDeleteImage = (e) => {
+        e.preventDefault();
+
+        put(`/seller-dashboard/ads/${id}/delete-image`, {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success("Anúncio editado com sucesso!");
-                onClose();
+                toast.success("Imagem excluída com sucesso!");
             },
             onError: () => {
                 toast.error("Ocorreu um erro!");
@@ -222,11 +296,16 @@ const EditAdDialog = ({ id, title, price, description }) => {
     return (
         <>
             <IconButton onClick={handleOpen}>
-                <RemixIcon className="ri-edit-line"/>
+                <RemixIcon className="ri-edit-line" />
             </IconButton>
 
             {open && (
-                <Dialog onClose={onClose} open={open}>
+                <Dialog
+                    onClose={onClose}
+                    open={open}
+                    component="form"
+                    onSubmit={editAd}
+                >
                     <DialogTitle>Editar anúncio</DialogTitle>
                     <IconButton
                         aria-label="close"
@@ -236,8 +315,34 @@ const EditAdDialog = ({ id, title, price, description }) => {
                         <RemixIcon className="ri-close-line" />
                     </IconButton>
                     <DialogContent dividers>
-                        <Box noValidate component="form" onSubmit={editAd}>
+                        <Box noValidate>
                             <Grid container spacing={0} rowSpacing={2}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    display="flex"
+                                    flexDirection="column"
+                                    justifyContent="center"
+                                    alignItems="center"
+                                    gap={"8px"}
+                                >
+                                    <Image
+                                        style={{
+                                            width: "120px",
+                                            height: "120px",
+                                            borderRadius: "300px",
+                                        }}
+                                        src={imageUrl}
+                                    ></Image>
+                                    <Button
+                                        variant="containedDanger"
+                                        disableElevation
+                                        disabled={!imageUrl}
+                                        onClick={handleDeleteImage}
+                                    >
+                                        Remover imagem atual
+                                    </Button>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
@@ -285,33 +390,61 @@ const EditAdDialog = ({ id, title, price, description }) => {
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    display={"flex"}
-                                    justifyContent={"end"}
-                                    alignItems={"center"}
-                                    gap={"5px"}
-                                >
+                                <Grid item xs={12}>
                                     <Button
+                                        component="label"
+                                        role={undefined}
                                         variant="containedLight"
-                                        disableElevation
-                                        onClick={onClose}
+                                        tabIndex={-1}
+                                        startIcon={
+                                            <RemixIcon className="ri-file-image-line" />
+                                        }
                                     >
-                                        Cancelar
+                                        {data.image.name
+                                            ? `(${data?.image?.name?.slice(
+                                                  0,
+                                                  14
+                                              )}... selecionado)`
+                                            : "Escolher nova imagem"}
+                                        <VisuallyHiddenInput
+                                            name="image"
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                        />
                                     </Button>
-                                    <Button
-                                        variant="contained"
-                                        disableElevation
-                                        disabled={processing}
-                                        type="submit"
-                                    >
-                                        Confirmar
-                                    </Button>
+                                    {data.image.name && (
+                                        <IconButton
+                                            sx={{ ml: 1 }}
+                                            onClick={handleRemoveImageClick}
+                                        >
+                                            <RemixIcon className="ri-close-line"></RemixIcon>
+                                        </IconButton>
+                                    )}
+                                    <FormHelperText error={!!errors.image}>
+                                        {errors.image ?? null}
+                                    </FormHelperText>
                                 </Grid>
                             </Grid>
                         </Box>
                     </DialogContent>
+                    <DialogActions>
+                        <Button
+                            variant="containedLight"
+                            disableElevation
+                            onClick={onClose}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            variant="contained"
+                            disableElevation
+                            disabled={processing}
+                            type="submit"
+                        >
+                            Confirmar
+                        </Button>
+                    </DialogActions>
                 </Dialog>
             )}
         </>
@@ -323,6 +456,7 @@ const CreateAdDialog = ({ onClose, open }) => {
         title: "",
         description: "",
         price: "",
+        image: "",
     });
 
     const createAd = (e) => {
@@ -334,8 +468,8 @@ const CreateAdDialog = ({ onClose, open }) => {
                 toast.success("Anúncio criado com sucesso!");
                 onClose();
             },
-            onError: () => {
-                toast.error("Ocorreu um erro!");
+            onError: (errors) => {
+                toast.error(getErrorsMessage(errors));
             },
         });
     };
@@ -343,6 +477,15 @@ const CreateAdDialog = ({ onClose, open }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData(name, value);
+    };
+
+    const handleImageChange = (e) => {
+        const { name, files } = e.target;
+        setData(name, files[0]);
+    };
+
+    const handleRemoveImageClick = (e) => {
+        setData("image", "");
     };
 
     return (
@@ -405,6 +548,41 @@ const CreateAdDialog = ({ onClose, open }) => {
                                 fullWidth
                             />
                         </Grid>
+                        <Grid item xs={12}>
+                            <Button
+                                component="label"
+                                role={undefined}
+                                variant="containedLight"
+                                tabIndex={-1}
+                                startIcon={
+                                    <RemixIcon className="ri-file-image-line" />
+                                }
+                            >
+                                {data.image.name
+                                    ? `(${data?.image?.name?.slice(
+                                          0,
+                                          14
+                                      )}... selecionado)`
+                                    : "Escolher imagem"}
+                                <VisuallyHiddenInput
+                                    name="image"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                />
+                            </Button>
+                            {data.image.name && (
+                                <IconButton
+                                    sx={{ ml: 1 }}
+                                    onClick={handleRemoveImageClick}
+                                >
+                                    <RemixIcon className="ri-close-line"></RemixIcon>
+                                </IconButton>
+                            )}
+                            <FormHelperText error={!!errors.image}>
+                                {errors.image ?? null}
+                            </FormHelperText>
+                        </Grid>
                         <Grid
                             item
                             xs={12}
@@ -437,7 +615,6 @@ const CreateAdDialog = ({ onClose, open }) => {
 };
 
 export default function Ads({ auth, ads }) {
-
     let paginationTotal = ads?.last_page;
     let actualPage = ads?.current_page;
 
@@ -481,8 +658,10 @@ export default function Ads({ auth, ads }) {
                                             onClick={() =>
                                                 handleOpenCreateAdDialog()
                                             }
+                                            startIcon={
+                                                <RemixIcon className="ri-add-line" />
+                                            }
                                         >
-                                            <RemixIcon className="ri-add-line" />
                                             Criar anúncio
                                         </Button>
 
@@ -496,89 +675,135 @@ export default function Ads({ auth, ads }) {
                                         )}
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TableContainer component={Paper}>
-                                            <Table
-                                                sx={{ width: "100%" }}
-                                                aria-label="simple table"
-                                            >
-                                                <TableHead>
-                                                    <TableRow>
-                                                        <TableCell>
-                                                            Título
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            Descrição
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            Preço
-                                                        </TableCell>
-                                                        <TableCell align="right"></TableCell>
-                                                    </TableRow>
-                                                </TableHead>
-                                                <TableBody>
-                                                    {ads.data.map(
-                                                        (ad, index) => (
-                                                            <TableRow
-                                                                key={index}
-                                                                sx={{
-                                                                    "&:last-child td, &:last-child th":
-                                                                        {
-                                                                            border: 0,
-                                                                        },
-                                                                }}
-                                                            >
-                                                                <TableCell
-                                                                    component="th"
-                                                                    scope="row"
+                                        {ads.data.length === 0 && (
+                                            <Alert severity="info">
+                                                Nenhum anúncio foi encontrado
+                                            </Alert>
+                                        )}
+
+                                        {ads.data.length > 0 && (
+                                            <TableContainer component={Paper}>
+                                                <Table
+                                                    sx={{ width: "100%" }}
+                                                    aria-label="simple table"
+                                                >
+                                                    <TableHead>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                                Imagem
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                Título
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                Descrição
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                Preço
+                                                            </TableCell>
+                                                            <TableCell align="right"></TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        {ads.data.map(
+                                                            (ad, index) => (
+                                                                <TableRow
+                                                                    key={index}
+                                                                    sx={{
+                                                                        "&:last-child td, &:last-child th":
+                                                                            {
+                                                                                border: 0,
+                                                                            },
+                                                                    }}
                                                                 >
-                                                                    {ad.title}
-                                                                </TableCell>
-                                                                <TableCell align="left">
-                                                                    {
-                                                                        ad.description
-                                                                    }
-                                                                </TableCell>
-                                                                <TableCell align="left">
-                                                                    {formatPrice(
-                                                                        ad.price
-                                                                    )}
-                                                                </TableCell>
-                                                                <TableCell align="right">
-                                                                    <EditAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
+                                                                    <TableCell
+                                                                        component="th"
+                                                                        scope="row"
+                                                                        sx={{
+                                                                            objectFit:
+                                                                                "contain",
+                                                                        }}
+                                                                    >
+                                                                        <Image
+                                                                            src={
+                                                                                ad.image_url
+                                                                            }
+                                                                            style={{
+                                                                                width: "48px",
+                                                                                height: "48px",
+                                                                                borderRadius:
+                                                                                    "300px",
+                                                                            }}
+                                                                            alt="Imagem do anúncio"
+                                                                        ></Image>
+                                                                    </TableCell>
+
+                                                                    <TableCell
+                                                                        component="th"
+                                                                        scope="row"
+                                                                    >
+                                                                        {
                                                                             ad.title
                                                                         }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
+                                                                    </TableCell>
+                                                                    <TableCell align="left">
+                                                                        {
                                                                             ad.description
                                                                         }
-                                                                    />
-                                                                    <DeleteAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
+                                                                    </TableCell>
+                                                                    <TableCell align="left">
+                                                                        {formatPrice(
                                                                             ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                    />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        )
-                                                    )}
-                                                </TableBody>
-                                            </Table>
-                                        </TableContainer>
+                                                                        )}
+                                                                    </TableCell>
+                                                                    <TableCell align="right">
+                                                                        <IconButton
+                                                                            href={`/ad/${ad.id}`}
+                                                                        >
+                                                                            <RemixIcon className="ri-eye-line"></RemixIcon>
+                                                                        </IconButton>
+                                                                        <EditAdDialog
+                                                                            id={
+                                                                                ad.id
+                                                                            }
+                                                                            title={
+                                                                                ad.title
+                                                                            }
+                                                                            price={
+                                                                                ad.price
+                                                                            }
+                                                                            description={
+                                                                                ad.description
+                                                                            }
+                                                                            imageUrl={
+                                                                                ad.image_url
+                                                                            }
+                                                                        />
+                                                                        <DeleteAdDialog
+                                                                            id={
+                                                                                ad.id
+                                                                            }
+                                                                            title={
+                                                                                ad.title
+                                                                            }
+                                                                            price={
+                                                                                ad.price
+                                                                            }
+                                                                            description={
+                                                                                ad.description
+                                                                            }
+                                                                            imageUrl={
+                                                                                ad.image_url
+                                                                            }
+                                                                        />
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        )}
+                                                    </TableBody>
+                                                </Table>
+                                            </TableContainer>
+                                        )}
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Pagination

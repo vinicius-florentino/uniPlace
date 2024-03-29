@@ -12,11 +12,12 @@
     --primary-color: #1c28ab;
     --secondary-color: #5758bd;
 
-    --hover-color: #c3c3c3;
+    --hover-color: #fbfbfb;
     
     --dark-color: #424242;
     --light-color: #ecedf2;
     --ultra-light-color: #ecedf240;
+    
     --white-color: #ffffff;
 
     --info-color: #00b9ff;
@@ -24,7 +25,7 @@
     --warning-color: #e2c900;
     --danger-color: #dc3545;
 
-    --borders: 1px solid var(--hover-color);
+    --borders: 1px solid #c3c3c3;
     --box-shadow: #00000029 0px 1px 4px;
 
     /* Lib toastify de alerts */
@@ -33,6 +34,8 @@
     --toastify-icon-color-warning: var(--warning-color);
     --toastify-icon-color-error: var(--danger-color);
     --toastify-font-family: var(--font-family);
+
+    --toastify-toast-width: 520px;
 }
 
 body {
