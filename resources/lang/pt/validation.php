@@ -122,6 +122,7 @@ return [
         'title' => 'título',
         'description' => 'descrição',
         'price' => 'preço',
-        'image' => 'imagem'
+        'image' => 'imagem',
+        'category_id' => 'categoria'
     ],
 ];

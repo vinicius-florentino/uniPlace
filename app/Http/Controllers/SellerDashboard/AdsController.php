@@ -25,7 +25,9 @@ class AdsController extends Controller
         $seller = Seller::where('user_id', $userId)->first();
         $sellerId = $seller->id;
 
-        $ads = Ad::where('seller_id', $sellerId)->paginate();
+        $ads = Ad::where('seller_id', $sellerId)
+            ->with('category')
+            ->paginate();
 
         return Inertia::render('SellerDashboard/Ads', [
             'status' => session('status'),
@@ -45,6 +47,7 @@ class AdsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'price' => 'required|numeric|max:999999.99',
+            'category_id' => 'required|int',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -57,7 +60,8 @@ class AdsController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
-            'image_path' => $imagePath ?? null
+            'category_id' => $request->category_id,
+            'image_path' => $imagePath ?? null,
         ]);
 
         return back();
@@ -67,7 +71,7 @@ class AdsController extends Controller
     {
         $user = $request->user();
         $userId = $user->id;
-         
+
         $seller = Seller::where('user_id', $userId)->first();
         $sellerId = $seller->id;
 
@@ -88,9 +92,10 @@ class AdsController extends Controller
             $ad->title = $request->title;
             $ad->description = $request->description;
             $ad->price = $request->price;
+            $ad->category_id = $request->category_id;
             $ad->image_path = $imagePath ?? $ad->getOriginal('image_path');
             $ad->save();
-        }        
+        }
 
         return back();
     }

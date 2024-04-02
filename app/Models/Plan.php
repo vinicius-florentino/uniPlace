@@ -13,5 +13,6 @@ class Plan extends Model
 
     protected $casts = [
         'benefits' => 'json',
+        'price' => 'double',
     ];
 }

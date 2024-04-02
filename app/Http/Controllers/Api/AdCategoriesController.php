@@ -16,7 +16,10 @@ class AdCategoriesController extends Controller
     {
         $search = $request->search;
 
-        $categories = AdsCategorie::where('name', 'like', "%$search%")->get();
+        $categories = AdsCategorie::where('name', 'like', "%$search%")
+            ->orderBy('name')
+            ->get();
+
 
         return response()->json($categories);
     }

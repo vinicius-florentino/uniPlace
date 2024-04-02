@@ -185,11 +185,11 @@ const MuiTheme = {
             },
             defaultProps: {
                 InputLabelProps: {
-                    shrink: true,
-                    disableAnimation: true,
+                    // shrink: true,
+                    // disableAnimation: true,
                 },
             },
-        },
+        }
     },
 };
 

@@ -11,16 +11,22 @@ class Ad extends Model
     use HasFactory;
 
     protected $appends = ['image_url'];
-    protected $fillable = ['seller_id', 'title', 'description', 'price', 'is_able', 'image_path'];
+    protected $fillable = ['seller_id', 'title', 'description', 'price', 'is_able', 'image_path', 'category_id'];
 
     protected $casts = [
         'is_able' => 'boolean',
-        'price' => 'double'
+        'price' => 'double',
+        'category_id' => 'int'
     ];
 
     public function seller()
     {
         return $this->belongsTo(Seller::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(AdsCategorie::class);
     }
 
     public function getImageUrlAttribute()

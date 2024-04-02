@@ -37,6 +37,7 @@ import {
 } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
+import AdsCategoriesSelect from "@/Components/selects/AdsCategoriesSelect";
 
 const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -50,17 +51,25 @@ const VisuallyHiddenInput = styled("input")({
     width: 1,
 });
 
-const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
+const DeleteAdDialog = ({
+    id,
+    title,
+    price,
+    description,
+    imageUrl,
+    categoryId,
+}) => {
     const {
         data,
-        setData,
+        // setData,
         delete: destroy,
         processing,
-        errors,
+        // errors,
     } = useForm({
         title: title,
         description: description,
         price: price,
+        category_id: categoryId,
     });
 
     const [open, setOpen] = useState(false);
@@ -75,11 +84,6 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
 
     const onClose = () => {
         handleClose();
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData(name, value);
     };
 
     const deleteAd = (e) => {
@@ -138,7 +142,7 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                             width: "120px",
                                             height: "120px",
                                             borderRadius: "300px",
-                                            opacity: "50%"
+                                            opacity: "50%",
                                         }}
                                         src={imageUrl}
                                     ></Image>
@@ -151,9 +155,6 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                         name="title"
                                         label="Título"
                                         value={data.title}
-                                        error={!!errors.title}
-                                        helperText={errors.title}
-                                        onChange={handleChange}
                                         fullWidth
                                         disabled
                                     />
@@ -166,9 +167,6 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                         type="text"
                                         label="Descrição"
                                         value={data.description}
-                                        error={!!errors.description}
-                                        helperText={errors.description}
-                                        onChange={handleChange}
                                         fullWidth
                                         multiline
                                         rows={4}
@@ -183,12 +181,19 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
                                         label="Preço"
                                         type="text"
                                         value={data.price}
-                                        error={!!errors.price}
-                                        helperText={errors.price}
-                                        onChange={handleChange}
                                         InputProps={{
                                             inputComponent: PriceFormatMask,
                                         }}
+                                        fullWidth
+                                        disabled
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <AdsCategoriesSelect
+                                        id="category_id"
+                                        name="category_id"
+                                        label="Categoria de anúncio"
+                                        value={data.category_id}
                                         fullWidth
                                         disabled
                                     />
@@ -219,12 +224,13 @@ const DeleteAdDialog = ({ id, title, price, description, imageUrl }) => {
     );
 };
 
-const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
+const EditAdDialog = ({ id, title, price, description, imageUrl, categoryId }) => {
     const { data, setData, put, processing, errors } = useForm({
         title: title,
         description: description,
         price: price,
         image: "",
+        category_id: categoryId
     });
 
     const [open, setOpen] = useState(false);
@@ -266,6 +272,7 @@ const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
                 description: data.description,
                 price: data.price,
                 image: data.image,
+                category_id: data.category_id
             },
             {
                 onSuccess: () => {
@@ -391,6 +398,18 @@ const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                    <AdsCategoriesSelect
+                                        id="category_id"
+                                        name="category_id"
+                                        label="Categoria de anúncio"
+                                        onChange={handleChange}
+                                        value={data.category_id}
+                                        error={!!errors.category_id}
+                                        helperText={errors.category_id}
+                                        fullWidth
+                                    />
+                                </Grid>
+                                <Grid item xs={12} display={"flex"} alignItems="center" justifyContent="start" gap="8px">
                                     <Button
                                         component="label"
                                         role={undefined}
@@ -415,7 +434,6 @@ const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
                                     </Button>
                                     {data.image.name && (
                                         <IconButton
-                                            sx={{ ml: 1 }}
                                             onClick={handleRemoveImageClick}
                                         >
                                             <RemixIcon className="ri-close-line"></RemixIcon>
@@ -452,11 +470,13 @@ const EditAdDialog = ({ id, title, price, description, imageUrl }) => {
 };
 
 const CreateAdDialog = ({ onClose, open }) => {
+
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         description: "",
         price: "",
         image: "",
+        category_id: "",
     });
 
     const createAd = (e) => {
@@ -554,6 +574,18 @@ const CreateAdDialog = ({ onClose, open }) => {
                             />
                         </Grid>
                         <Grid item xs={12}>
+                            <AdsCategoriesSelect
+                                id="category_id"
+                                name="category_id"
+                                label="Categoria de anúncio"
+                                onChange={handleChange}
+                                value={data.category_id}
+                                error={!!errors.category_id}
+                                helperText={errors.category_id}
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12} display="flex" alignItems="center" justifyContent="start" gap="8px">
                             <Button
                                 component="label"
                                 role={undefined}
@@ -578,7 +610,6 @@ const CreateAdDialog = ({ onClose, open }) => {
                             </Button>
                             {data.image.name && (
                                 <IconButton
-                                    sx={{ ml: 1 }}
                                     onClick={handleRemoveImageClick}
                                 >
                                     <RemixIcon className="ri-close-line"></RemixIcon>
@@ -613,8 +644,8 @@ const CreateAdDialog = ({ onClose, open }) => {
 };
 
 export default function Ads({ auth, ads }) {
-    let paginationTotal = ads?.last_page;
-    let actualPage = ads?.current_page;
+    // let paginationTotal = ads?.last_page;
+    // let actualPage = ads?.current_page;
 
     const [loading, setLoading] = useState(false);
 
@@ -628,13 +659,13 @@ export default function Ads({ auth, ads }) {
         setOpenCreateAdDialog(false);
     };
 
-    const handlePaginationChange = (e, page) => {
-        setLoading(true);
-        router.visit("/seller-dashboard/ads", {
-            data: { page },
-            onFinish: () => setLoading(false),
-        });
-    };
+    // const handlePaginationChange = (e, page) => {
+    //     setLoading(true);
+    //     router.visit("/seller-dashboard/ads", {
+    //         data: { page },
+    //         onFinish: () => setLoading(false),
+    //     });
+    // };
 
     return (
         <NavigationLayout user={auth.user}>
@@ -687,10 +718,13 @@ export default function Ads({ auth, ads }) {
                                                 >
                                                     <TableHead>
                                                         <TableRow>
-                                                            <TableCell>
+                                                            <TableCell align="center">
                                                                 Imagem
                                                             </TableCell>
-                                                            <TableCell>
+                                                            <TableCell align="center">
+                                                                Categoria
+                                                            </TableCell>
+                                                            <TableCell align="center">
                                                                 Título
                                                             </TableCell>
                                                             <TableCell align="center">
@@ -727,6 +761,7 @@ export default function Ads({ auth, ads }) {
                                                                             objectFit:
                                                                                 "contain",
                                                                         }}
+                                                                        align="center"
                                                                     >
                                                                         <Image
                                                                             src={
@@ -741,11 +776,14 @@ export default function Ads({ auth, ads }) {
                                                                             alt="Imagem do anúncio"
                                                                         ></Image>
                                                                     </TableCell>
-
-                                                                    <TableCell
-                                                                        component="th"
-                                                                        scope="row"
-                                                                    >
+                                                                    <TableCell align="center">
+                                                                        {
+                                                                            ad
+                                                                                .category
+                                                                                .name
+                                                                        }
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
                                                                         {
                                                                             ad.title
                                                                         }
@@ -761,10 +799,14 @@ export default function Ads({ auth, ads }) {
                                                                         )}
                                                                     </TableCell>
                                                                     <TableCell align="center">
-                                                                        {formatDate(ad.created_at)}
+                                                                        {formatDate(
+                                                                            ad.created_at
+                                                                        )}
                                                                     </TableCell>
                                                                     <TableCell align="center">
-                                                                        {ad.is_able ? "Ativo" : "Inativo"}
+                                                                        {ad.is_able
+                                                                            ? "Ativo"
+                                                                            : "Inativo"}
                                                                     </TableCell>
                                                                     <TableCell align="right">
                                                                         <IconButton
@@ -788,6 +830,9 @@ export default function Ads({ auth, ads }) {
                                                                             imageUrl={
                                                                                 ad.image_url
                                                                             }
+                                                                            categoryId={
+                                                                                ad.category_id
+                                                                            }
                                                                         />
                                                                         <DeleteAdDialog
                                                                             id={
@@ -805,6 +850,9 @@ export default function Ads({ auth, ads }) {
                                                                             imageUrl={
                                                                                 ad.image_url
                                                                             }
+                                                                            categoryId={
+                                                                                ad.category_id
+                                                                            }
                                                                         />
                                                                     </TableCell>
                                                                 </TableRow>
@@ -815,7 +863,7 @@ export default function Ads({ auth, ads }) {
                                             </TableContainer>
                                         )}
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    {/* <Grid item xs={12}>
                                         <Pagination
                                             color="primary"
                                             page={actualPage}
@@ -826,7 +874,7 @@ export default function Ads({ auth, ads }) {
                                                 justifyContent: "center",
                                             }}
                                         />
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             )}
                         </PageBox>
