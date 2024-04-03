@@ -98,6 +98,11 @@ const MuiTheme = {
                     backgroundColor: "var(--white-color)",
                     color: "var(--danger-color)",
                 },
+                containedSuccess: {
+                    border: "1px solid var(--success-color)",
+                    backgroundColor: "var(--white-color)",
+                    color: "var(--success-color)",
+                },
             },
         },
         MuiOutlinedInput: {

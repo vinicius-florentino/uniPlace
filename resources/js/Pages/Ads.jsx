@@ -1,25 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import { Head, useForm, router } from "@inertiajs/react";
-import Box from "@mui/material/Box";
-import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
-import AdCard from "@/Components/cards/AdCard";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Pagination from "@mui/material/Pagination";
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
 import Loading from "@/Components/Loading";
-import Carousel from "react-material-ui-carousel";
-import Drawer from '@mui/material/Drawer'
+import AdCard from "@/Components/cards/AdCard";
+import { useState } from "react";
+import Pagination from "@mui/material/Pagination";
+import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
+import Alert from "@mui/material/Alert"
+export default function Ads({ ads, auth }) {
 
-export default function Dashboard({ auth, ads }) {
-    const { data, setData, post, processing, errors} = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         search: "",
     });
     const [loading, setLoading] = useState(false);
     let paginationTotal = ads?.last_page;
 
     let actualPage = ads?.current_page;
+
+    const handleSearchChange = (e) => {
+        const { value } = e.target;
+        setData(
+            'search', value
+        )
+    }
 
     const handlePaginationChange = (e, page) => {
         setLoading(true);
@@ -29,13 +34,6 @@ export default function Dashboard({ auth, ads }) {
         });
     };
 
-    const handleSearchChange = (e) =>{
-        const {value} = e.target;
-        setData(
-            'search', value
-        )
-    }
-    
     const onSubmit = (e) => {
         e.preventDefault();
         post("/ads", {
@@ -45,40 +43,13 @@ export default function Dashboard({ auth, ads }) {
         });
     };
 
-    const items = [
-        { id: 1, title: "Slide 1", description: "Descrição do Item 1" },
-        { id: 2, title: "Slide 2", description: "Descrição do Item 2" },
-        { id: 3, title: "Slide 3", description: "Descrição do Item 3" },
-    ];
-
     return (
-        <NavigationLayout user={auth.user}>
-            <Head title="Página inicial" />
-
-            <Box sx={{ pb: 2 }}>
-                <Carousel navButtonsAlwaysVisible animation={"slide"}>
-                    {items.map((item) => (
-                        <Paper
-                            key={item.id}
-                            sx={{
-                                height: "320px",
-                                backgroundColor: "var(--white-color)",
-                                color: "#FFF",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Typography variant="h5">{item.title}</Typography>
-                        </Paper>
-                    ))}
-                </Carousel>
-            </Box>
+        <NavigationLayout>
+            <Head title="Produtos" />
 
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
-                <SearchField onSubmit={onSubmit} onChange={handleSearchChange} />
+                <SearchField onChange={handleSearchChange} />
             </Box>
-
             {!loading && (
                 <>
                     <Box sx={{ pb: 2 }}>
@@ -98,7 +69,7 @@ export default function Dashboard({ auth, ads }) {
                                     }}
                                 >
                                     <AdCard
-                                        sellerName={ad.seller.name}
+                                        sellerName={ad?.seller?.name}
                                         price={ad.price}
                                         title={ad.title}
                                         href={`/ad/${ad.id}`}
@@ -119,9 +90,19 @@ export default function Dashboard({ auth, ads }) {
                             }}
                         />
                     </Box>
+                    {ads.data.length === 0 && (
+                        <Grid container rowGap={2} spacing={2}>
+                            <Grid item xs={12}>
+                                <Alert severity="info">
+                                    Nenhum anúncio foi encontrado
+                                </Alert>
+                            </Grid>
+                        </Grid>
+                    )}
                 </>
             )}
             {loading && <Loading />}
+
         </NavigationLayout>
     );
 }
