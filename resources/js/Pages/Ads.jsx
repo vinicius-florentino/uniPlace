@@ -11,9 +11,10 @@ import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
 import Alert from "@mui/material/Alert"
 export default function Ads({ ads, auth }) {
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, get, processing, errors } = useForm({
         search: "",
     });
+    
     const [loading, setLoading] = useState(false);
     let paginationTotal = ads?.last_page;
 
@@ -28,7 +29,7 @@ export default function Ads({ ads, auth }) {
 
     const handlePaginationChange = (e, page) => {
         setLoading(true);
-        router.visit("/", {
+        router.visit("/ads", {
             data: { page },
             onFinish: () => setLoading(false),
         });
@@ -36,7 +37,7 @@ export default function Ads({ ads, auth }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post("/ads", {
+        get("/ads", {
             data,
             onFinish: () => setLoading(false),
             preserveScroll: true,

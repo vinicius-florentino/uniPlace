@@ -35,7 +35,7 @@ export default function Ad({ ad, auth }) {
                 width: "100%"
             }}>
                 <Grid container spacing={2} rowSpacing={2} display={"flex"} >
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} md={6}>
                         <Card
                             sx={{
                                 maxHeight: "auto",
@@ -56,7 +56,7 @@ export default function Ad({ ad, auth }) {
                                 }}
                             >
                                 <Grid container>
-                                    <Grid item md={6} lg={6} xs={12}>
+                                    <Grid item xs={12} md={6} lg={6} >
                                         <img
                                             style={{
                                                 width: "92%",
@@ -85,7 +85,7 @@ export default function Ad({ ad, auth }) {
                             </Box>
                         </Card>
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} md={6}>
                         <PageBox title={"Sobre o vendedor"}>
                            <Grid container rowSpacing={2} spacing={2}>
                                 <Grid item xs={12}>
