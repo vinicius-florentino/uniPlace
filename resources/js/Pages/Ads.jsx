@@ -45,7 +45,7 @@ export default function Ads({ ads, auth }) {
     };
 
     return (
-        <NavigationLayout>
+        <NavigationLayout user={auth.user}>
             <Head title="Produtos" />
 
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>

@@ -8,7 +8,6 @@ import Loading from "@/Components/Loading";
 import PriceFormatMask from "@/Components/masks/PriceFormatMask";
 import formatPrice from "@/Utils/formatPrice";
 
-import getErrorsMessage from "@/Utils/getErrorsMessage";
 import formatDate from "@/Utils/formatDate";
 
 import RemixIcon from "@/Components/RemixIcon";
@@ -489,7 +488,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                 onClose();
             },
             onError: (errors) => {
-                toast.error(getErrorsMessage(errors));
+                toast.error("Ocorreu um erro!");
             },
         });
     };

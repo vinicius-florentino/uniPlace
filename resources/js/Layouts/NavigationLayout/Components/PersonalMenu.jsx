@@ -117,9 +117,9 @@ export default function PersonalMenu({ user }) {
                             </ListItemIcon>
                             <ListItemText primary="Painel para vendedores" />
                             {open ? (
-                                <RemixIcon className="ri-arrow-up-wide-line" />
+                                <RemixIcon className="ri-arrow-up-s-line" />
                             ) : (
-                                <RemixIcon className="ri-arrow-down-wide-line" />
+                                <RemixIcon className="ri-arrow-down-s-line" />
                             )}
                         </ListItemButton>
                         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -140,6 +140,12 @@ export default function PersonalMenu({ user }) {
                                 </ListItemButton>
                             </List>
                         </Collapse>
+                        <ListItemButton disabled href={"/"}>
+                            <ListItemIcon>
+                                <RemixIcon className="ri-message-line" />
+                            </ListItemIcon>
+                            <ListItemText primary={"Mensagens"} />
+                        </ListItemButton>
                         <Divider />
                         <ListItemButton disabled>
                             <ListItemIcon>
