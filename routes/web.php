@@ -26,7 +26,7 @@ Route::get('/invalid-subscription', function () {
 
 Route::get('/plans', [PlansController::class, 'index']);
 
-Route::match(['get', 'post'], '/ads', [AdsController::class, 'index']);
+Route::get('/ads', [AdsController::class, 'index']);
 Route::get('/ad/{id}', [AdController::class, 'show']);
 
 Route::middleware(['auth', 'verified'])->group(function () {

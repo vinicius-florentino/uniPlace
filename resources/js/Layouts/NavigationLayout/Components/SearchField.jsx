@@ -3,31 +3,31 @@ import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
 import RemixIcon from "@/Components/RemixIcon";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton";
 
 const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    borderRadius: "16px",
-    border: "var(--borders)",
-    backgroundColor: "#FFF",
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        width: "auto",
-    },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    '&:hover': {},
+    borderRadius: "16px",
+    border: "var(--borders)",
+    backgroundColor: "var(--white-color)",
+    width: "100%",
+    // [theme.breakpoints.up("sm")]: {
+    //     width: "auto",
+    // },
 }));
+
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//     padding: theme.spacing(0, 2),
+//     height: "100%",
+//     position: "absolute",
+//     pointerEvents: "none",
+//     display: "flex",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     '&:hover': {},
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
@@ -38,18 +38,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchField({ onChange, onSubmit }) {
+export default function SearchField({ onChange, onSubmit, disabled }) {
     return (
-        <Box>
+        <Box sx={{width: "100%"}}>
             <Search>
                 <StyledInputBase
                     placeholder="Buscar"
                     inputProps={{ "aria-label": "search" }}
                     onChange={onChange}
+                    disabled={disabled}
                 />
-                <Button onClick={onSubmit} sx={{marginRight: "10px"}}>
+                <IconButton onClick={onSubmit} disabled={disabled} sx={{marginRight: "8px"}}>
                     <RemixIcon className="ri-search-line" />
-                </Button>
+                </IconButton>
             </Search>
         </Box>
     );

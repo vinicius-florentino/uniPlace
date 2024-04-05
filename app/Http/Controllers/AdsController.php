@@ -11,8 +11,6 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Ad;
 use Illuminate\Support\Facades\Redirect;
 
-use function Laravel\Prompts\search;
-
 class AdsController extends Controller
 {
     public function index(Request $request): Response

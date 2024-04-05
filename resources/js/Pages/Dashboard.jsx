@@ -7,40 +7,34 @@ import AdCard from "@/Components/cards/AdCard";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Pagination from "@mui/material/Pagination";
-import Loading from "@/Components/Loading";
+// import Pagination from "@mui/material/Pagination";
+// import Loading from "@/Components/Loading";
 import Carousel from "react-material-ui-carousel";
-import Drawer from '@mui/material/Drawer'
 
 export default function Dashboard({ auth, ads }) {
-    const { data, setData, post, processing, errors} = useForm({
+
+    const { data, setData, get, processing, errors } = useForm({
         search: "",
     });
-    const [loading, setLoading] = useState(false);
-    let paginationTotal = ads?.last_page;
 
-    let actualPage = ads?.current_page;
+    // let paginationTotal = ads?.last_page;
+    // let actualPage = ads?.current_page;
 
-    const handlePaginationChange = (e, page) => {
-        setLoading(true);
-        router.visit("/", {
-            data: { page },
-            onFinish: () => setLoading(false),
-        });
+    // const handlePaginationChange = (e, page) => {
+    //     router.visit("/", {
+    //         data: { page },
+    //     });
+    // };
+
+    const handleSearchChange = (e) => {
+        const { value } = e.target;
+        setData("search", value);
     };
 
-    const handleSearchChange = (e) =>{
-        const {value} = e.target;
-        setData(
-            'search', value
-        )
-    }
-    
     const onSubmit = (e) => {
         e.preventDefault();
-        post("/ads", {
+        get("/ads", {
             data,
-            onFinish: () => setLoading(false),
             preserveScroll: true,
         });
     };
@@ -76,52 +70,52 @@ export default function Dashboard({ auth, ads }) {
             </Box>
 
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
-                <SearchField onSubmit={onSubmit} onChange={handleSearchChange} />
+                <SearchField
+                    onSubmit={onSubmit}
+                    onChange={handleSearchChange}
+                    disabled={processing}
+                />
             </Box>
 
-            {!loading && (
-                <>
-                    <Box sx={{ pb: 2 }}>
-                        <Grid container spacing={2} rowSpacing={0}>
-                            {ads.data.map((ad, index) => (
-                                <Grid
-                                    key={index}
-                                    item
-                                    xs={6}
-                                    sm={4}
-                                    md={3}
-                                    lg={2}
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <AdCard
-                                        sellerName={ad.seller.name}
-                                        price={ad.price}
-                                        title={ad.title}
-                                        href={`/ad/${ad.id}`}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                    <Box>
-                        <Pagination
-                            color="primary"
-                            page={actualPage}
-                            count={paginationTotal}
-                            onChange={handlePaginationChange}
+            <Box sx={{ pb: 2 }}>
+                <Grid container spacing={2} rowSpacing={0}>
+                    {ads.data.map((ad, index) => (
+                        <Grid
+                            key={index}
+                            item
+                            xs={6}
+                            sm={4}
+                            md={3}
+                            lg={2}
                             sx={{
                                 display: "flex",
                                 justifyContent: "center",
+                                alignItems: "center",
                             }}
-                        />
-                    </Box>
-                </>
-            )}
-            {loading && <Loading />}
+                        >
+                            <AdCard
+                                sellerName={ad.seller.name}
+                                price={ad.price}
+                                title={ad.title}
+                                imageSrc={ad.image_url}
+                                href={`/ad/${ad.id}`}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+            {/* <Box>
+                <Pagination
+                    color="primary"
+                    page={actualPage}
+                    count={paginationTotal}
+                    onChange={handlePaginationChange}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                    }}
+                />
+            </Box> */}
         </NavigationLayout>
     );
 }

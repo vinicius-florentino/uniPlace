@@ -73,6 +73,7 @@ export default function Ads({ ads, auth }) {
                                         price={ad.price}
                                         title={ad.title}
                                         href={`/ad/${ad.id}`}
+                                        imageSrc={ad.image_url}
                                     />
                                 </Grid>
                             ))}
