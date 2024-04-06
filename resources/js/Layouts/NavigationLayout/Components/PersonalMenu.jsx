@@ -111,6 +111,12 @@ export default function PersonalMenu({ user }) {
                             </ListItemIcon>
                             <ListItemText primary={"Meu perfil"} />
                         </ListItemButton>
+                        <ListItemButton disabled href={"/"}>
+                            <ListItemIcon>
+                                <RemixIcon className="ri-message-line" />
+                            </ListItemIcon>
+                            <ListItemText primary={"Mensagens"} />
+                        </ListItemButton>
                         <ListItemButton onClick={handleClick}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-dashboard-line" />
@@ -140,12 +146,6 @@ export default function PersonalMenu({ user }) {
                                 </ListItemButton>
                             </List>
                         </Collapse>
-                        <ListItemButton disabled href={"/"}>
-                            <ListItemIcon>
-                                <RemixIcon className="ri-message-line" />
-                            </ListItemIcon>
-                            <ListItemText primary={"Mensagens"} />
-                        </ListItemButton>
                         <Divider />
                         <ListItemButton disabled>
                             <ListItemIcon>

@@ -33,6 +33,7 @@ import {
     Alert,
     DialogActions,
     FormHelperText,
+    Typography,
 } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
@@ -223,13 +224,20 @@ const DeleteAdDialog = ({
     );
 };
 
-const EditAdDialog = ({ id, title, price, description, imageUrl, categoryId }) => {
+const EditAdDialog = ({
+    id,
+    title,
+    price,
+    description,
+    imageUrl,
+    categoryId,
+}) => {
     const { data, setData, put, processing, errors } = useForm({
         title: title,
         description: description,
         price: price,
         image: "",
-        category_id: categoryId
+        category_id: categoryId,
     });
 
     const [open, setOpen] = useState(false);
@@ -271,7 +279,7 @@ const EditAdDialog = ({ id, title, price, description, imageUrl, categoryId }) =
                 description: data.description,
                 price: data.price,
                 image: data.image,
-                category_id: data.category_id
+                category_id: data.category_id,
             },
             {
                 onSuccess: () => {
@@ -408,7 +416,14 @@ const EditAdDialog = ({ id, title, price, description, imageUrl, categoryId }) =
                                         fullWidth
                                     />
                                 </Grid>
-                                <Grid item xs={12} display={"flex"} alignItems="center" justifyContent="start" gap="8px">
+                                <Grid
+                                    item
+                                    xs={12}
+                                    display={"flex"}
+                                    alignItems="center"
+                                    justifyContent="start"
+                                    gap="8px"
+                                >
                                     <Button
                                         component="label"
                                         role={undefined}
@@ -469,7 +484,6 @@ const EditAdDialog = ({ id, title, price, description, imageUrl, categoryId }) =
 };
 
 const CreateAdDialog = ({ onClose, open }) => {
-
     const { data, setData, post, processing, errors } = useForm({
         title: "",
         description: "",
@@ -584,7 +598,14 @@ const CreateAdDialog = ({ onClose, open }) => {
                                 fullWidth
                             />
                         </Grid>
-                        <Grid item xs={12} display="flex" alignItems="center" justifyContent="start" gap="8px">
+                        <Grid
+                            item
+                            xs={12}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="start"
+                            gap="8px"
+                        >
                             <Button
                                 component="label"
                                 role={undefined}
@@ -608,9 +629,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                                 />
                             </Button>
                             {data.image.name && (
-                                <IconButton
-                                    onClick={handleRemoveImageClick}
-                                >
+                                <IconButton onClick={handleRemoveImageClick}>
                                     <RemixIcon className="ri-close-line"></RemixIcon>
                                 </IconButton>
                             )}
@@ -787,7 +806,9 @@ export default function Ads({ auth, ads }) {
                                                                             ad.title
                                                                         }
                                                                     </TableCell>
-                                                                    <TableCell align="center">
+                                                                    <TableCell
+                                                                        align="center"
+                                                                    >
                                                                         {
                                                                             ad.description
                                                                         }

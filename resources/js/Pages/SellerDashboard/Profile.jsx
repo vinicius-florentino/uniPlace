@@ -1,21 +1,32 @@
+import React, { useState } from "react";
 import { Head, useForm } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-import { Box, Grid, TextField, Button } from "@mui/material";
+import {
+    Box,
+    Grid,
+    TextField,
+    Button,
+    Switch,
+    FormControlLabel,
+} from "@mui/material";
 import PageBox from "@/Components/pagebox/PageBox";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import React, { useState } from "react";
-import Switch from '@mui/material/Switch';
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import { toast } from "react-toastify";
+import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-const SellerProfileForm = ({seller}) => {
-
+const SellerProfileForm = ({ seller }) => {
     const { data, setData, processing, put, errors } = useForm({
-        name: seller.name,
+        name: seller.name || "",
+        phone: seller.phone || "",
     });
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setData(name, value);
+    };
+
+    const handlePhoneChange = (value, info) => {
+        setData("phone", value);
     };
 
     const onSubmit = (e) => {
@@ -29,6 +40,7 @@ const SellerProfileForm = ({seller}) => {
             },
         });
     };
+
     return (
         <Box component="form" onSubmit={onSubmit} noValidate>
             <Grid container spacing={0} rowGap={2}>
@@ -47,13 +59,29 @@ const SellerProfileForm = ({seller}) => {
                 </Grid>
                 <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
+                    <MuiTelInput
+                        value={data.phone}
+                        onChange={handlePhoneChange}
+                        name="phone"
+                        fullWidth
+                        label="Número de celular"
+                        defaultCountry="BR"
+                        onlyCountries={["BR"]}
+                        disableFormatting
+                        forceCallingCode
+                        error={errors.phone}
+                        helperText={errors.phone}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
                     <Button
                         variant="contained"
                         type="submit"
                         disableElevation
                         disabled={processing}
                         sx={{
-                            mb: "10px",
+                            mb: "8px",
                             width: { xs: "100%", md: "auto" },
                         }}
                     >
@@ -63,10 +91,12 @@ const SellerProfileForm = ({seller}) => {
             </Grid>
         </Box>
     );
-}
-const NotSellerProfileForm = ({userName}) => {
+};
+
+const NotSellerProfileForm = ({ userName }) => {
     const { data, setData, processing, post, errors } = useForm({
         name: "",
+        phone: "",
     });
     const [sellerNameFromUser, setSellerNameFromUser] = useState(false);
 
@@ -86,9 +116,9 @@ const NotSellerProfileForm = ({userName}) => {
         const { checked } = event.target;
         setSellerNameFromUser(checked);
         if (checked) {
-            setData('name', userName);
+            setData("name", userName);
         } else {
-            setData('name', '');
+            setData("name", "");
         }
     };
 
@@ -97,67 +127,97 @@ const NotSellerProfileForm = ({userName}) => {
         setData(name, value);
     };
 
-    return (<Box component="form" onSubmit={onSubmit} noValidate>
-        <Grid container spacing={0} rowGap={2}>
-            <Grid item xs={12} md={6}>
-                <TextField
-                    id="name"
-                    name="name"
-                    label="Nome de vendedor"
-                    variant="outlined"
-                    value={data.name}
-                    onChange={handleChange}
-                    error={errors.name}
-                    helperText={errors.name}
-                    fullWidth
-                    disabled={sellerNameFromUser}
-                />
+    const handlePhoneChange = (value, info) => {
+        setData("phone", value);
+    };
+
+    return (
+        <Box component="form" onSubmit={onSubmit} noValidate>
+            <Grid container spacing={0} rowGap={2}>
+                <Grid item xs={12} md={6}>
+                    <TextField
+                        id="name"
+                        name="name"
+                        label="Nome de vendedor"
+                        variant="outlined"
+                        value={data.name}
+                        onChange={handleChange}
+                        error={errors.name}
+                        helperText={errors.name}
+                        fullWidth
+                        disabled={sellerNameFromUser}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
+                    <FormControlLabel
+                        control={<Switch />}
+                        value={sellerNameFromUser}
+                        onChange={handleSwitchChange}
+                        label="Usar nome de usuário como nome de vendedor"
+                    />
+                </Grid>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
+                    <MuiTelInput
+                        value={data.phone}
+                        onChange={handlePhoneChange}
+                        name="phone"
+                        fullWidth
+                        label="Número de celular"
+                        defaultCountry="BR"
+                        onlyCountries={["BR"]}
+                        disableFormatting
+                        forceCallingCode
+                        error={errors.phone}
+                        helperText={errors.phone}
+                    />
+                </Grid>
+                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        disableElevation
+                        disabled={processing}
+                        sx={{
+                            mb: "8px",
+                            width: { xs: "100%", md: "auto" },
+                        }}
+                    >
+                        Salvar
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12} md={6} />
-            <Grid item xs={12} md={6}>
-                <FormControlLabel control={<Switch />} value={sellerNameFromUser} onChange={handleSwitchChange} label="Usar nome de usuário como nome de vendedor" />
-            </Grid>
-            <Grid item xs={12} md={6} />
-            <Grid item xs={12} md={6}>
-                <Button
-                    variant="contained"
-                    type="submit"
-                    disableElevation
-                    disabled={processing}
-                    sx={{
-                        mb: "10px",
-                        width: { xs: "100%", md: "auto" },
-                    }}
-                >
-                    Salvar
-                </Button>
-            </Grid>
-        </Grid>
-    </Box>);
-}
+        </Box>
+    );
+};
 
 export default function Profile({ auth, seller }) {
-    
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Painel vendedor - Perfil" />
             <Box noValidate sx={{ width: "100%" }}>
                 <Grid container spacing={0} rowSpacing={2}>
-                    {!seller &&
+                    {!seller && (
                         <Grid item xs={12}>
                             <PageBox
                                 title="Você precisa virar vendedor para ver suas informações"
                                 subTitle="Preencha os campos para virar um vendedor"
                             >
-                                <NotSellerProfileForm userName={auth.user.name} />
+                                <NotSellerProfileForm
+                                    userName={auth.user.name}
+                                />
                             </PageBox>
                         </Grid>
-                    }
-                    {seller &&
+                    )}
+                    {seller && (
                         <>
                             <Grid item xs={12}>
-                                <PageBox title="Informações do perfil de vendedor" 
-                                        subTitle="Atualize as informações de perfil de vendedor">
+                                <PageBox
+                                    title="Informações do perfil de vendedor"
+                                    subTitle="Atualize as informações de perfil de vendedor"
+                                >
                                     <SellerProfileForm seller={seller} />
                                 </PageBox>
                             </Grid>
@@ -168,7 +228,7 @@ export default function Profile({ auth, seller }) {
                                 ></PageBoxRedirect>
                             </Grid>
                         </>
-                    }
+                    )}
                 </Grid>
             </Box>
         </NavigationLayout>

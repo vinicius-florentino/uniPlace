@@ -123,6 +123,7 @@ return [
         'description' => 'descrição',
         'price' => 'preço',
         'image' => 'imagem',
-        'category_id' => 'categoria'
+        'category_id' => 'categoria',
+        'phone' => 'telefone'
     ],
 ];

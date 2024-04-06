@@ -45,7 +45,7 @@ class AdsController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
             'price' => 'required|numeric|max:999999.99',
             'category_id' => 'required|int',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
@@ -77,7 +77,7 @@ class AdsController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
             'price' => 'required|numeric|max:999999.99',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
