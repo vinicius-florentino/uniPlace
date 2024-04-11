@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 // import Pagination from "@mui/material/Pagination";
 // import Loading from "@/Components/Loading";
 import Carousel from "react-material-ui-carousel";
-import Drawer from '@mui/material/Drawer'
 
 export default function Dashboard({ auth, ads }) {
 
