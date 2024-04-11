@@ -14,7 +14,7 @@ export default function Ads({ ads, auth }) {
     const { data, setData, get, processing, errors } = useForm({
         search: "",
     });
-    
+
     const [loading, setLoading] = useState(false);
     let paginationTotal = ads?.last_page;
 
@@ -30,7 +30,7 @@ export default function Ads({ ads, auth }) {
     const handlePaginationChange = (e, page) => {
         setLoading(true);
         router.visit("/ads", {
-            data: { page },
+            data: { page, search: data.search },
             onFinish: () => setLoading(false),
         });
     };
@@ -46,7 +46,7 @@ export default function Ads({ ads, auth }) {
 
     return (
         <NavigationLayout user={auth.user}>
-            <Head title="Produtos" />
+            <Head title="Anúncios" />
 
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
                 <SearchField onChange={handleSearchChange} />
@@ -80,27 +80,26 @@ export default function Ads({ ads, auth }) {
                             ))}
                         </Grid>
                     </Box>
-                    <Box>
-                        <Pagination
-                            color="primary"
-                            page={actualPage}
-                            count={paginationTotal}
-                            onChange={handlePaginationChange}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                            }}
-                        />
-                    </Box>
                     {ads.data.length === 0 && (
-                        <Grid container rowGap={2} spacing={2}>
-                            <Grid item xs={12}>
-                                <Alert severity="info">
-                                    Nenhum anúncio foi encontrado
-                                </Alert>
-                            </Grid>
-                        </Grid>
+                        <Box sx={{width: "100%"}}>
+                            <Alert severity="info">
+                                Nenhum anúncio foi encontrado
+                            </Alert>
+                        </Box>
                     )}
+                    {ads.data.length >= 1 &&
+                        <Box>
+                            <Pagination
+                                color="primary"
+                                page={actualPage}
+                                count={paginationTotal}
+                                onChange={handlePaginationChange}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            />
+                        </Box>}
                 </>
             )}
             {loading && <Loading />}
