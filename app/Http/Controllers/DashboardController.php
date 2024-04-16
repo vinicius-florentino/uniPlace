@@ -8,7 +8,6 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
-use App\Models\Seller;
 use App\Models\Ad;
 use Illuminate\Support\Facades\Redirect;
 

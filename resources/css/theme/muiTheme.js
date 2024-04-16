@@ -40,7 +40,8 @@ const MuiTheme = {
         MuiTableContainer: {
             styleOverrides: {
                 root: {
-                    boxShadow: "var(--box-shadow)",
+                    boxShadow: "none",
+                    border: "1px solid var(--light-color)"
                 },
             },
         },
@@ -76,8 +77,8 @@ const MuiTheme = {
                 },
                 contained: {
                     "&.Mui-disabled": {
-                        color: "var(--white-color)",
-                        backgroundColor: "var(--hover-color)",
+                        // color: "var(--white-color)",
+                        // backgroundColor: "var(--hover-color)",
                     },
                 },
                 text: {

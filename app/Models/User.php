@@ -50,16 +50,16 @@ class User extends Authenticatable
 
     public function university()
     {
-        return $this->belongsTo(University::class);
+        return $this->hasOne(University::class);
     }
 
     public function plan()
     {
-        return $this->belongsTo(Plan::class);
+        return $this->hasOne(Plan::class);
     }
 
     public function seller()
     {
-        return $this->belongsTo(Seller::class);
+        return $this->hasOne(Seller::class);
     }
 }

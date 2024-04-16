@@ -27,6 +27,7 @@ class AdsController extends Controller
 
         $ads = Ad::where('seller_id', $sellerId)
             ->with('category')
+            ->orderBy('is_able', 'desc')
             ->paginate();
 
         return Inertia::render('SellerDashboard/Ads', [
@@ -130,6 +131,42 @@ class AdsController extends Controller
             ->first();
 
         $ad->image_path = null;
+        $ad->save();
+
+        return back();
+    }
+
+    public function disable(Request $request, $id): RedirectResponse
+    {
+        $user = $request->user();
+        $userId = $user->id;
+
+        $seller = Seller::where('user_id', $userId)->first();
+        $sellerId = $seller->id;
+
+        $ad = Ad::where('seller_id', $sellerId)
+            ->where('id', $id)
+            ->first();
+
+        $ad->is_able = false;
+        $ad->save();
+
+        return back();
+    }
+
+    public function reenable(Request $request, $id): RedirectResponse
+    {
+        $user = $request->user();
+        $userId = $user->id;
+
+        $seller = Seller::where('user_id', $userId)->first();
+        $sellerId = $seller->id;
+
+        $ad = Ad::where('seller_id', $sellerId)
+            ->where('id', $id)
+            ->first();
+
+        $ad->is_able = true;
         $ad->save();
 
         return back();

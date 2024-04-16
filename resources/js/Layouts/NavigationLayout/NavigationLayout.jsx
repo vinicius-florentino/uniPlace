@@ -3,7 +3,7 @@ import React from "react";
 import Header from "./Components/Header";
 import Container from "@mui/material/Container";
 
-export default function NavigationLayout({ user, children }) {
+export default function NavigationLayout({ user, children, disableContainer }) {
     return (
         <>
             <header>
@@ -11,7 +11,7 @@ export default function NavigationLayout({ user, children }) {
             </header>
 
             <main style={{ padding: "16px 0px" }}>
-                <Container maxWidth="lg">{children}</Container>
+                <Container maxWidth={disableContainer ? "" : "lg"}>{children}</Container>
             </main>
 
             <footer>
