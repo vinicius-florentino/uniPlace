@@ -57,7 +57,7 @@ export default function Seller({ seller, auth, ads }) {
                         </PageBox>
                     </Grid>
                     <Grid item xs={12}>
-                        <PageBoxAdsSection title={`Anúncios de ${seller.name}`} subTitle={"Todos anúncios feitos pelo vendedor"}>
+                        <PageBoxAdsSection title={`Anúncios de ${seller.name}`} subTitle={"Todos os anúncios feitos pelo vendedor"}>
                             <Grid container spacing={2} rowSpacing={0}>
                                 {seller.ads.map((ad, index) => (
                                     <Grid key={index}
