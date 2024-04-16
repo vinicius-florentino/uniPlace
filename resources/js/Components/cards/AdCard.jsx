@@ -55,19 +55,23 @@ export default function AdCard({ title, sellerName, imageSrc, price, href }) {
                                     gap: "8px",
                                 }}
                             >
-                                <RemixIcon
-                                    className={"ri-user-2-line"}
-                                    fontSize={"14px"}
-                                />
-                                <Typography
-                                    sx={{
-                                        fontSize: 14,
-                                        color: "var(--dark-color)",
-                                    }}
-                                    noWrap={true}
-                                >
-                                    {sellerName}
-                                </Typography>
+                                {sellerName &&
+                                    <>
+                                        <RemixIcon
+                                            className={"ri-user-2-line"}
+                                            fontSize={"14px"}
+                                        />
+                                        <Typography
+                                            sx={{
+                                                fontSize: 14,
+                                                color: "var(--dark-color)",
+                                            }}
+                                            noWrap={true}
+                                        >
+                                            {sellerName}
+                                        </Typography>
+                                    </>
+                                }
                             </Grid>
                         </Grid>
                     </Box>

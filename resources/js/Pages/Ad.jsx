@@ -12,6 +12,7 @@ import Image from "@/Components/Image";
 export default function Ad({ ad, auth }) {
     const { data, setData, post, processing, errors } = useForm({});
     const [disabledButton, setDisabledButton] = useState(true);
+    
     useEffect(() => {
         setDisabledButton(!ad.seller.phone);
     }, [ad.seller.phone]);
@@ -33,7 +34,15 @@ export default function Ad({ ad, auth }) {
             window.location.href = whatsappLink;
         }
     }
-    
+
+    const handleSellerPage = (e, id) => {
+        setLoading(true);
+        router.visit(`/seller/${id}`, {
+            data: { page, search: data.search },
+            onFinish: () => setLoading(false),
+        });
+    };
+
     return (
         <NavigationLayout user={auth.user}>
             <Head title={ad.title} />
@@ -87,15 +96,17 @@ export default function Ad({ ad, auth }) {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Chip
-                                        label={ad.seller.name}
-                                        avatar={
-                                            <Avatar {...stringAvatar(ad.seller.name)} sx={{
-                                                bgcolor: 'background.paper',
-                                                color: 'var(--dark-color)'
-                                            }} />
-                                        }
-                                    />
+                                    <a href={`/seller/${ad.seller.id}`}>
+                                        <Chip
+                                            label={ad.seller.name}
+                                            avatar={
+                                                <Avatar {...stringAvatar(ad.seller.name)} sx={{
+                                                    bgcolor: 'background.paper',
+                                                    color: 'var(--dark-color)'
+                                                }} />
+                                            }
+                                        />
+                                    </a>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Button variant="containedSuccess" startIcon={<RemixIcon className="ri-whatsapp-line" color={"var(--success-color)"} />} disabled={disabledButton} onClick={redirectToWhatsApp}>

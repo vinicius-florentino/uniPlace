@@ -22,7 +22,8 @@ class AdsController extends Controller
             $ads = Ad::with('seller')->paginate();
         }
         return Inertia::render('Ads', [
-            'ads' => $ads
+            'ads' => $ads,
+            'search' => $search
         ]);
     }
 }

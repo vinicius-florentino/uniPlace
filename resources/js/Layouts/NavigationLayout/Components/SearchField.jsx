@@ -38,7 +38,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchField({ onChange, onSubmit, disabled }) {
+export default function SearchField({ onChange, onSubmit, disabled, value }) {
     return (
         <Box sx={{width: "100%"}}>
             <Search>
@@ -47,6 +47,7 @@ export default function SearchField({ onChange, onSubmit, disabled }) {
                     inputProps={{ "aria-label": "search" }}
                     onChange={onChange}
                     disabled={disabled}
+                    value={value}
                 />
                 <IconButton onClick={onSubmit} disabled={disabled} sx={{marginRight: "8px"}}>
                     <RemixIcon className="ri-search-line" />

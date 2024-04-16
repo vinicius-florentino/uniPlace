@@ -74,6 +74,7 @@ export default function Dashboard({ auth, ads }) {
                     onSubmit={onSubmit}
                     onChange={handleSearchChange}
                     disabled={processing}
+                    value={data.search}
                 />
             </Box>
 

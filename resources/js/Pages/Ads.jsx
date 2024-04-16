@@ -9,10 +9,10 @@ import { useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
 import Alert from "@mui/material/Alert"
-export default function Ads({ ads, auth }) {
+export default function Ads({ ads, auth, search }) {
 
     const { data, setData, get, processing, errors } = useForm({
-        search: "",
+        search: search,
     });
 
     const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ export default function Ads({ ads, auth }) {
             <Head title="Anúncios" />
 
             <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
-                <SearchField onChange={handleSearchChange} />
+                <SearchField value={data.search} onChange={handleSearchChange} />
             </Box>
             {!loading && (
                 <>
