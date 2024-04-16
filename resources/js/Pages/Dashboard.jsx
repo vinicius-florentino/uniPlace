@@ -117,7 +117,7 @@ export default function Dashboard({ auth, ads }) {
                         justifyContent: "center",
                     }}
                 />
-            </Box> */}
+            </Box> */} 
         </NavigationLayout>
     );
 }

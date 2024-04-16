@@ -57,7 +57,7 @@ const SellerProfileForm = ({ seller }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
+                <Grid item xs={12} md={6}/>
                 <Grid item xs={12} md={6}>
                     <MuiTelInput
                         value={data.phone}

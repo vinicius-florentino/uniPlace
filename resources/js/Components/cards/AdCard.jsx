@@ -21,7 +21,7 @@ export default function AdCard({ title, sellerName, imageSrc, price, href }) {
                                     style={{
                                         width: "100%",
                                         height: "170px",
-                                        objectFit: "cover",
+                                        objectFit: "fill",
                                     }}
                                     src={imageSrc}
                                 />
