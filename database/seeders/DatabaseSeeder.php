@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => 'password'
+            'password' => 'password',
+            'email_verified_at' => '2024-02-03 21:11:34'
         ]);
 
         \App\Models\University::create([

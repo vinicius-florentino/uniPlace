@@ -138,7 +138,7 @@ export default function PersonalMenu({ user }) {
                                     </ListItemIcon>
                                     <ListItemText primary="Meu perfil de vendas" />
                                 </ListItemButton>
-                                <ListItemButton href={"/seller-dashboard/ads"}>
+                                <ListItemButton href={"/seller-dashboard/ads"} disabled={!user.seller}>
                                     <ListItemIcon>
                                         <RemixIcon className="ri-price-tag-3-line" />
                                     </ListItemIcon>

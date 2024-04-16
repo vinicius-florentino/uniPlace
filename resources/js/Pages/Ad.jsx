@@ -66,7 +66,7 @@ export default function Ad({ ad, auth }) {
             >
                 {!ad.is_able && (
                     <Alert severity="info" sx={{ mb: 2 }}>
-                        O produto está desabilitado
+                        O anúncio está desabilitado
                     </Alert>
                 )}
                 <Grid
