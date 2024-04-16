@@ -7,7 +7,8 @@ const PageBoxAdsSection = ({ title, subTitle, children }) => {
         <Box
             noValidate
             sx={{
-                // p: 4,
+                py: 4,
+                px: 0.25,
                 // boxShadow: "var(--box-shadow)",
                 // borderRadius: "16px",
             }}

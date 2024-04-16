@@ -4,7 +4,7 @@ export default function RemixIcon({ className, fontSize, color }) {
             className={className}
             style={{
                 fontSize: fontSize || "20px",
-                color: color || "inherit",
+                color: color || "var(--dark-color)",
             }}
         ></i>
     );
