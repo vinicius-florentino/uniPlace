@@ -4,11 +4,11 @@ import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import { Typography, Box, Grid, Button, Avatar } from "@mui/material";
 import { useState, useEffect } from "react";
-import photo from "../../../storage/app/public/imgs/ads/3Usvosw4hjQIRIAA0vG8yOq8Tr1Tj1M6HaC9VInz.jpg";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
-
-export default function Seller({ seller, auth, ads }) { 
+import PageBoxAdsSection from "@/Components/pagebox/PageBoxAdsSection";
+import stringAvatar from "@/Utils/stringAvatar";
+export default function Seller({ seller, auth, ads }) {
     const { data, setData, post, processing, errors } = useForm({});
     const [disabledButton, setDisabledButton] = useState(true);
 
@@ -30,9 +30,13 @@ export default function Seller({ seller, auth, ads }) {
                 <Grid container spacing={2} rowSpacing={2} justifyContent="center">
                     <Grid item xs={12}>
                         <PageBox>
-                            <Grid container spacing={2} sx={{justifyContent: "center", display:"flex", alignItems: "center", flexDirection: "column"}}>
+                            <Grid container spacing={2} sx={{ justifyContent: "center", display: "flex", alignItems: "center", flexDirection: "column" }}>
                                 <Grid item xs={12}>
-                                    <Avatar src={photo} sx={{ width: 136, height: 136 }} />
+                                    <Avatar
+                                        {...stringAvatar(seller.name)}
+                                        alt={seller.name.toUpperCase()}
+                                        sx={{width: "144px", height: "144px", fontSize: 40}}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography sx={{ fontWeight: 500, fontSize: 24 }}>
@@ -53,14 +57,15 @@ export default function Seller({ seller, auth, ads }) {
                         </PageBox>
                     </Grid>
                     <Grid item xs={12}>
-                        <PageBox>
+                        <PageBoxAdsSection title={`Anúncios de ${seller.name}`} subTitle={"Todos anúncios feitos pelo vendedor"}>
                             <Grid container spacing={2} rowSpacing={0}>
                                 {seller.ads.map((ad, index) => (
                                     <Grid key={index}
                                         item
                                         xs={6}
                                         sm={4}
-                                        lg={3}
+                                        md={3}
+                                        lg={2}
                                         sx={{
                                             display: "flex",
                                             justifyContent: "center",
@@ -76,7 +81,7 @@ export default function Seller({ seller, auth, ads }) {
                                     </Grid>
                                 ))}
                             </Grid>
-                        </PageBox>
+                        </PageBoxAdsSection>
                     </Grid>
                 </Grid>
             </Box>
