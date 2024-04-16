@@ -40,7 +40,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchField({ onChange, onSubmit, disabled, value }) {
     return (
-        <Box sx={{width: "100%"}}>
+        <Box sx={{ width: "100%" }}>
             <Search>
                 <StyledInputBase
                     placeholder="Buscar"
@@ -49,7 +49,11 @@ export default function SearchField({ onChange, onSubmit, disabled, value }) {
                     disabled={disabled}
                     value={value}
                 />
-                <IconButton onClick={onSubmit} disabled={disabled} sx={{marginRight: "8px"}}>
+                <IconButton
+                    onClick={onSubmit}
+                    disabled={disabled}
+                    sx={{ marginRight: "8px" }}
+                >
                     <RemixIcon className="ri-search-line" />
                 </IconButton>
             </Search>

@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 
-const PageBox = ({ title, subTitle, children }) => {
+const PageBox = ({ prependTitleIcon, title, subTitle, children }) => {
     return (
         <Box
             noValidate
@@ -14,14 +14,22 @@ const PageBox = ({ title, subTitle, children }) => {
             }}
         >
             {title && (
-                <Typography sx={{ fontWeight: 500, fontSize: 16 }}>
+                <Typography
+                    sx={{
+                        fontWeight: 500,
+                        fontSize: 16,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "start",
+                        gap: "8px",
+                    }}
+                >
+                    {prependTitleIcon}
                     {title}
                 </Typography>
             )}
             {subTitle && (
-                <Typography sx={{ fontWeight: 300 }}>
-                    {subTitle}
-                </Typography>
+                <Typography sx={{ fontWeight: 300 }}>{subTitle}</Typography>
             )}
 
             <Box sx={{ mt: title || subTitle ? 3 : 0 }}>{children}</Box>

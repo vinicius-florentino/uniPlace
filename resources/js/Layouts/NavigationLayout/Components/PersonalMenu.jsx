@@ -111,11 +111,11 @@ export default function PersonalMenu({ user }) {
                             </ListItemIcon>
                             <ListItemText primary={"Meu perfil"} />
                         </ListItemButton>
-                        <ListItemButton disabled href={"/"}>
+                        <ListItemButton href={"/conversations"}>
                             <ListItemIcon>
-                                <RemixIcon className="ri-message-line" />
+                                <RemixIcon className="ri-discuss-line" />
                             </ListItemIcon>
-                            <ListItemText primary={"Mensagens"} />
+                            <ListItemText primary={"Conversas"} />
                         </ListItemButton>
                         <ListItemButton onClick={handleClick}>
                             <ListItemIcon>

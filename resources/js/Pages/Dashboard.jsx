@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 // import Pagination from "@mui/material/Pagination";
 // import Loading from "@/Components/Loading";
 import Carousel from "react-material-ui-carousel";
+import PageBoxAdsSection from "@/Components/pagebox/PageBoxAdsSection";
 
 export default function Dashboard({ auth, ads }) {
-
     const { data, setData, get, processing, errors } = useForm({
         search: "",
     });
@@ -49,7 +49,7 @@ export default function Dashboard({ auth, ads }) {
         <NavigationLayout user={auth.user}>
             <Head title="Página inicial" />
 
-            <Box sx={{ pb: 2 }}>
+            <Box sx={{ mb: 2 }}>
                 <Carousel navButtonsAlwaysVisible animation={"slide"}>
                     {items.map((item) => (
                         <Paper
@@ -69,7 +69,7 @@ export default function Dashboard({ auth, ads }) {
                 </Carousel>
             </Box>
 
-            <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
+            <Box component="form" onSubmit={onSubmit} noValidate sx={{ my: 2 }}>
                 <SearchField
                     onSubmit={onSubmit}
                     onChange={handleSearchChange}
@@ -78,32 +78,34 @@ export default function Dashboard({ auth, ads }) {
                 />
             </Box>
 
-            <Box sx={{ pb: 2 }}>
-                <Grid container spacing={2} rowSpacing={0}>
-                    {ads.data.map((ad, index) => (
-                        <Grid
-                            key={index}
-                            item
-                            xs={6}
-                            sm={4}
-                            md={3}
-                            lg={2}
-                            sx={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            <AdCard
-                                sellerName={ad.seller.name}
-                                price={ad.price}
-                                title={ad.title}
-                                imageSrc={ad.image_url}
-                                href={`/ad/${ad.id}`}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
+            <Box sx={{ my: 2 }}>
+                <PageBoxAdsSection title="Mais recentes" subTitle="Anúncios feitos recentemente por vendedores">
+                    <Grid container spacing={2} rowSpacing={0}>
+                        {ads.data.map((ad, index) => (
+                            <Grid
+                                key={index}
+                                item
+                                xs={6}
+                                sm={4}
+                                md={3}
+                                lg={2}
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <AdCard
+                                    sellerName={ad.seller.name}
+                                    price={ad.price}
+                                    title={ad.title}
+                                    imageSrc={ad.image_url}
+                                    href={`/ad/${ad.id}`}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </PageBoxAdsSection>
             </Box>
             {/* <Box>
                 <Pagination
