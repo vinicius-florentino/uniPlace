@@ -4,10 +4,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Divider from '@mui/material/Divider';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 
 import formatPrice from "@/Utils/formatPrice";
 import RemixIcon from "../RemixIcon";
@@ -16,15 +12,15 @@ const BenefitLine = ({ label }) => {
     return (
         <Typography
             sx={{
-                fontSize: 14,
+                fontSize: 16,
                 color: "var(--dark-color)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "start",
-                gap: "5px"
+                gap: "8px",
             }}
         >
-            <RemixIcon className="ri-check-line" color="var(--success-color)"/>
+            <RemixIcon className="ri-check-line" color="var(--success-color)" fontSize={"24px"}/>
             <span>{label}</span>
         </Typography>
     );
@@ -32,69 +28,85 @@ const BenefitLine = ({ label }) => {
 
 function OfferCard({ name, description, price, benefits, processing }) {
     return (
-        <Card sx={{ width: "250px", maxHeight: "auto" }}>
+        <Card
+            sx={{
+                width: "280px",
+                maxHeight: "auto",
+                boxShadow: "var(--box-shadow)",
+            }}
+        >
             <CardContent sx={{ p: 0 }}>
                 <Box
                     noValidate
                     sx={{
-                        backgroundColor: "var(--primary-color)",
                         p: 2,
                     }}
                 >
                     <Typography
                         sx={{
                             fontSize: 20,
-                            color: "var(--white-color)",
+                            textAlign: "center",
+                            color: "var(--primary-color)",
                         }}
                     >
                         {name}
                     </Typography>
-                </Box>
-
-                <Box
-                    noValidate
-                    sx={{
-                        p: 2
-                    }}
-                >
-                    <Typography>{description}</Typography>
+                    <hr />
                 </Box>
 
                 <Box
                     noValidate
                     sx={{
                         p: 2,
+                        height: "120px",
                     }}
                 >
-                    <Typography sx={{ fontSize: 20, fontWeight: 700 }}>
-                        {formatPrice(price)}
+                    <Typography sx={{ textAlign: "justify", fontWeight: 300 }}>
+                        {description}
                     </Typography>
                 </Box>
-                <Divider sx={{
-                    mx: "10px"
-                }} />
+                {/* <Box
+                    noValidate
+                    sx={{
+                        p: 2,
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: 16,
+                            color: "var(--dark-color)",
+                        }}
+                    >
+                        Benefícios:
+                    </Typography>
+                </Box> */}
+
                 <Box
                     noValidate
                     sx={{
                         p: 2,
                     }}
                 >
-                    <Typography>Benefícios:</Typography>
+                    {benefits?.map((benefit, index) => (
+                        <BenefitLine key={index} label={benefit} />
+                    ))}
                 </Box>
 
-                <Box>
-                    <List>
-                        {benefits?.map((benefit, index) => (
-                            <React.Fragment key={index}>
-                                {index > 0}
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{cursor: "default"}}>
-                                        <BenefitLine label={benefit} />
-                                    </ListItemButton>
-                                </ListItem>
-                            </React.Fragment>
-                        ))}
-                    </List>
+                <Box
+                    noValidate
+                    sx={{
+                        p: 2,
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: 24,
+                            fontWeight: 300,
+                            textAlign: "start",
+                        }}
+                    >
+                        {formatPrice(price)}
+                    </Typography>
                 </Box>
 
                 <Box
@@ -107,9 +119,8 @@ function OfferCard({ name, description, price, benefits, processing }) {
                         disabled={processing}
                         disableElevation
                         fullWidth
-                        sx={{ marginY: 1.5 }}
                     >
-                        Comprar
+                        Assinar
                     </Button>
                 </Box>
             </CardContent>

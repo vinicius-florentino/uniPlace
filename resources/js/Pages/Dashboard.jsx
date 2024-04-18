@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
-import PageBoxAdsSection from "@/Components/pagebox/PageBoxAdsSection";
+import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 
 import { Head, useForm } from "@inertiajs/react";
 import Carousel from "react-material-ui-carousel";
@@ -106,7 +106,7 @@ export default function Dashboard({ auth, ads }) {
 
             <Box sx={{ my: 4 }}>
                 <Container maxWidth="lg">
-                    <PageBoxAdsSection
+                    <PageBoxInheritSection
                         title="Mais recentes"
                         subTitle="Anúncios feitos recentemente por vendedores"
                     >
@@ -135,13 +135,13 @@ export default function Dashboard({ auth, ads }) {
                                 </Grid>
                             ))}
                         </Grid>
-                    </PageBoxAdsSection>
+                    </PageBoxInheritSection>
                 </Container>
             </Box>
 
             {/* <Box sx={{ backgroundColor: "var(--white-color)", my: 4 }}>
                 <Container maxWidth="lg">
-                    <PageBoxAdsSection
+                    <PageBoxInheritSection
                         title="Mais recentes"
                         subTitle="Anúncios feitos recentemente por vendedores"
                     >
@@ -170,7 +170,7 @@ export default function Dashboard({ auth, ads }) {
                                 </Grid>
                             ))}
                         </Grid>
-                    </PageBoxAdsSection>
+                    </PageBoxInheritSection>
                 </Container>
             </Box> */}
         </DashboardLayout>

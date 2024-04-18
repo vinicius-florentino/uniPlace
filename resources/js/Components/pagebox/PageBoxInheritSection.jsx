@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 
-const PageBoxAdsSection = ({ title, subTitle, children }) => {
+const PageBoxInheritSection = ({ title, subTitle, children }) => {
     return (
         <Box
             noValidate
@@ -32,4 +32,4 @@ const PageBoxAdsSection = ({ title, subTitle, children }) => {
     );
 };
 
-export default PageBoxAdsSection;
+export default PageBoxInheritSection;

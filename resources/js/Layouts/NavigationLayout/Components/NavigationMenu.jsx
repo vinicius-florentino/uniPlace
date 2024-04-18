@@ -22,13 +22,13 @@ export default function NavigationMenu({}) {
         {
             label: "Planos",
             href: "/plans",
-            disabled: true
+            disabled: false
             // startIcon: <RemixIcon className="ri-briefcase-line"/>,
         },
         {
             label: "Ajuda",
             href: "#",
-            disabled: false
+            disabled: true
             // startIcon: <RemixIcon className="ri-question-line"/>,
         },
     ];

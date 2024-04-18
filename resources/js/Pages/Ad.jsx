@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import {
     Card,
     Typography,
@@ -19,6 +19,8 @@ import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
 
 export default function Ad({ ad, auth }) {
+
+    const [loading, setLoading] = useState(false);
     const { data, setData, post, processing, errors } = useForm({});
     const [disabledButton, setDisabledButton] = useState(true);
 
@@ -48,12 +50,15 @@ export default function Ad({ ad, auth }) {
         }
     };
 
-    const handleSellerPage = (e, id) => {
+    const redirectToChat = () => {
         setLoading(true);
-        router.visit(`/seller/${id}`, {
-            data: { page, search: data.search },
-            onFinish: () => setLoading(false),
-        });
+        router.get(
+            "/conversations/start",
+            { id: ad.seller.id, ad_id: ad.id },
+            {
+                onSuccess: () => {setLoading(false)},
+            }
+        );
     };
 
     return (
@@ -169,6 +174,8 @@ export default function Ad({ ad, auth }) {
                                                 color={"var(--dark-color)"}
                                             />
                                         }
+                                        onClick={redirectToChat}
+                                        disabled={loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>

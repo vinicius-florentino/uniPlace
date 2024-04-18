@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Conversation;
 use App\Models\ConversationsEvent;
+use App\Models\Seller;
+use App\Models\Ad;
 use App\Events\ChatMessage;
 
 class ConversationsController extends Controller
@@ -20,7 +22,7 @@ class ConversationsController extends Controller
         $userId = $user->id;
         $sellerId = $user->seller?->id;
 
-        $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->get();
+        $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->with('user')->get();
         $conversationsWithSellers = Conversation::where('user_id', $userId)->with('seller')->get();
 
         return Inertia::render('Conversations', [
@@ -35,7 +37,7 @@ class ConversationsController extends Controller
         $userId = $user->id;
         $sellerId = $user->seller?->id;
 
-        $conversation = Conversation::find($id)->where(function ($query) use ($userId, $sellerId) {
+        $conversation = Conversation::findOrFail($id)->where(function ($query) use ($userId, $sellerId) {
             $query->where('user_id', $userId)
                 ->orWhere('seller_id', $sellerId);
         })
@@ -48,7 +50,7 @@ class ConversationsController extends Controller
             })
             ->get();
 
-        $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->get();
+        $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->with('user')->get();
         $conversationsWithSellers = Conversation::where('user_id', $userId)->with('seller')->get();
 
         return Inertia::render('Conversations', [
@@ -59,7 +61,7 @@ class ConversationsController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): void
     {
         $user = $request->user();
         $userId = $user->id;
@@ -70,23 +72,63 @@ class ConversationsController extends Controller
 
         $conversation = Conversation::find($conversationId)->where(function ($query) use ($userId, $sellerId) {
             $query->where('user_id', $userId)
-                  ->orWhere('seller_id', $sellerId);
+                ->orWhere('seller_id', $sellerId);
         })
-        ->first();
-        
+            ->first();
+
         if ($userId == $conversation->user_id) {
             $recipientId = $conversation->seller->user->id;
         } else {
             $recipientId = $conversation->user_id;
         }
-        
+
         $conversationEvent = ConversationsEvent::create([
             'message' => $message,
-            'sender_id' => $user->id,
+            'sender_id' => $userId,
             'recipient_id' => $recipientId,
             'conversation_id' => $conversationId,
         ]);
 
         broadcast(new ChatMessage($conversationEvent));
+    }
+
+    public function startConversation(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $userId = $user->id;
+
+        $id = $request->id;
+        $adId = $request->ad_id;
+
+        if ($id == $user->seller?->id) {
+            return back();
+        }
+
+        $seller = Seller::findOrFail($id);
+        $sellerId = $seller->id;
+        $sellerUserId = $seller->user->id;
+
+        $conversation = Conversation::firstOrCreate(
+            ['seller_id' => $sellerId, 'user_id' => $userId]
+        );
+
+        $conversationId = $conversation->id;
+
+        if ($adId) {
+
+            $ad = Ad::where('seller_id', $sellerId)->where('id', $adId)->firstOrFail();
+            $adTitle = $ad->title;
+
+            $conversationEvent = ConversationsEvent::create([
+                'message' => "Olá, iniciei uma conversa sobre o anúncio: " . $adTitle,
+                'sender_id' => $userId,
+                'recipient_id' => $sellerUserId,
+                'conversation_id' => $conversationId,
+            ]);
+
+            broadcast(new ChatMessage($conversationEvent));
+        }
+
+        return Redirect::to('/conversations' . '/' . $conversationId);
     }
 }
