@@ -193,13 +193,13 @@ const NotSellerProfileForm = ({ userName }) => {
     );
 };
 
-export default function Profile({ auth, seller }) {
+export default function Profile({ auth }) {
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Painel vendedor - Perfil" />
             <Box noValidate sx={{ width: "100%" }}>
                 <Grid container spacing={0} rowSpacing={2}>
-                    {!seller && (
+                    {!auth.user.seller && (
                         <Grid item xs={12}>
                             <PageBox
                                 title="Você precisa virar vendedor para ver suas informações"
@@ -211,21 +211,27 @@ export default function Profile({ auth, seller }) {
                             </PageBox>
                         </Grid>
                     )}
-                    {seller && (
+                    {auth.user.seller && (
                         <>
                             <Grid item xs={12}>
                                 <PageBox
                                     title="Informações do perfil de vendedor"
                                     subTitle="Atualize as informações de perfil de vendedor"
                                 >
-                                    <SellerProfileForm seller={seller} />
+                                    <SellerProfileForm seller={auth.user.seller} />
                                 </PageBox>
                             </Grid>
                             <Grid item xs={12}>
-                                <PageBoxRedirect    
-                                    title="Meus anúncios"
+                                <PageBoxRedirect
+                                    title="Meu perfil"
+                                    href={`/seller/${auth.user.seller.id}`}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <PageBoxRedirect
+                                    title="Gerenciar meus anúncios"
                                     href="/seller-dashboard/ads"
-                                ></PageBoxRedirect>
+                                />
                             </Grid>
                         </>
                     )}

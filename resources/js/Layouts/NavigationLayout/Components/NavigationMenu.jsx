@@ -16,16 +16,19 @@ export default function NavigationMenu({}) {
         {
             label: "Início",
             href: "/",
+            disabled: false
             // startIcon: <RemixIcon className="ri-home-4-line"/>,
         },
         {
             label: "Planos",
             href: "/plans",
+            disabled: false
             // startIcon: <RemixIcon className="ri-briefcase-line"/>,
         },
         {
             label: "Ajuda",
             href: "#",
+            disabled: true
             // startIcon: <RemixIcon className="ri-question-line"/>,
         },
     ];
@@ -67,7 +70,7 @@ export default function NavigationMenu({}) {
                         <List>
                             {pages.map((page, index) => (
                                 <ListItem key={index} disablePadding>
-                                    <ListItemButton href={page.href}>
+                                    <ListItemButton href={page.href} disabled={page.disabled}>
                                         <ListItemIcon>
                                             {page.startIcon}
                                         </ListItemIcon>
@@ -91,6 +94,7 @@ export default function NavigationMenu({}) {
                         variant="text"
                         key={index}
                         href={page.href}
+                        disabled={page.disabled}
                         sx={{
                             my: 2,
                             color: "var(--dark-color)",

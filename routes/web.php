@@ -34,6 +34,7 @@ Route::get('/ad/{id}', [AdController::class, 'show']);
 Route::get('/seller/{id}', [SellerController::class, 'show']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit']);
     Route::patch('/profile', [ProfileController::class, 'update']);
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/seller-dashboard/ads/{id}/disable', [SellerDashboardAdsController::class, 'disable']);
     Route::put('/seller-dashboard/ads/{id}/reenable', [SellerDashboardAdsController::class, 'reenable']);
 
+    Route::get('/conversations/start', [ConversationsController::class, 'startConversation']);
     Route::resource('/conversations', ConversationsController::class);
 });
 

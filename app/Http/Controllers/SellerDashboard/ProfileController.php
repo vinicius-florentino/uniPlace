@@ -8,23 +8,18 @@ use Inertia\Response;
 use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
+// use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
 {
     /**
      * Display the password reset link request view.
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
-
         return Inertia::render('SellerDashboard/Profile', [
-            'status' => session('status'), 'seller' => $seller
+            'status' => session('status')
         ]);
     }
 
@@ -59,7 +54,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $userId = $user->id;
-
+        
         if ($request->filled('phone')) {
             $request->merge(['phone' => str_replace([' ', '+'], '', $request->phone)]);
         }
@@ -73,8 +68,7 @@ class ProfileController extends Controller
             ]
         ]);
 
-        $seller = Seller::where('user_id', $userId)->where('id', $id)->first();
-
+        $seller = $user->seller;
         $seller->name = $request->name;
         $seller->phone = $request->phone;
         $seller->save();

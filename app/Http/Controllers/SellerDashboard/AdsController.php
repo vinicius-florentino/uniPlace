@@ -7,10 +7,8 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-
-use App\Models\Seller;
 use App\Models\Ad;
-use Illuminate\Support\Facades\Redirect;
+// use Illuminate\Support\Facades\Redirect;
 
 class AdsController extends Controller
 {
@@ -20,9 +18,7 @@ class AdsController extends Controller
     public function index(Request $request): Response
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $ads = Ad::where('seller_id', $sellerId)
@@ -39,9 +35,7 @@ class AdsController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $request->validate([
@@ -71,9 +65,7 @@ class AdsController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $request->validate([
@@ -104,10 +96,7 @@ class AdsController extends Controller
     public function destroy(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
-
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         Ad::where('seller_id', $sellerId)
@@ -121,9 +110,7 @@ class AdsController extends Controller
     public function deleteImage(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $ad = Ad::where('seller_id', $sellerId)
@@ -139,9 +126,7 @@ class AdsController extends Controller
     public function disable(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $ad = Ad::where('seller_id', $sellerId)
@@ -157,9 +142,7 @@ class AdsController extends Controller
     public function reenable(Request $request, $id): RedirectResponse
     {
         $user = $request->user();
-        $userId = $user->id;
-
-        $seller = Seller::where('user_id', $userId)->first();
+        $seller = $user->seller;
         $sellerId = $seller->id;
 
         $ad = Ad::where('seller_id', $sellerId)
