@@ -222,7 +222,7 @@ export default function Profile({ auth, seller }) {
                                 </PageBox>
                             </Grid>
                             <Grid item xs={12}>
-                                <PageBoxRedirect
+                                <PageBoxRedirect    
                                     title="Meus anúncios"
                                     href="/seller-dashboard/ads"
                                 ></PageBoxRedirect>

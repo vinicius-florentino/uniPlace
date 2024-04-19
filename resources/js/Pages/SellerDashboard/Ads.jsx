@@ -34,6 +34,7 @@ import {
     DialogActions,
     FormHelperText,
     Typography,
+    Tooltip,
 } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
@@ -103,13 +104,14 @@ const ReenableAdDialog = ({
 
     return (
         <>
-            <IconButton onClick={handleOpen}>
-                <RemixIcon
-                    className="ri-arrow-up-double-line"
-                    color="var(--success-color)"
-                />
-            </IconButton>
-
+            <Tooltip title="Excluir" placement="top" arrow>
+                <IconButton onClick={handleOpen}>
+                    <RemixIcon
+                        className="ri-arrow-up-double-line"
+                        color="var(--success-color)"
+                    />
+                </IconButton>
+            </Tooltip>
             {open && (
                 <Dialog
                     onClose={onClose}
@@ -276,13 +278,14 @@ const DisableAdDialog = ({
 
     return (
         <>
-            <IconButton onClick={handleOpen}>
-                <RemixIcon
-                    className="ri-prohibited-line"
-                    color="var(--danger-color)"
-                />
-            </IconButton>
-
+            <Tooltip title="Desabilitar" placement="top" arrow>
+                <IconButton onClick={handleOpen}>
+                    <RemixIcon
+                        className="ri-prohibited-line"
+                        color="var(--danger-color)"
+                    />
+                </IconButton>
+            </Tooltip>
             {open && (
                 <Dialog
                     onClose={onClose}
@@ -449,13 +452,14 @@ const DeleteAdDialog = ({
 
     return (
         <>
-            <IconButton onClick={handleOpen}>
-                <RemixIcon
-                    className="ri-delete-bin-line"
-                    color="var(--danger-color)"
-                />
-            </IconButton>
-
+            <Tooltip title="Excluir" placement="top" arrow>
+                <IconButton onClick={handleOpen}>
+                    <RemixIcon
+                        className="ri-delete-bin-line"
+                        color="var(--danger-color)"
+                    />
+                </IconButton>
+            </Tooltip>
             {open && (
                 <Dialog
                     onClose={onClose}
@@ -655,10 +659,11 @@ const EditAdDialog = ({
 
     return (
         <>
-            <IconButton onClick={handleOpen}>
-                <RemixIcon className="ri-edit-line" />
-            </IconButton>
-
+            <Tooltip title="Editar" arrow placement="top">
+                <IconButton onClick={handleOpen}>
+                    <RemixIcon className="ri-edit-line" />
+                </IconButton>
+            </Tooltip>
             {open && (
                 <Dialog
                     onClose={onClose}
@@ -1218,11 +1223,13 @@ export default function Ads({ auth, ads }) {
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">
-                                                                    <IconButton
-                                                                        href={`/ad/${ad.id}`}
-                                                                    >
-                                                                        <RemixIcon className="ri-eye-line"></RemixIcon>
-                                                                    </IconButton>
+                                                                    <Tooltip title="Visualizar" placement="top" arrow> 
+                                                                        <IconButton
+                                                                            href={`/ad/${ad.id}`}
+                                                                        >
+                                                                            <RemixIcon className="ri-eye-line"></RemixIcon>
+                                                                        </IconButton>                                                              
+                                                                    </Tooltip>
                                                                     <EditAdDialog
                                                                         id={
                                                                             ad.id

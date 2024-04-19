@@ -10,18 +10,13 @@ import PageBoxAdsSection from "@/Components/pagebox/PageBoxAdsSection";
 import stringAvatar from "@/Utils/stringAvatar";
 export default function Seller({ seller, auth, ads }) {
     const { data, setData, post, processing, errors } = useForm({});
-    const [disabledButton, setDisabledButton] = useState(true);
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {
             const whatsappLink = `https://wa.me/${seller.phone}?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
-            window.location.href = whatsappLink;
+            window.open(whatsappLink, '_blank');
         }
     }
-
-    useEffect(() => {
-        setDisabledButton(!seller.phone);
-    }, [seller.phone]);
 
     return (
         <NavigationLayout user={auth.user}>
@@ -44,7 +39,7 @@ export default function Seller({ seller, auth, ads }) {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button variant="containedSuccess" startIcon={<RemixIcon className="ri-whatsapp-line" color={"var(--success-color)"} />} disabled={disabledButton} onClick={redirectToWhatsApp}>
+                                    <Button variant="containedSuccess" startIcon={<RemixIcon className="ri-whatsapp-line" color={"var(--success-color)"} />} disabled={!seller.phone || auth.user.seller.id === seller.id} onClick={redirectToWhatsApp}>
                                         Inicie uma conversa via WhatsApp
                                     </Button>
                                 </Grid>

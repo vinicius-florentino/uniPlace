@@ -105,7 +105,7 @@ export default function PersonalMenu({ user }) {
                             </IconButton>
                         </ListItem>
                         <Divider />
-                        <ListItemButton href={"/profile"}>
+                        <ListItemButton href={`/user/${user.id}`}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-user-line" />
                             </ListItemIcon>

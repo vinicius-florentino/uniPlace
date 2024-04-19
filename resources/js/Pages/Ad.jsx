@@ -31,7 +31,7 @@ export default function Ad({ ad, auth }) {
     const redirectToWhatsApp = () => {
         if (ad.seller.phone) {
             const whatsappLink = `https://wa.me/${ad.seller.phone}?text=${encodeURIComponent(`Olá, gostaria de falar sobre o ${ad.title}`)}`;
-            window.location.href = whatsappLink;
+            window.open(whatsappLink, '_blank');
         }
     }
 
