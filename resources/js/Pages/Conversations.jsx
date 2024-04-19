@@ -69,6 +69,7 @@ const ConversationsSideList = ({
     conversationsWithUsers,
     conversationsWithSellers,
 }) => {
+
     const defaultTabContent = auth.user.seller ? "users" : "sellers";
     const [tabContent, setTabContent] = useState(defaultTabContent);
 
@@ -178,7 +179,7 @@ export default function Conversations({
     };
 
     const handleKeyDown = (event) => {
-        if (event.key === "Enter" && !event.shiftKey) {
+        if (event.key === "Enter" && !event.shiftKey && !message) {
             event.preventDefault();
             sendMessage();
             setMessage("");
@@ -269,7 +270,7 @@ export default function Conversations({
                                         />
                                         <IconButton
                                             onClick={() => sendMessage()}
-                                            disabled={loading || !conversation}
+                                            disabled={loading || !conversation || !message}
                                             disableElevation
                                         >
                                             <RemixIcon
