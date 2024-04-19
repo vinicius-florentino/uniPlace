@@ -11,14 +11,12 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 
-class UserController extends Controller
+class SettingsController extends Controller
 {
-    public function show($id): Response
+    public function index(): Response
     {
-        $user = User::with("seller")->where('id', $id)->first();
+        return Inertia::render('Settings', [
 
-        return Inertia::render('User', [
-            'user' => $user
         ]);
     }
 }

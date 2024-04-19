@@ -8,6 +8,7 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\ConversationsController;
+use App\Http\Controllers\SettingsController;
 
 use App\Http\Controllers\SellerDashboard\ProfileController as SellerDashboardProfileController;
 use App\Http\Controllers\SellerDashboard\AdsController as SellerDashboardAdsController;
@@ -31,9 +32,9 @@ Route::get('/plans', [PlansController::class, 'index']);
 
 Route::get('/ads', [AdsController::class, 'index']);
 Route::get('/ad/{id}', [AdController::class, 'show']);
+
 Route::get('/seller/{id}', [SellerController::class, 'show']);
 Route::get('/user/{id}', [UserController::class, 'show']);
-
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit']);
@@ -48,6 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/conversations/start', [ConversationsController::class, 'startConversation']);
     Route::resource('/conversations', ConversationsController::class);
+
+    Route::resource('/settings', SettingsController::class);
 });
 
 require __DIR__ . '/auth.php';

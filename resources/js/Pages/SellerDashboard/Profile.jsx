@@ -223,7 +223,7 @@ export default function Profile({ auth }) {
                             </Grid>
                             <Grid item xs={12}>
                                 <PageBoxRedirect
-                                    title="Meu perfil"
+                                    title="Meu perfil de vendas"
                                     href={`/seller/${auth.user.seller.id}`}
                                 />
                             </Grid>
