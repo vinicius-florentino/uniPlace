@@ -2,14 +2,22 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 
-const PageBox = ({ prependTitleIcon, title, subTitle, children }) => {
+const PageBox = ({
+    prependTitleIcon,
+    title,
+    subTitle,
+    children,
+    disablePaddingX,
+    disablePaddingY,
+}) => {
     return (
         <Box
             noValidate
             sx={{
-                p: 4,
+                py: disablePaddingY ? 0 : 4,
+                px: disablePaddingX ? 0 : 4,
                 boxShadow: "var(--box-shadow)",
-                borderRadius: "16px",
+                // borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
             }}
         >

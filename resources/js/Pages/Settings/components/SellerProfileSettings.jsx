@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Head, useForm } from "@inertiajs/react";
-import NavigationLayout from "@/Layouts/NavigationLayout";
+import { useForm } from "@inertiajs/react";
 import {
     Box,
     Grid,
@@ -31,7 +30,7 @@ const SellerProfileForm = ({ seller }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        put(`/seller-dashboard/profile/${seller.id}`, {
+        put(`/settings/seller/${seller.id}`, {
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -57,7 +56,7 @@ const SellerProfileForm = ({ seller }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={6}/>
+                <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
                     <MuiTelInput
                         value={data.phone}
@@ -102,7 +101,7 @@ const NotSellerProfileForm = ({ userName }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        post("/seller-dashboard/profile", {
+        post("/settings/seller", {
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -193,50 +192,45 @@ const NotSellerProfileForm = ({ userName }) => {
     );
 };
 
-export default function Profile({ auth }) {
+export default function SellerProfileSettings({ user }) {
     return (
-        <NavigationLayout user={auth.user}>
-            <Head title="Painel vendedor - Perfil" />
-            <Box noValidate sx={{ width: "100%" }}>
-                <Grid container spacing={0} rowSpacing={2}>
-                    {!auth.user.seller && (
+        <Box noValidate sx={{ width: "100%" }}>
+            <Grid container spacing={0} rowSpacing={2}>
+                {!user.seller && (
+                    <Grid item xs={12}>
+                        <PageBox
+                            title="Você precisa virar vendedor para ver suas informações"
+                            subTitle="Preencha os campos para virar um vendedor"
+                        >
+                            <NotSellerProfileForm userName={user.name} />
+                        </PageBox>
+                    </Grid>
+                )}
+                {user.seller && (
+                    <>
                         <Grid item xs={12}>
                             <PageBox
-                                title="Você precisa virar vendedor para ver suas informações"
-                                subTitle="Preencha os campos para virar um vendedor"
+                                title="Informações do perfil de vendedor"
+                                subTitle="Atualize as informações de perfil de vendedor"
                             >
-                                <NotSellerProfileForm
-                                    userName={auth.user.name}
-                                />
+                                <SellerProfileForm seller={user.seller} />
                             </PageBox>
                         </Grid>
-                    )}
-                    {auth.user.seller && (
-                        <>
-                            <Grid item xs={12}>
-                                <PageBox
-                                    title="Informações do perfil de vendedor"
-                                    subTitle="Atualize as informações de perfil de vendedor"
-                                >
-                                    <SellerProfileForm seller={auth.user.seller} />
-                                </PageBox>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <PageBoxRedirect
-                                    title="Meu perfil de vendas"
-                                    href={`/seller/${auth.user.seller.id}`}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <PageBoxRedirect
-                                    title="Gerenciar meus anúncios"
-                                    href="/seller-dashboard/ads"
-                                />
-                            </Grid>
-                        </>
-                    )}
-                </Grid>
-            </Box>
-        </NavigationLayout>
+                        <Grid item xs={12}>
+                            <PageBoxRedirect
+                                title="Meu perfil de vendedor"
+                                href={`/seller/${user.seller.id}`}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <PageBoxRedirect
+                                title="Gerenciar meus anúncios"
+                                href="/seller-dashboard/ads"
+                            />
+                        </Grid>
+                    </>
+                )}
+            </Grid>
+        </Box>
     );
 }

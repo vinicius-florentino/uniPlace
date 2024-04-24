@@ -1,18 +1,16 @@
-import React from "react";
-import { Head, useForm, router } from "@inertiajs/react";
+import React, { useState } from "react";
+import { Head, router } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import { Typography, Box, Grid, Button, Avatar } from "@mui/material";
-import { useState, useEffect } from "react";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 import stringAvatar from "@/Utils/stringAvatar";
 
-export default function Seller({ seller, auth, ads }) {
+export default function Seller({ seller, auth }) {
 
     const [loading, setLoading] = useState(false);
-    const { data, setData, post, processing, errors } = useForm({});
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {

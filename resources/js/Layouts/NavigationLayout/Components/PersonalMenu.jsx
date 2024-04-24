@@ -19,7 +19,7 @@ import Avatar from "@mui/material/Avatar";
 import RemixIcon from "@/Components/RemixIcon";
 
 export default function PersonalMenu({ user }) {
-
+    
     const [open, setOpen] = React.useState(false);
 
     const handleClick = () => {
@@ -117,6 +117,7 @@ export default function PersonalMenu({ user }) {
                             </ListItemIcon>
                             <ListItemText primary={"Conversas"} />
                         </ListItemButton>
+                        <Divider sx={{ my: 1 }} />
                         <ListItemButton onClick={handleClick}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-dashboard-line" />
@@ -131,14 +132,18 @@ export default function PersonalMenu({ user }) {
                         <Collapse in={open} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding sx={{ pl: 4 }}>
                                 <ListItemButton
-                                    href={"/seller-dashboard/profile"}
+                                    disabled={!user.seller}
+                                    href={`/seller/${user.seller.id}`}
                                 >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-2-line" />
                                     </ListItemIcon>
-                                    <ListItemText primary="Meu perfil de vendas" />
+                                    <ListItemText primary="Meu perfil de vendedor" />
                                 </ListItemButton>
-                                <ListItemButton href={"/seller-dashboard/ads"} disabled={!user.seller}>
+                                <ListItemButton
+                                    href={"/seller-dashboard/ads"}
+                                    disabled={!user.seller}
+                                >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-price-tag-3-line" />
                                     </ListItemIcon>
@@ -146,8 +151,8 @@ export default function PersonalMenu({ user }) {
                                 </ListItemButton>
                             </List>
                         </Collapse>
-                        <Divider />
-                        <ListItemButton disabled>
+                        <Divider sx={{ my: 1 }} />
+                        <ListItemButton href={"/settings"}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-settings-line" />
                             </ListItemIcon>
@@ -155,7 +160,10 @@ export default function PersonalMenu({ user }) {
                         </ListItemButton>
                         <ListItemButton onClick={handleLogout}>
                             <ListItemIcon>
-                                <RemixIcon className="ri-logout-box-line" color={"var(--danger-color)"}/>
+                                <RemixIcon
+                                    className="ri-logout-box-line"
+                                    color={"var(--danger-color)"}
+                                />
                             </ListItemIcon>
                             <ListItemText
                                 sx={{ color: "var(--danger-color)" }}
