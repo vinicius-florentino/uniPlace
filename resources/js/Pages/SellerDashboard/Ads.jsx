@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { Head, useForm, router } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-
 import PageBox from "@/Components/pagebox/PageBox";
 import Loading from "@/Components/Loading";
 import PriceFormatMask from "@/Components/masks/PriceFormatMask";
 import formatPrice from "@/Utils/formatPrice";
-
 import formatDate from "@/Utils/formatDate";
-
 import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
 
@@ -93,7 +90,7 @@ const ReenableAdDialog = ({
         put(`/seller-dashboard/ads/${id}/reenable`, {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success("Anúncio rehabilitado com sucesso!");
+                toast.success("Anúncio reabilitado com sucesso!");
                 onClose();
             },
             onError: () => {
@@ -104,7 +101,7 @@ const ReenableAdDialog = ({
 
     return (
         <>
-            <Tooltip title="Excluir" placement="top" arrow>
+            <Tooltip title="Reabilitar" placement="top" arrow>
                 <IconButton onClick={handleOpen}>
                     <RemixIcon
                         className="ri-arrow-up-double-line"
@@ -119,7 +116,7 @@ const ReenableAdDialog = ({
                     component="form"
                     onSubmit={reenableAd}
                 >
-                    <DialogTitle>Rehabilitar anúncio</DialogTitle>
+                    <DialogTitle>Reabilitar anúncio</DialogTitle>
                     <IconButton
                         aria-label="close"
                         onClick={handleClose}
@@ -217,7 +214,7 @@ const ReenableAdDialog = ({
                             disabled={processing}
                             type="submit"
                         >
-                            Rehabilitar
+                            Reabilitar
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -1435,11 +1432,13 @@ export default function Ads({ auth, ads }) {
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">
-                                                                    <IconButton
-                                                                        href={`/ad/${ad.id}`}
-                                                                    >
-                                                                        <RemixIcon className="ri-eye-line"></RemixIcon>
-                                                                    </IconButton>
+                                                                    <Tooltip title="Visualizar" placement="top" arrow>
+                                                                        <IconButton
+                                                                            href={`/ad/${ad.id}`}
+                                                                        >
+                                                                            <RemixIcon className="ri-eye-line"></RemixIcon>
+                                                                        </IconButton>
+                                                                    </Tooltip>
                                                                     <EditAdDialog
                                                                         id={
                                                                             ad.id

@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function show($id): Response
     {
-        $user = User::where('id', $id)->first();
+        $user = User::with("seller")->where('id', $id)->first();
         return Inertia::render('User', [
             'user' => $user
         ]);

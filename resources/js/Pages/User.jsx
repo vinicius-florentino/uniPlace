@@ -1,13 +1,22 @@
 import React from "react";
-import { Head } from "@inertiajs/react";
-import { Typography, Box, Grid, Button, Avatar } from "@mui/material";
+import { Head, router } from "@inertiajs/react";
+import { Typography, Box, Grid, IconButton, Avatar, Menu, MenuItem} from "@mui/material";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import stringAvatar from "@/Utils/stringAvatar";
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
+import RemixIcon from "@/Components/RemixIcon";
 
 export default function User({ user, auth }) {
-    console.log(user)
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };  
+
     return (
         <NavigationLayout user={auth.user}>
             <Head title={user.name} />
@@ -15,6 +24,28 @@ export default function User({ user, auth }) {
                 <Grid container spacing={2} rowSpacing={2} justifyContent="center">
                     <Grid item xs={12}>
                         <PageBox>
+                        {auth.user.id === user.id &&
+                            <Grid item xs={12} sx={{justifyContent: "end", display:"flex"}}>
+                                <IconButton onClick={handleOpen}>
+                                    <RemixIcon
+                                        className="ri-more-2-line"
+                                    />
+                                </IconButton>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    <MenuItem onClick={() => router.visit("/settings/user")}>
+                                        Editar informações
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
+                            }
                             <Grid container spacing={2} sx={{ justifyContent: "center", display: "flex", alignItems: "center", flexDirection: "column" }}>
                                 <Grid item xs={12}>
                                     <Avatar
@@ -31,21 +62,15 @@ export default function User({ user, auth }) {
                             </Grid>
                         </PageBox>
                     </Grid>
+                    {user.seller &&
                     <Grid item xs={12}>
                         <PageBoxRedirect
-                            title={`Perfil de vendedor de ${user.name}`}
-                            href={`/seller/${user.id}`}
-                        ></PageBoxRedirect>
-                    </Grid>
-                    {auth.user.id === user.id &&
-                    <Grid item xs={12}>
-                        <PageBoxRedirect
-                            title="Minhas informações"
-                            href="/profile"
+                            title={`Perfil de vendedor de ${user.name} (${user.seller.name})`}
+                            href={`/seller/${user.seller.id}`}
                         ></PageBoxRedirect>
                     </Grid>
                     }
-                </Grid>
+                </Grid> 
             </Box>
         </NavigationLayout>
     );

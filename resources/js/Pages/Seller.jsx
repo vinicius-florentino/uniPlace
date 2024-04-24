@@ -2,7 +2,7 @@ import React from "react";
 import { Head, useForm, router } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
-import { Typography, Box, Grid, Button, Avatar } from "@mui/material";
+import { Typography, Box, Grid, Button, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import { useState, useEffect } from "react";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
@@ -10,9 +10,17 @@ import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 import stringAvatar from "@/Utils/stringAvatar";
 
 export default function Seller({ seller, auth, ads }) {
-
     const [loading, setLoading] = useState(false);
     const { data, setData, post, processing, errors } = useForm({});
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const open = Boolean(anchorEl);
+    const handleOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {
@@ -44,6 +52,28 @@ export default function Seller({ seller, auth, ads }) {
                 >
                     <Grid item xs={12}>
                         <PageBox>
+                            {seller.user_id === auth.user.id &&
+                                <Grid item xs={12} sx={{ justifyContent: "end", display: "flex" }}>
+                                    <IconButton onClick={handleOpen}>
+                                        <RemixIcon
+                                            className="ri-more-2-line"
+                                        />
+                                    </IconButton>
+                                    <Menu
+                                        id="basic-menu"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        MenuListProps={{
+                                            'aria-labelledby': 'basic-button',
+                                        }}
+                                    >
+                                        <MenuItem onClick={() => router.visit("/settings/seller")}>
+                                            Editar informações
+                                        </MenuItem>
+                                    </Menu>
+                                </Grid>
+                            }
                             <Grid
                                 container
                                 spacing={2}
