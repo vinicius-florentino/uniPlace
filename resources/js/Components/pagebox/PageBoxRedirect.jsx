@@ -12,7 +12,7 @@ const PageBoxRedirect = ({ title, href }) => {
             sx={{
                 p: 4,
                 boxShadow: "var(--box-shadow)",
-                borderRadius: "16px",
+                // borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
                 display: "flex",
                 justifyContent: "space-between",
@@ -29,7 +29,7 @@ const PageBoxRedirect = ({ title, href }) => {
             </Typography>
             {/* <Typography sx={{ fontWeight: 300 }}>
                             {subTitle}
-                        </Typography> */}
+                </Typography> */}
             <RemixIcon className="ri-external-link-line" />
         </Box>
     );

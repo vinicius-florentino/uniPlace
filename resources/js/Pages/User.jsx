@@ -21,7 +21,12 @@ export default function User({ user, auth }) {
         <NavigationLayout user={auth.user}>
             <Head title={user.name} />
             <Box sx={{ width: "100%" }}>
-                <Grid container spacing={2} rowSpacing={2} justifyContent="center">
+                <Grid
+                    container
+                    spacing={2}
+                    rowSpacing={2}
+                    justifyContent="center"
+                >
                     <Grid item xs={12}>
                         <PageBox>
                         {auth.user.id === user.id &&
@@ -51,11 +56,17 @@ export default function User({ user, auth }) {
                                     <Avatar
                                         {...stringAvatar(user.name)}
                                         alt={user.name.toUpperCase()}
-                                        sx={{ width: "144px", height: "144px", fontSize: 40 }}
+                                        sx={{
+                                            width: "144px",
+                                            height: "144px",
+                                            fontSize: 40,
+                                        }}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Typography sx={{ fontWeight: 500, fontSize: 24 }}>
+                                    <Typography
+                                        sx={{ fontWeight: 500, fontSize: 24 }}
+                                    >
                                         {user.name}
                                     </Typography>
                                 </Grid>

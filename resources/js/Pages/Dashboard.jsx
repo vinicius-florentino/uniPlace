@@ -3,14 +3,19 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 
-import { Head, useForm } from "@inertiajs/react";
 import Carousel from "react-material-ui-carousel";
+import { Head, useForm } from "@inertiajs/react";
 import { Box, Grid, Paper, Typography, Container } from "@mui/material";
+
 import AdCard from "@/Components/cards/AdCard";
 import RemixIcon from "@/Components/RemixIcon";
+import Image from "@/Components/Image";
+
+import Banner1 from "@/Assets/dashboard_banner1.webp";
+import Banner2 from "@/Assets/dashboard_banner2.webp";
 
 export default function Dashboard({ auth, ads }) {
-    
+
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -29,9 +34,32 @@ export default function Dashboard({ auth, ads }) {
     };
 
     const items = [
-        { id: 1, title: "Slide 1", description: "Descrição do Item 1" },
-        { id: 2, title: "Slide 2", description: "Descrição do Item 2" },
-        { id: 3, title: "Slide 3", description: "Descrição do Item 3" },
+        {
+            id: 1,
+            content: (
+                <Image
+                    style={{
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "fill",
+                    }}
+                    src={Banner1}
+                />
+            ),
+        },
+        {
+            id: 2,
+            content: (
+                <Image
+                    style={{
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "fill",
+                    }}
+                    src={Banner2}
+                />
+            ),
+        },
     ];
 
     return (
@@ -42,7 +70,9 @@ export default function Dashboard({ auth, ads }) {
                 <Box sx={{ mb: 4 }}>
                     <Carousel
                         navButtonsAlwaysVisible
-                        animation={"slide"}
+                        animation={"fade"}
+                        interval={5000}
+                        swipe={false}
                         NextIcon={
                             <RemixIcon className={"ri-arrow-right-s-line"} />
                         }
@@ -59,7 +89,6 @@ export default function Dashboard({ auth, ads }) {
                         activeIndicatorIconButtonProps={{
                             style: {
                                 backgroundColor: "var(--dark-color)",
-                                
                             },
                         }}
                         navButtonsProps={{
@@ -69,21 +98,17 @@ export default function Dashboard({ auth, ads }) {
                             },
                         }}
                     >
-                        {items.map((item) => (
+                        {items.map((item, index) => (
                             <Paper
-                                key={item.id}
+                                key={index}
                                 sx={{
-                                    height: "320px",
+                                    width: "100%",
+                                    height: "300px",
                                     backgroundColor: "var(--white-color)",
                                     color: "#FFF",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
                                 }}
                             >
-                                <Typography variant="h5">
-                                    {item.title}
-                                </Typography>
+                                {item.content}
                             </Paper>
                         ))}
                     </Carousel>

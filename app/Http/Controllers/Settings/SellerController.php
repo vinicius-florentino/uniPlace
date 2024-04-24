@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\SellerDashboard;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
-// use Illuminate\Support\Facades\Redirect;
+use App\Models\Seller;
 
-class ProfileController extends Controller
+class SellerController extends Controller
 {
-    /**
-     * Display the password reset link request view.
-     */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return Inertia::render('SellerDashboard/Profile', [
-            'status' => session('status')
+        return Inertia::render('Settings/Settings', [
+            // 'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            // 'status' => session('status'),
         ]);
     }
 
