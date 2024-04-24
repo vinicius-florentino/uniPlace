@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Head, router } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import { Typography, Box, Grid, Button, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
-import { useState, useEffect } from "react";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
