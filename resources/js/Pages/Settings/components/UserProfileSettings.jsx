@@ -14,10 +14,10 @@ import {
     IconButton,
 } from "@mui/material";
 import PageBox from "@/Components/pagebox/PageBox";
+import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import RemixIcon from "@/Components/RemixIcon";
 
-const UpdateProfileInformationForm = ({user}) => {
-
+const UpdateProfileInformationForm = ({ user }) => {
     const { data, setData, patch, errors, processing, recentlySuccessful } =
         useForm({
             name: user.name,
@@ -49,7 +49,7 @@ const UpdateProfileInformationForm = ({user}) => {
                 onSubmit={onSubmit}
             >
                 <Grid container spacing={0} rowGap={2}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <TextField
                             id="name"
                             name="name"
@@ -62,8 +62,8 @@ const UpdateProfileInformationForm = ({user}) => {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}></Grid>
-                    <Grid item xs={12} md={6}>
+
+                    <Grid item xs={12}>
                         <TextField
                             id="email"
                             name="email"
@@ -76,31 +76,8 @@ const UpdateProfileInformationForm = ({user}) => {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={12} md={6}></Grid>
-                    {/* {mustVerifyEmail && user.email_verified_at === null && (
-                        <Grid item xs={12} md={6}>
-                            <Typography className="text-sm mt-2 text-gray-800">
-                                Your email address is unverified.
-                                <Link
-                                    href={route("verification.send")}
-                                    method="post"
-                                    as="button"
-                                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Click here to re-send the verification
-                                    email.
-                                </Link>
-                            </Typography>
 
-                            {status === "verification-link-sent" && (
-                                <Grid className="mt-2 font-medium text-sm text-green-600">
-                                    A new verification link has been sent to
-                                    your email address.
-                                </Grid>
-                            )}
-                        </Grid>
-                    )} */}
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12}>
                         <Button
                             variant="contained"
                             type="submit"
@@ -170,7 +147,7 @@ const UpdatePasswordForm = () => {
     return (
         <Box onSubmit={updatePassword} noValidate component="form">
             <Grid container spacing={0} rowGap={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <TextField
                         id="current_password"
                         name="current_password"
@@ -184,8 +161,7 @@ const UpdatePasswordForm = () => {
                         helperText={errors.current_password}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}></Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <TextField
                         id="password"
                         name="password"
@@ -199,8 +175,7 @@ const UpdatePasswordForm = () => {
                         helperText={errors.password}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}></Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <TextField
                         id="password_confirmation"
                         name="password_confirmation"
@@ -213,15 +188,13 @@ const UpdatePasswordForm = () => {
                         helperText={errors.password_confirmation}
                     />
                 </Grid>
-                <Grid item xs={12} md={6}></Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <Button
                         variant="contained"
                         type="submit"
                         disabled={processing}
                         disableElevation
                         sx={{
-                            mb: "10px",
                             width: { xs: "100%", md: "auto" },
                         }}
                     >
@@ -368,16 +341,22 @@ const DeleteUserForm = () => {
     );
 };
 
-export const UserProfileSettings = ({user}) => {
+export const UserProfileSettings = ({ user }) => {
     return (
         <Box noValidate sx={{ width: "100%" }}>
             <Grid container spacing={0} rowSpacing={2}>
+                <Grid item xs={12}>
+                    <PageBoxRedirect
+                        title="Meu perfil"
+                        href={`/user/${user.id}`}
+                    />
+                </Grid>
                 <Grid item xs={12}>
                     <PageBox
                         title="Informações do perfil"
                         subTitle="Atualize as informações de perfil e endereço de email da sua conta"
                     >
-                        <UpdateProfileInformationForm user={user}/>
+                        <UpdateProfileInformationForm user={user} />
                     </PageBox>
                 </Grid>
 

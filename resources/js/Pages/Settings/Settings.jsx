@@ -15,14 +15,33 @@ import {
 
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
+import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import RemixIcon from "@/Components/RemixIcon";
 import stringAvatar from "@/Utils/stringAvatar";
 
 import UserProfileSettings from "./components/UserProfileSettings";
 import SellerProfileSettings from "./components/SellerProfileSettings";
 
-export const Settings = ({ auth }) => {
+const AvatarWithName = ({ name }) => {
+    return (
+        <div
+            style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+            }}
+        >
+            <Avatar
+                sx={{ height: 48, width: 48, fontSize: 16 }}
+                {...stringAvatar(name)}
+                alt={name.toUpperCase()}
+            />
+            <Typography sx={{ fontSize: 16 }}>{name}</Typography>
+        </div>
+    );
+};
 
+export const Settings = ({ auth }) => {
     const { user } = auth;
     const pathname = window.location.pathname;
 
@@ -44,14 +63,8 @@ export const Settings = ({ auth }) => {
                             title={"Configurações"}
                             subTitle={"Administre os dados de sua conta"}
                         >
-                            <div style={{display: "flex", alignItems: "center", gap: "8px"}}>
-                                <Avatar
-                                    sx={{ height: 48, width: 48, fontSize: 16 }}
-                                    {...stringAvatar(user.name)}
-                                    alt={user.name.toUpperCase()}
-                                />
-                                <Typography sx={{fontSize: 16}}>{user.name}</Typography>
-                            </div>
+                            <AvatarWithName name={user.name} />
+                            {/* <AvatarWithName name={user.seller.name} /> */}
                         </PageBox>
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -72,13 +85,10 @@ export const Settings = ({ auth }) => {
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-line" />
                                     </ListItemIcon>
-                                    <ListItemText>
-                                        Perfil de usuário
-                                    </ListItemText>
+                                    <ListItemText>Usuário</ListItemText>
                                 </MenuItem>
                                 <MenuItem
                                     selected={pathname === "/settings/seller"}
-                                    disabled={!auth.user.seller}
                                     onClick={() =>
                                         router.visit("/settings/seller")
                                     }
@@ -86,9 +96,7 @@ export const Settings = ({ auth }) => {
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-2-line" />
                                     </ListItemIcon>
-                                    <ListItemText>
-                                        Perfil de vendedor
-                                    </ListItemText>
+                                    <ListItemText>Vendedor</ListItemText>
                                 </MenuItem>
                             </MenuList>
                         </PageBox>

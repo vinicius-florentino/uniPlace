@@ -2,7 +2,17 @@ import React, { useState } from "react";
 import { Head, router, useForm } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
-import { Typography, Box, Grid, Button, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+    Typography,
+    Box,
+    Grid,
+    Button,
+    Avatar,
+    IconButton,
+    Menu,
+    MenuItem,
+    Tooltip,
+} from "@mui/material";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
@@ -23,8 +33,10 @@ export default function Seller({ seller, auth, ads }) {
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {
-            const whatsappLink = `https://wa.me/${seller.phone}?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
-            window.open(whatsappLink, '_blank');
+            const whatsappLink = `https://wa.me/${
+                seller.phone
+            }?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
+            window.open(whatsappLink, "_blank");
         }
     };
 
@@ -34,7 +46,9 @@ export default function Seller({ seller, auth, ads }) {
             "/conversations/start",
             { id: ad.seller.id, ad_id: ad.id },
             {
-                onSuccess: () => { setLoading(false) },
+                onSuccess: () => {
+                    setLoading(false);
+                },
             }
         );
     };
@@ -51,28 +65,39 @@ export default function Seller({ seller, auth, ads }) {
                 >
                     <Grid item xs={12}>
                         <PageBox>
-                            {seller.user_id === auth.user.id &&
-                                <Grid item xs={12} sx={{ justifyContent: "end", display: "flex" }}>
-                                    <IconButton onClick={handleOpen}>
-                                        <RemixIcon
-                                            className="ri-more-2-line"
-                                        />
-                                    </IconButton>
+                            {seller.user_id === auth.user.id && (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        justifyContent: "end",
+                                        display: "flex",
+                                    }}
+                                >
+                                    <Tooltip title="Mais opções" arrow placement="left">
+                                        <IconButton onClick={handleOpen}>
+                                            <RemixIcon className="ri-more-2-line" />
+                                        </IconButton>
+                                    </Tooltip>
                                     <Menu
                                         id="basic-menu"
                                         anchorEl={anchorEl}
                                         open={open}
                                         onClose={handleClose}
                                         MenuListProps={{
-                                            'aria-labelledby': 'basic-button',
+                                            "aria-labelledby": "basic-button",
                                         }}
                                     >
-                                        <MenuItem onClick={() => router.visit("/settings/seller")}>
+                                        <MenuItem
+                                            onClick={() =>
+                                                router.visit("/settings/seller")
+                                            }
+                                        >
                                             Editar informações
                                         </MenuItem>
                                     </Menu>
                                 </Grid>
-                            }
+                            )}
                             <Grid
                                 container
                                 spacing={2}
@@ -102,7 +127,20 @@ export default function Seller({ seller, auth, ads }) {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button variant="containedSuccess" startIcon={<RemixIcon className="ri-whatsapp-line" color={"var(--success-color)"} />} disabled={!seller.phone || auth.user.seller.id === seller.id} onClick={redirectToWhatsApp}>
+                                    <Button
+                                        variant="containedSuccess"
+                                        startIcon={
+                                            <RemixIcon
+                                                className="ri-whatsapp-line"
+                                                color={"var(--success-color)"}
+                                            />
+                                        }
+                                        disabled={
+                                            !seller.phone ||
+                                            auth.user.seller.id === seller.id
+                                        }
+                                        onClick={redirectToWhatsApp}
+                                    >
                                         Inicie uma conversa via WhatsApp
                                     </Button>
                                 </Grid>

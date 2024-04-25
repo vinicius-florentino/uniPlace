@@ -1,6 +1,15 @@
 import React from "react";
 import { Head, router } from "@inertiajs/react";
-import { Typography, Box, Grid, IconButton, Avatar, Menu, MenuItem} from "@mui/material";
+import {
+    Typography,
+    Box,
+    Grid,
+    IconButton,
+    Avatar,
+    Menu,
+    MenuItem,
+    Tooltip
+} from "@mui/material";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import stringAvatar from "@/Utils/stringAvatar";
@@ -15,7 +24,7 @@ export default function User({ user, auth }) {
     };
     const handleClose = () => {
         setAnchorEl(null);
-    };  
+    };
 
     return (
         <NavigationLayout user={auth.user}>
@@ -29,29 +38,53 @@ export default function User({ user, auth }) {
                 >
                     <Grid item xs={12}>
                         <PageBox>
-                        {auth.user.id === user.id &&
-                            <Grid item xs={12} sx={{justifyContent: "end", display:"flex"}}>
-                                <IconButton onClick={handleOpen}>
-                                    <RemixIcon
-                                        className="ri-more-2-line"
-                                    />
-                                </IconButton>
-                                <Menu
-                                    id="basic-menu"
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                    MenuListProps={{
-                                    'aria-labelledby': 'basic-button',
+                            {auth.user.id === user.id && (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{
+                                        justifyContent: "end",
+                                        display: "flex",
                                     }}
                                 >
-                                    <MenuItem onClick={() => router.visit("/settings/user")}>
-                                        Editar informações
-                                    </MenuItem>
-                                </Menu>
-                            </Grid>
-                            }
-                            <Grid container spacing={2} sx={{ justifyContent: "center", display: "flex", alignItems: "center", flexDirection: "column" }}>
+                                    <Tooltip
+                                        title="Mais opções"
+                                        arrow
+                                        placement="left"
+                                    >
+                                        <IconButton onClick={handleOpen}>
+                                            <RemixIcon className="ri-more-2-line" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        id="basic-menu"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        MenuListProps={{
+                                            "aria-labelledby": "basic-button",
+                                        }}
+                                    >
+                                        <MenuItem
+                                            onClick={() =>
+                                                router.visit("/settings/user")
+                                            }
+                                        >
+                                            Editar informações
+                                        </MenuItem>
+                                    </Menu>
+                                </Grid>
+                            )}
+                            <Grid
+                                container
+                                spacing={2}
+                                sx={{
+                                    justifyContent: "center",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    flexDirection: "column",
+                                }}
+                            >
                                 <Grid item xs={12}>
                                     <Avatar
                                         {...stringAvatar(user.name)}
@@ -73,15 +106,15 @@ export default function User({ user, auth }) {
                             </Grid>
                         </PageBox>
                     </Grid>
-                    {user.seller &&
-                    <Grid item xs={12}>
-                        <PageBoxRedirect
-                            title={`Perfil de vendedor de ${user.name} (${user.seller.name})`}
-                            href={`/seller/${user.seller.id}`}
-                        ></PageBoxRedirect>
-                    </Grid>
-                    }
-                </Grid> 
+                    {user.seller && (
+                        <Grid item xs={12}>
+                            <PageBoxRedirect
+                                title={`Perfil de vendedor de ${user.name} (${user.seller.name})`}
+                                href={`/seller/${user.seller.id}`}
+                            ></PageBoxRedirect>
+                        </Grid>
+                    )}
+                </Grid>
             </Box>
         </NavigationLayout>
     );

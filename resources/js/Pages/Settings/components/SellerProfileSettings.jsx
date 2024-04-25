@@ -43,7 +43,7 @@ const SellerProfileForm = ({ seller }) => {
     return (
         <Box component="form" onSubmit={onSubmit} noValidate>
             <Grid container spacing={0} rowGap={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <TextField
                         id="name"
                         name="name"
@@ -56,8 +56,7 @@ const SellerProfileForm = ({ seller }) => {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <MuiTelInput
                         value={data.phone}
                         onChange={handlePhoneChange}
@@ -72,7 +71,6 @@ const SellerProfileForm = ({ seller }) => {
                         helperText={errors.phone}
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
                     <Button
                         variant="contained"
@@ -80,7 +78,6 @@ const SellerProfileForm = ({ seller }) => {
                         disableElevation
                         disabled={processing}
                         sx={{
-                            mb: "8px",
                             width: { xs: "100%", md: "auto" },
                         }}
                     >
@@ -94,10 +91,10 @@ const SellerProfileForm = ({ seller }) => {
 
 const NotSellerProfileForm = ({ userName }) => {
     const { data, setData, processing, post, errors } = useForm({
-        name: "",
+        name: userName,
         phone: "",
     });
-    const [sellerNameFromUser, setSellerNameFromUser] = useState(false);
+    const [sellerNameFromUser, setSellerNameFromUser] = useState(true);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -133,7 +130,7 @@ const NotSellerProfileForm = ({ userName }) => {
     return (
         <Box component="form" onSubmit={onSubmit} noValidate>
             <Grid container spacing={0} rowGap={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <TextField
                         id="name"
                         name="name"
@@ -147,17 +144,15 @@ const NotSellerProfileForm = ({ userName }) => {
                         disabled={sellerNameFromUser}
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <FormControlLabel
                         control={<Switch />}
-                        value={sellerNameFromUser}
+                        checked={sellerNameFromUser}
                         onChange={handleSwitchChange}
                         label="Usar nome de usuário como nome de vendedor"
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <MuiTelInput
                         value={data.phone}
                         onChange={handlePhoneChange}
@@ -172,15 +167,13 @@ const NotSellerProfileForm = ({ userName }) => {
                         helperText={errors.phone}
                     />
                 </Grid>
-                <Grid item xs={12} md={6} />
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <Button
                         variant="contained"
                         type="submit"
                         disableElevation
                         disabled={processing}
                         sx={{
-                            mb: "8px",
                             width: { xs: "100%", md: "auto" },
                         }}
                     >
@@ -206,16 +199,9 @@ export default function SellerProfileSettings({ user }) {
                         </PageBox>
                     </Grid>
                 )}
+
                 {user.seller && (
                     <>
-                        <Grid item xs={12}>
-                            <PageBox
-                                title="Informações do perfil de vendedor"
-                                subTitle="Atualize as informações de perfil de vendedor"
-                            >
-                                <SellerProfileForm seller={user.seller} />
-                            </PageBox>
-                        </Grid>
                         <Grid item xs={12}>
                             <PageBoxRedirect
                                 title="Meu perfil de vendedor"
@@ -227,6 +213,14 @@ export default function SellerProfileSettings({ user }) {
                                 title="Gerenciar meus anúncios"
                                 href="/seller-dashboard/ads"
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <PageBox
+                                title="Informações do perfil de vendedor"
+                                subTitle="Atualize as informações de perfil de vendedor"
+                            >
+                                <SellerProfileForm seller={user.seller} />
+                            </PageBox>
                         </Grid>
                     </>
                 )}

@@ -127,6 +127,15 @@ export default function Login({ status, canResetPassword }) {
                     >
                         <Link href={route("register")}>Criar conta</Link>
                     </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                    >
+                        <Link href={"/"}>Página inicial</Link>
+                    </Grid>
                 </Grid>
             </Box>
         </GuestLayout>

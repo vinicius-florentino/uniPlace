@@ -133,7 +133,7 @@ export default function PersonalMenu({ user }) {
                             <List component="div" disablePadding sx={{ pl: 4 }}>
                                 <ListItemButton
                                     disabled={!user.seller}
-                                    href={`/seller/${user.seller.id}`}
+                                    href={`/seller/${user.seller?.id}`}
                                 >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-2-line" />

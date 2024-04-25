@@ -26,7 +26,7 @@ class SellerController extends Controller
         $userId = $user->id;
 
         if ($request->filled('phone')) {
-            $request->merge(['phone' => str_replace([' ', '+'], '', $request->phone)]);
+            $request->merge(['phone' => str_replace([' ', '+', '-'], '', $request->phone)]);
         }
 
         $request->validate([

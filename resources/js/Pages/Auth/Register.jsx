@@ -191,6 +191,15 @@ export default function Register({ universities }) {
                     >
                         <Link href={route("login")}>Fazer login</Link>
                     </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        display={"flex"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                    >
+                        <Link href={"/"}>Página inicial</Link>
+                    </Grid>
                 </Grid>
             </Box>
         </GuestLayout>
