@@ -7,13 +7,39 @@ import {
     Button,
     Switch,
     FormControlLabel,
+    Input,
+    FormControl,
+    InputLabel,
+    OutlinedInput
 } from "@mui/material";
 import PageBox from "@/Components/pagebox/PageBox";
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import { toast } from "react-toastify";
-import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
+import PropTypes from 'prop-types';
+import { IMaskInput } from 'react-imask';
 
-const SellerProfileForm = ({ seller }) => {
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return (
+      <IMaskInput
+        {...other}
+        mask="+00 00 00000-0000"
+        definitions={{
+          '#': /[1-9]/,
+        }}
+        inputRef={ref}
+        onAccept={(value) => onChange({ target: { name: props.name, value } })}
+        overwrite
+      />
+    );
+  });
+
+  TextMaskCustom.propTypes = {
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  };
+
+const SellerProfileForm = ({ seller, handleSellerChange }) => {
     const { data, setData, processing, put, errors } = useForm({
         name: seller.name || "",
         phone: seller.phone || "",
@@ -22,6 +48,9 @@ const SellerProfileForm = ({ seller }) => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setData(name, value);
+        if (handleSellerChange) {
+            handleSellerChange(event);
+        }
     };
 
     const handlePhoneChange = (value, info) => {
@@ -58,19 +87,21 @@ const SellerProfileForm = ({ seller }) => {
                 </Grid>
                 <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
-                    <MuiTelInput
-                        value={data.phone}
-                        onChange={handlePhoneChange}
-                        name="phone"
-                        fullWidth
-                        label="Número de celular"
-                        defaultCountry="BR"
-                        onlyCountries={["BR"]}
-                        disableFormatting
-                        forceCallingCode
-                        error={errors.phone}
-                        helperText={errors.phone}
-                    />
+                    <FormControl fullWidth variant="outlined">
+                        <TextField
+                            id="phone"
+                            name="phone"
+                            label="Número de vendedor"
+                            variant="outlined"
+                            value={data.phone}
+                            onChange={handleChange}
+                            error={errors.phone}
+                            helperText={errors.phone}
+                            InputProps={{
+                            inputComponent: TextMaskCustom,
+                            }}
+                        />
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
@@ -91,6 +122,7 @@ const SellerProfileForm = ({ seller }) => {
         </Box>
     );
 };
+
 
 const NotSellerProfileForm = ({ userName }) => {
     const { data, setData, processing, post, errors } = useForm({
@@ -158,19 +190,21 @@ const NotSellerProfileForm = ({ userName }) => {
                 </Grid>
                 <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>
-                    <MuiTelInput
-                        value={data.phone}
-                        onChange={handlePhoneChange}
-                        name="phone"
-                        fullWidth
-                        label="Número de celular"
-                        defaultCountry="BR"
-                        onlyCountries={["BR"]}
-                        disableFormatting
-                        forceCallingCode
-                        error={errors.phone}
-                        helperText={errors.phone}
-                    />
+                    <FormControl fullWidth variant="outlined">
+                        <TextField
+                            id="phone"
+                            name="phone"
+                            label="Número de vendedor"
+                            variant="outlined"
+                            value={data.phone}
+                            onChange={handleChange}
+                            error={errors.phone}
+                            helperText={errors.phone}
+                            InputProps={{
+                            inputComponent: TextMaskCustom,
+                            }}
+                        />
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12} md={6} />
                 <Grid item xs={12} md={6}>

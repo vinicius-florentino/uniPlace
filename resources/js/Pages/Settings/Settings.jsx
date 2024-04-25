@@ -31,6 +31,10 @@ export const Settings = ({ auth }) => {
         "/settings/seller": "Configurações - Vendedor",
     };
 
+    const handleSellerChange = (event) => {
+        console.log('Valor alterado:', event.target.value);
+    };
+
     return (
         <NavigationLayout user={user}>
             <Head title={headTitleMap[pathname]} />
@@ -98,8 +102,8 @@ export const Settings = ({ auth }) => {
                             <UserProfileSettings user={user} />
                         )}
                         {pathname === "/settings/seller" && (
-                            <SellerProfileSettings user={user} />
-                        )}
+    <SellerProfileSettings user={user} handleSellerChange={handleSellerChange} />
+)}
                     </Grid>
                 </Grid>
             </Box>
