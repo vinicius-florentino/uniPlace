@@ -102,8 +102,8 @@ export const Settings = ({ auth }) => {
                             <UserProfileSettings user={user} />
                         )}
                         {pathname === "/settings/seller" && (
-    <SellerProfileSettings user={user} handleSellerChange={handleSellerChange} />
-)}
+                            <SellerProfileSettings user={user} handleSellerChange={handleSellerChange} />
+                        )}
                     </Grid>
                 </Grid>
             </Box>

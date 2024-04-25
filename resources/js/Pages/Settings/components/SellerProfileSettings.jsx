@@ -10,13 +10,20 @@ import {
     Input,
     FormControl,
     InputLabel,
-    OutlinedInput
+    OutlinedInput,
+    Dialog,
+    DialogTitle,
+    IconButton,
+    DialogContent,
+    Typography,
+    DialogActions,
 } from "@mui/material";
 import PageBox from "@/Components/pagebox/PageBox";
 import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import { toast } from "react-toastify";
 import PropTypes from 'prop-types';
 import { IMaskInput } from 'react-imask';
+import RemixIcon from "@/Components/RemixIcon";
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     const { onChange, ...other } = props;
@@ -226,6 +233,141 @@ const NotSellerProfileForm = ({ userName }) => {
     );
 };
 
+const DeleteSellerDialog = ({ onClose, open }) => {
+    // const passwordInput = useRef();
+
+    const {
+        data,
+        setData,
+        delete: destroy,
+        processing,
+        reset,
+        errors,
+    } = useForm({
+        password: "",
+    });
+
+    const deleteUser = (e) => {
+        e.preventDefault();
+
+        destroy("/settings/user", {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success("Alteração de dados concluída!");
+                onClose();
+            },
+            onError: () => {
+                toast.error("Ocorreu um erro!");
+                // passwordInput.current.focus();
+            },
+            onFinish: () => reset(),
+        });
+    };
+
+    return (
+        <Dialog
+            onClose={onClose}
+            open={open}
+            component="form"
+            onSubmit={deleteUser}
+        >
+            <DialogTitle>Excluir perfil de vendedor</DialogTitle>
+            <IconButton
+                aria-label="close"
+                onClick={onClose}
+                sx={{ position: "absolute", right: 16, top: 12 }}
+            >
+                <RemixIcon className="ri-close-line" />
+            </IconButton>
+            <DialogContent dividers>
+                <Box noValidate>
+                    <Grid container spacing={0} rowSpacing={2}>
+                        <Grid item xs={12}>
+                            <Typography>
+                                Depois que seu perfil de vendedor for excluído, todos os seus
+                                recursos e dados serão excluídos
+                                permanentemente. Por favor digite sua senha para
+                                confirmar que deseja excluir permanentemente sua
+                                conta.
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                id="password"
+                                type="password"
+                                name="password"
+                                label="Senha"
+                                // ref={passwordInput}
+                                value={data.password}
+                                error={!!errors.password}
+                                helperText={errors.password}
+                                onChange={(e) =>
+                                    setData("password", e.target.value)
+                                }
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button
+                    variant="containedLight"
+                    disableElevation
+                    onClick={onClose}
+                >
+                    Cancelar
+                </Button>
+                <Button
+                    variant="containedDanger"
+                    disableElevation
+                    disabled={processing}
+                    type="submit"
+                >
+                    Excluir perfil de vendedor
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
+
+const DeleteSellerForm = () => {
+    const [openDeleteSellerDialog, setOpenDeleteSellerDialog] = useState(false);
+
+    const handleOpenDeleteSellerDialog = () => {
+        setOpenDeleteSellerDialog(true);
+    };
+
+    const handleCloseDeleteSellerDialog = () => {
+        setOpenDeleteSellerDialog(false);
+    };
+
+    return (
+        <>
+            <Button
+                variant="containedDanger"
+                type="submit"
+                disableElevation
+                sx={{
+                    width: { xs: "100%", md: "auto" },
+                }}
+                onClick={handleOpenDeleteSellerDialog}
+            >
+                Excluir perfil de vendedor
+            </Button>
+
+            {openDeleteSellerDialog && (
+                <DeleteSellerDialog
+                    open={openDeleteSellerDialog}
+                    onClose={handleCloseDeleteSellerDialog}
+                />
+            )}
+        </>
+    );
+};
+
 export default function SellerProfileSettings({ user }) {
     return (
         <Box noValidate sx={{ width: "100%" }}>
@@ -262,9 +404,19 @@ export default function SellerProfileSettings({ user }) {
                                 href="/seller-dashboard/ads"
                             />
                         </Grid>
+                        <Grid item xs={12}>
+                            <PageBox
+                                title="Excluir perfil de vendedor"
+                                subTitle="Depois que seu perfil de vendedor for excluído, todos os seus recursos e dados serão excluídos permanentemente. Antes
+                                excluir sua conta, baixe quaisquer dados ou informações que você deseja reter."
+                            >
+                                <DeleteSellerForm />
+                            </PageBox>
+                        </Grid>
                     </>
                 )}
             </Grid>
         </Box>
     );
 }
+
