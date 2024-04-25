@@ -398,6 +398,8 @@ export default function SellerProfileSettings({ user }) {
                             >
                                 <SellerProfileForm seller={user.seller} />
                             </PageBox>
+                        </Grid>
+                        <Grid item xs={12}>
                             <PageBox
                                 title="Excluir perfil de vendedor"
                                 subTitle="Depois que seu perfil de vendedor for excluído, todos os seus recursos e dados serão excluídos permanentemente. Antes
