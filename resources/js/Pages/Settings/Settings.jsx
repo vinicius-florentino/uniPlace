@@ -42,16 +42,13 @@ const AvatarWithName = ({ name }) => {
 };
 
 export const Settings = ({ auth }) => {
+
     const { user } = auth;
     const pathname = window.location.pathname;
 
     const headTitleMap = {
         "/settings/user": "Configurações - Usuário",
         "/settings/seller": "Configurações - Vendedor",
-    };
-
-    const handleSellerChange = (event) => {
-        console.log('Valor alterado:', event.target.value);
     };
 
     return (
@@ -110,7 +107,7 @@ export const Settings = ({ auth }) => {
                             <UserProfileSettings user={user} />
                         )}
                         {pathname === "/settings/seller" && (
-                            <SellerProfileSettings user={user} handleSellerChange={handleSellerChange} />
+                            <SellerProfileSettings user={user} />
                         )}
                     </Grid>
                 </Grid>
