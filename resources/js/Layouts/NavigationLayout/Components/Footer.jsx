@@ -9,8 +9,6 @@ import Button from "@mui/material/Button";
 import PersonalMenu from "./PersonalMenu";
 import NavigationMenu from "./NavigationMenu";
 
-import DashboardWaves from "@/Components/svgs/DashboardWaves";
-
 export default function Footer({ user }) {
     return <Box sx={{ backgroundColor: "var(--white-color)", p: 4 }}>
 

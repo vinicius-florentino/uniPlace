@@ -10,45 +10,46 @@ import {
     ListItemText,
     Divider,
     Avatar,
+    IconButton,
     Typography,
 } from "@mui/material";
 
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
-import PageBoxRedirect from "@/Components/pagebox/PageBoxRedirect";
 import RemixIcon from "@/Components/RemixIcon";
 import stringAvatar from "@/Utils/stringAvatar";
 
 import UserProfileSettings from "./components/UserProfileSettings";
 import SellerProfileSettings from "./components/SellerProfileSettings";
 
-const AvatarWithName = ({ name }) => {
+const AvatarWithName = ({ name, profileLink }) => {
     return (
-        <div
-            style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-            }}
-        >
-            <Avatar
-                sx={{ height: 48, width: 48, fontSize: 16 }}
-                {...stringAvatar(name)}
-                alt={name.toUpperCase()}
-            />
-            <Typography sx={{ fontSize: 16 }}>{name}</Typography>
-        </div>
+        <Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <Avatar
+                    sx={{ height: 32, width: 32, fontSize: 14 }}
+                    {...stringAvatar(name)}
+                    alt={name.toUpperCase()}
+                />
+                <Typography sx={{ fontSize: 14 }} noWrap={true}>
+                    {name}
+                </Typography>
+                <IconButton onClick={() => router.visit(profileLink)}>
+                    <RemixIcon className="ri-external-link-line" />
+                </IconButton>
+            </Box>
+        </Box>
     );
 };
 
 export const Settings = ({ auth }) => {
-
     const { user } = auth;
     const pathname = window.location.pathname;
 
     const headTitleMap = {
         "/settings/user": "Configurações - Usuário",
         "/settings/seller": "Configurações - Vendedor",
+        "/settings": "Configurações",
     };
 
     return (
@@ -64,19 +65,33 @@ export const Settings = ({ auth }) => {
                             title={"Configurações"}
                             subTitle={"Administre os dados de sua conta"}
                         >
-                            <AvatarWithName name={user.name} />
-                            {/* <AvatarWithName name={user.seller.name} /> */}
+                            <Box
+                                sx={{
+                                    width: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "8px",
+                                }}
+                            >
+                                <AvatarWithName
+                                    name={user.name}
+                                    profileLink={`/user/${user.id}`}
+                                />
+                                {user.seller && (
+                                    <AvatarWithName
+                                        name={user.seller.name}
+                                        profileLink={`/seller/${user.seller.id}`}
+                                    />
+                                )}
+                            </Box>
                         </PageBox>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <PageBox>
                             <MenuList sx={{ p: 0 }}>
-                                <Divider
-                                    sx={{ pb: 2, fontSize: 12 }}
-                                    textAlign="left"
-                                >
-                                    Conta
-                                </Divider>
+                                <MenuItem disabled>
+                                    <ListItemText>Conta</ListItemText>
+                                </MenuItem>
                                 <MenuItem
                                     selected={pathname === "/settings/user"}
                                     onClick={() =>

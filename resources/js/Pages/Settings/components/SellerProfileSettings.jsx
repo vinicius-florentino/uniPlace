@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "@inertiajs/react";
 import {
     Box,
@@ -30,7 +30,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
     return (
         <IMaskInput
             {...other}
-            mask="+00 00 00000-0000"
+            mask="+00 (00) 00000-0000"
             definitions={{
                 "#": /[1-9]/,
             }}
@@ -60,10 +60,6 @@ const SellerProfileForm = ({ seller, handleSellerChange }) => {
         if (handleSellerChange) {
             handleSellerChange(event);
         }
-    };
-
-    const handlePhoneChange = (value, info) => {
-        setData("phone", value);
     };
 
     const onSubmit = (e) => {
@@ -99,7 +95,7 @@ const SellerProfileForm = ({ seller, handleSellerChange }) => {
                         <TextField
                             id="phone"
                             name="phone"
-                            label="Número de vendedor"
+                            label="Número de celular"
                             variant="outlined"
                             value={data.phone}
                             onChange={handleChange}
@@ -163,10 +159,6 @@ const NotSellerProfileForm = ({ userName }) => {
         setData(name, value);
     };
 
-    const handlePhoneChange = (value, info) => {
-        setData("phone", value);
-    };
-
     return (
         <Box component="form" onSubmit={onSubmit} noValidate>
             <Grid container spacing={0} rowGap={2}>
@@ -197,7 +189,7 @@ const NotSellerProfileForm = ({ userName }) => {
                         <TextField
                             id="phone"
                             name="phone"
-                            label="Número de vendedor"
+                            label="Número de celular"
                             variant="outlined"
                             value={data.phone}
                             onChange={handleChange}
@@ -228,7 +220,7 @@ const NotSellerProfileForm = ({ userName }) => {
 };
 
 const DeleteSellerDialog = ({ onClose, open }) => {
-    // const passwordInput = useRef();
+    const passwordInput = useRef();
 
     const {
         data,
@@ -241,18 +233,18 @@ const DeleteSellerDialog = ({ onClose, open }) => {
         password: "",
     });
 
-    const deleteUser = (e) => {
+    const deleteSeller = (e) => {
         e.preventDefault();
 
-        destroy("/settings/user", {
+        destroy("/settings/seller", {
             preserveScroll: true,
             onSuccess: () => {
-                toast.success("Alteração de dados concluída!");
+                toast.success("Exclusão de perfil de vendedor concluída.");
                 onClose();
             },
             onError: () => {
                 toast.error("Ocorreu um erro!");
-                // passwordInput.current.focus();
+                passwordInput.current.focus();
             },
             onFinish: () => reset(),
         });
@@ -263,7 +255,7 @@ const DeleteSellerDialog = ({ onClose, open }) => {
             onClose={onClose}
             open={open}
             component="form"
-            onSubmit={deleteUser}
+            onSubmit={deleteSeller}
         >
             <DialogTitle>Excluir perfil de vendedor</DialogTitle>
             <IconButton
@@ -279,10 +271,9 @@ const DeleteSellerDialog = ({ onClose, open }) => {
                         <Grid item xs={12}>
                             <Typography>
                                 Depois que seu perfil de vendedor for excluído,
-                                todos os seus recursos e dados serão excluídos
+                                todos os seus anúncios e dados referentes serão excluídos
                                 permanentemente. Por favor digite sua senha para
-                                confirmar que deseja excluir permanentemente sua
-                                conta.
+                                confirmar que deseja excluir permanentemente seu perfil de vendas.
                             </Typography>
                         </Grid>
 
@@ -293,7 +284,7 @@ const DeleteSellerDialog = ({ onClose, open }) => {
                                 type="password"
                                 name="password"
                                 label="Senha"
-                                // ref={passwordInput}
+                                ref={passwordInput}
                                 value={data.password}
                                 error={!!errors.password}
                                 helperText={errors.password}
@@ -380,18 +371,6 @@ export default function SellerProfileSettings({ user }) {
                 {user.seller && (
                     <>
                         <Grid item xs={12}>
-                            <PageBoxRedirect
-                                title="Meu perfil de vendedor"
-                                href={`/seller/${user.seller.id}`}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <PageBoxRedirect
-                                title="Gerenciar meus anúncios"
-                                href="/seller-dashboard/ads"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
                             <PageBox
                                 title="Informações do perfil de vendedor"
                                 subTitle="Atualize as informações de perfil de vendedor"
@@ -407,6 +386,12 @@ export default function SellerProfileSettings({ user }) {
                             >
                                 <DeleteSellerForm />
                             </PageBox>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <PageBoxRedirect
+                                title="Gerenciar meus anúncios"
+                                href="/seller-dashboard/ads"
+                            />
                         </Grid>
                     </>
                 )}

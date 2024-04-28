@@ -1,6 +1,6 @@
 import React from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
-import { Head, useForm, router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import {
     Card,
     Typography,
@@ -21,7 +21,6 @@ import Image from "@/Components/Image";
 export default function Ad({ ad, auth }) {
 
     const [loading, setLoading] = useState(false);
-    const { data, setData, post, processing, errors } = useForm({});
     const [disabledButton, setDisabledButton] = useState(true);
 
     useEffect(() => {

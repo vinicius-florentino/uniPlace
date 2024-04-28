@@ -11,10 +11,16 @@ import AdCard from "@/Components/cards/AdCard";
 import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
 
-import Banner1 from "@/Assets/dashboard_banner1.webp";
-import Banner2 from "@/Assets/dashboard_banner2.webp";
+import Banner1Lg from "@/Assets/BannerUniplace300_1200.webp";
+import Banner2Lg from "@/Assets/BannerLanche300_1200.webp";
+import Banner3Lg from "@/Assets/BannerVan300_1200.webp";
+
+import Banner1Xs from "@/Assets/BannerUniplace300_600.webp";
+import Banner2Xs from "@/Assets/BannerLanche300_600.webp";
+import Banner3Xs from "@/Assets/BannerVan300_600.webp";
 
 export default function Dashboard({ auth, ads }) {
+    
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -42,7 +48,8 @@ export default function Dashboard({ auth, ads }) {
                         width: "100%",
                         objectFit: "fill",
                     }}
-                    src={Banner1}
+                    xs={Banner1Xs}
+                    lg={Banner1Lg}
                 />
             ),
         },
@@ -55,7 +62,22 @@ export default function Dashboard({ auth, ads }) {
                         width: "100%",
                         objectFit: "fill",
                     }}
-                    src={Banner2}
+                    xs={Banner2Xs}
+                    lg={Banner2Lg}
+                />
+            ),
+        },
+        {
+            id: 3,
+            content: (
+                <Image
+                    style={{
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "fill",
+                    }}
+                    xs={Banner3Xs}
+                    lg={Banner3Lg}
                 />
             ),
         },
@@ -133,7 +155,7 @@ export default function Dashboard({ auth, ads }) {
                 </Box>
             </Container>
 
-            <Box sx={{ backgroundColor: "var(--white-color)" }}>
+            <Box sx={{ backgroundColor: "var(--white-color)", py: 4 }}>
                 <Container maxWidth="lg">
                     <PageBoxInheritSection
                         title="Promovidos"
@@ -168,7 +190,7 @@ export default function Dashboard({ auth, ads }) {
                 </Container>
             </Box>
 
-            <Box>
+            <Box sx={{py: 4}}>
                 <Container maxWidth="lg">
                     <PageBoxInheritSection
                         title="Mais recentes"

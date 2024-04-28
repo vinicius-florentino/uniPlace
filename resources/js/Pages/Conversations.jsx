@@ -271,7 +271,6 @@ export default function Conversations({
                                         <IconButton
                                             onClick={() => sendMessage()}
                                             disabled={loading || !conversation || !message}
-                                            disableElevation
                                         >
                                             <RemixIcon
                                                 className="ri-send-plane-2-line"

@@ -8,7 +8,9 @@ import {
     Avatar,
     Menu,
     MenuItem,
-    Tooltip
+    Tooltip,
+    ListItemText,
+    ListItemIcon,
 } from "@mui/material";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
@@ -63,6 +65,15 @@ export default function User({ user, auth }) {
                                         onClose={handleClose}
                                         MenuListProps={{
                                             "aria-labelledby": "basic-button",
+                                            sx: { p: 0 },
+                                        }}
+                                        anchorOrigin={{
+                                            vertical: "bottom",
+                                            horizontal: "center",
+                                        }}
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
                                         }}
                                     >
                                         <MenuItem
@@ -70,7 +81,15 @@ export default function User({ user, auth }) {
                                                 router.visit("/settings/user")
                                             }
                                         >
-                                            Editar informações
+                                            <ListItemIcon>
+                                                <RemixIcon
+                                                    className="ri-edit-line"
+                                                    fontSize={"18px"}
+                                                />
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                Editar informações
+                                            </ListItemText>
                                         </MenuItem>
                                     </Menu>
                                 </Grid>

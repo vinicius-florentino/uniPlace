@@ -72,4 +72,17 @@ class SellerController extends Controller
 
         return back();
     }
+
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+        $seller = $user->seller;
+        $seller->delete();
+
+        return back();
+    }
 }
