@@ -14,6 +14,7 @@ import {
     Tooltip,
     ListItemText,
     ListItemIcon,
+    Alert,
 } from "@mui/material";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
@@ -34,12 +35,17 @@ export default function Seller({ seller, auth }) {
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {
-            const whatsappLink = `https://wa.me/${
-                seller.phone
-            }?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
+            const whatsappLink = `https://wa.me/${seller.phone
+                }?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
             window.open(whatsappLink, "_blank");
         }
     };
+
+    console.log(seller);
+    console.log("====")
+    console.log(auth);
+    console.log("====")
+    console.log(ads)
 
     const redirectToChat = () => {
         setLoading(true);
@@ -189,6 +195,13 @@ export default function Seller({ seller, auth }) {
                             title={`Anúncios de ${seller.name}`}
                             subTitle={"Todos os anúncios feitos pelo vendedor"}
                         >
+                            {seller.ads.length === 0 && (
+                                <Box sx={{ width: "100%" }}>
+                                    <Alert severity="info">
+                                        Nenhum anúncio foi encontrado
+                                    </Alert>
+                                </Box>
+                            )}
                             <Grid container spacing={2} rowSpacing={0}>
                                 {seller.ads.map((ad, index) => (
                                     <Grid
