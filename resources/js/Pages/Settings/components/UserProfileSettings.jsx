@@ -346,12 +346,6 @@ export const UserProfileSettings = ({ user }) => {
         <Box noValidate sx={{ width: "100%" }}>
             <Grid container spacing={0} rowSpacing={2}>
                 <Grid item xs={12}>
-                    <PageBoxRedirect
-                        title="Meu perfil"
-                        href={`/user/${user.id}`}
-                    />
-                </Grid>
-                <Grid item xs={12}>
                     <PageBox
                         title="Informações do perfil"
                         subTitle="Atualize as informações de perfil e endereço de email da sua conta"

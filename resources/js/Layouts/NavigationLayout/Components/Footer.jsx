@@ -56,7 +56,6 @@ function a11yProps(index) {
     };
 }
 
-
 export default function Footer({ user }) {
     const PesquisasPopulares = [
         {

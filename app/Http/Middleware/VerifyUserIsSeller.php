@@ -6,9 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Subscription;
 
-class VerifyUserSubscription
+class VerifyUserIsSeller
 {
     /**
      * Handle an incoming request.
@@ -28,12 +27,9 @@ class VerifyUserSubscription
 
         if ($authCheck) {
             $user = $request->user();
-            $userId = $user->id;
-            $userIsStudent = $user->is_student;
+            $seller = $user->seller;
 
-            $userSubscription = Subscription::where('user_id', $userId)->first();
-
-            if (!$userIsStudent && (!$userSubscription || $userSubscription->expires_at <= now())) {
+            if (!$seller){
                 return redirect('/invalid-subscription');
             }
         }

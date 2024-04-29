@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Head, router, useForm } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import {
@@ -12,6 +12,8 @@ import {
     Menu,
     MenuItem,
     Tooltip,
+    ListItemText,
+    ListItemIcon,
     Alert,
 } from "@mui/material";
 import RemixIcon from "@/Components/RemixIcon";
@@ -19,9 +21,8 @@ import AdCard from "@/Components/cards/AdCard";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 import stringAvatar from "@/Utils/stringAvatar";
 
-export default function Seller({ seller, auth, ads }) {
+export default function Seller({ seller, auth }) {
     const [loading, setLoading] = useState(false);
-    const { data, setData, post, processing, errors } = useForm({});
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const open = Boolean(anchorEl);
@@ -80,7 +81,11 @@ export default function Seller({ seller, auth, ads }) {
                                         display: "flex",
                                     }}
                                 >
-                                    <Tooltip title="Mais opções" arrow placement="left">
+                                    <Tooltip
+                                        title="Mais opções"
+                                        arrow
+                                        placement="left"
+                                    >
                                         <IconButton onClick={handleOpen}>
                                             <RemixIcon className="ri-more-2-line" />
                                         </IconButton>
@@ -92,6 +97,15 @@ export default function Seller({ seller, auth, ads }) {
                                         onClose={handleClose}
                                         MenuListProps={{
                                             "aria-labelledby": "basic-button",
+                                            sx: { p: 0 },
+                                        }}
+                                        anchorOrigin={{
+                                            vertical: "bottom",
+                                            horizontal: "center",
+                                        }}
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
                                         }}
                                     >
                                         <MenuItem
@@ -99,7 +113,15 @@ export default function Seller({ seller, auth, ads }) {
                                                 router.visit("/settings/seller")
                                             }
                                         >
-                                            Editar informações
+                                            <ListItemIcon>
+                                                <RemixIcon
+                                                    className="ri-edit-line"
+                                                    fontSize={"18px"}
+                                                />
+                                            </ListItemIcon>
+                                            <ListItemText>
+                                                Editar informações
+                                            </ListItemText>
                                         </MenuItem>
                                     </Menu>
                                 </Grid>

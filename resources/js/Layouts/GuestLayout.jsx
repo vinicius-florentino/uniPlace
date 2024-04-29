@@ -2,19 +2,22 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Logo from "@/Components/Logo";
 
-export default function Guest({ children, customWidth }) {
+export default function Guest({ children }) {
     return (
         <Box
             component="section"
             sx={{
-                minHeight: "80vh",
-                width: customWidth ?? "550px",
+                // minHeight: "80vh",
+                width: "320px",
                 margin: "0 auto",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                p: 2,
+                p: 4,
+                my: 4,
+                boxShadow: "var(--box-shadow)",
+                backgroundColor: "var(--white-color)"
             }}
         >
             <Box component="a" href="/" sx={{ mb: 2 }}>
