@@ -5,7 +5,7 @@ import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 
 import Carousel from "react-material-ui-carousel";
 import { Head, useForm } from "@inertiajs/react";
-import { Box, Grid, Paper, Typography, Container } from "@mui/material";
+import { Box, Grid, Paper, Container } from "@mui/material";
 
 import AdCard from "@/Components/cards/AdCard";
 import RemixIcon from "@/Components/RemixIcon";
@@ -18,6 +18,9 @@ import Banner3Lg from "@/Assets/BannerVan300_1200.webp";
 import Banner1Xs from "@/Assets/BannerUniplace300_600.webp";
 import Banner2Xs from "@/Assets/BannerLanche300_600.webp";
 import Banner3Xs from "@/Assets/BannerVan300_600.webp";
+
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Dashboard({ auth, ads }) {
     
@@ -38,48 +41,21 @@ export default function Dashboard({ auth, ads }) {
         });
     };
 
+    const theme = useTheme();
+    const greaterThanXs = useMediaQuery(theme.breakpoints.up("xs"));
+    const greaterThanSm = useMediaQuery(theme.breakpoints.up("sm"));
+    const greaterThanMd = useMediaQuery(theme.breakpoints.up("md"));
+    const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
+
     const items = [
         {
-            id: 1,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner1Xs}
-                    lg={Banner1Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner1Xs : Banner1Lg,
         },
         {
-            id: 2,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner2Xs}
-                    lg={Banner2Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner2Xs : Banner2Lg,
         },
         {
-            id: 3,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner3Xs}
-                    lg={Banner3Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner3Xs : Banner3Lg,
         },
     ];
 
@@ -102,6 +78,18 @@ export default function Dashboard({ auth, ads }) {
                             animation={"fade"}
                             interval={5000}
                             swipe={false}
+                            sx={{
+                                minHeight: greaterThanLg
+                                    ? "300px"
+                                    : greaterThanMd
+                                    ? "240px"
+                                    : greaterThanSm
+                                    ? "340px"
+                                    : greaterThanXs
+                                    ? "180px"
+                                    : "120px",
+                                padding: "0px",
+                            }}
                             NextIcon={
                                 <RemixIcon
                                     className={"ri-arrow-right-s-line"}
@@ -117,6 +105,7 @@ export default function Dashboard({ auth, ads }) {
                                     color={"var(--white-color)"}
                                 />
                             }
+                            indicators={false}
                             activeIndicatorIconButtonProps={{
                                 style: {
                                     backgroundColor: "var(--dark-color)",
@@ -129,17 +118,26 @@ export default function Dashboard({ auth, ads }) {
                                 },
                             }}
                         >
-                            {items.map((item, index) => (
+                            {items?.map((item, index) => (
                                 <Paper
                                     key={index}
                                     sx={{
+                                        p: 0,
+                                        height: "95%",
                                         width: "100%",
-                                        height: "300px",
-                                        backgroundColor: "var(--white-color)",
-                                        color: "#FFF",
+                                        m: 0,
+                                        backgroundColor: "transparent",
                                     }}
+                                    elevation={0}
                                 >
-                                    {item.content}
+                                    <Image
+                                        style={{
+                                            height: "100%",
+                                            width: "100%",
+                                            objectFit: "fill",
+                                        }}
+                                        src={item.src}
+                                    />
                                 </Paper>
                             ))}
                         </Carousel>
@@ -167,8 +165,7 @@ export default function Dashboard({ auth, ads }) {
                                     key={index}
                                     item
                                     xs={6}
-                                    sm={4}
-                                    md={3}
+                                    sm={3}
                                     lg={2}
                                     sx={{
                                         display: "flex",
@@ -190,7 +187,7 @@ export default function Dashboard({ auth, ads }) {
                 </Container>
             </Box>
 
-            <Box sx={{py: 4}}>
+            <Box sx={{ py: 4 }}>
                 <Container maxWidth="lg">
                     <PageBoxInheritSection
                         title="Mais recentes"
@@ -202,8 +199,7 @@ export default function Dashboard({ auth, ads }) {
                                     key={index}
                                     item
                                     xs={6}
-                                    sm={4}
-                                    md={3}
+                                    sm={3}
                                     lg={2}
                                     sx={{
                                         display: "flex",
