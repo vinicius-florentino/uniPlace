@@ -1025,8 +1025,8 @@ export default function Ads({ auth, ads }) {
         setOpenCreateAdDialog(false);
     };
 
-    const adsAble = ads.data.filter((ad) => ad.is_able);
-    const adsUnable = ads.data.filter((ad) => !ad.is_able);
+    const adsAble = ads.data.filter((ad) => ad.enabled);
+    const adsUnable = ads.data.filter((ad) => !ad.enabled);
 
     // const handlePaginationChange = (e, page) => {
     //     setLoading(true);
@@ -1247,7 +1247,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.category_id
                                                                         }
                                                                     />
-                                                                    {ad.is_able && (
+                                                                    {ad.enabled && (
                                                                         <DisableAdDialog
                                                                             id={
                                                                                 ad.id
@@ -1269,7 +1269,7 @@ export default function Ads({ auth, ads }) {
                                                                             }
                                                                         />
                                                                     )}
-                                                                    {!ad.is_able && (
+                                                                    {!ad.enabled && (
                                                                         <ReenableAdDialog
                                                                             id={
                                                                                 ad.id
@@ -1459,7 +1459,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.category_id
                                                                         }
                                                                     />
-                                                                    {ad.is_able && (
+                                                                    {ad.enabled && (
                                                                         <DisableAdDialog
                                                                             id={
                                                                                 ad.id
@@ -1481,7 +1481,7 @@ export default function Ads({ auth, ads }) {
                                                                             }
                                                                         />
                                                                     )}
-                                                                    {!ad.is_able && (
+                                                                    {!ad.enabled && (
                                                                         <ReenableAdDialog
                                                                             id={
                                                                                 ad.id

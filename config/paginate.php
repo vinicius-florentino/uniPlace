@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'dashboard'=>12,
+    'dashboard'=> 10,
 ];

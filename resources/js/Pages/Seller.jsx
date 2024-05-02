@@ -22,6 +22,7 @@ import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 import stringAvatar from "@/Utils/stringAvatar";
 
 export default function Seller({ seller, auth }) {
+
     const [loading, setLoading] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -40,12 +41,6 @@ export default function Seller({ seller, auth }) {
             window.open(whatsappLink, "_blank");
         }
     };
-
-    console.log(seller);
-    console.log("====")
-    console.log(auth);
-    console.log("====")
-    console.log(ads)
 
     const redirectToChat = () => {
         setLoading(true);
@@ -97,7 +92,6 @@ export default function Seller({ seller, auth }) {
                                         onClose={handleClose}
                                         MenuListProps={{
                                             "aria-labelledby": "basic-button",
-                                            sx: { p: 0 },
                                         }}
                                         anchorOrigin={{
                                             vertical: "bottom",
@@ -113,12 +107,6 @@ export default function Seller({ seller, auth }) {
                                                 router.visit("/settings/seller")
                                             }
                                         >
-                                            <ListItemIcon>
-                                                <RemixIcon
-                                                    className="ri-edit-line"
-                                                    fontSize={"18px"}
-                                                />
-                                            </ListItemIcon>
                                             <ListItemText>
                                                 Editar informações
                                             </ListItemText>
@@ -195,7 +183,7 @@ export default function Seller({ seller, auth }) {
                             title={`Anúncios de ${seller.name}`}
                             subTitle={"Todos os anúncios feitos pelo vendedor"}
                         >
-                            {seller.ads.length === 0 && (
+                            {seller.ads?.length === 0 && (
                                 <Box sx={{ width: "100%" }}>
                                     <Alert severity="info">
                                         Nenhum anúncio foi encontrado
@@ -203,7 +191,7 @@ export default function Seller({ seller, auth }) {
                                 </Box>
                             )}
                             <Grid container spacing={2} rowSpacing={0}>
-                                {seller.ads.map((ad, index) => (
+                                {seller.ads?.map((ad, index) => (
                                     <Grid
                                         key={index}
                                         item

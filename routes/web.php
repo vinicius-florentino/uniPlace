@@ -31,10 +31,6 @@ Route::get('/ad/{id}', [AdController::class, 'show']);
 Route::get('/seller/{id}', [SellerController::class, 'show']);
 Route::get('/user/{id}', [UserController::class, 'show']);
 
-Route::get('/invalid-subscription', function () {
-    return Inertia::render('Auth/InvalidSubscription');
-})->name('invalid.subscription');
-
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware('seller')->group(function () {
@@ -53,15 +49,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/conversations', [ConversationsController::class, 'store']);
 
     Route::get('/settings', [SettingsController::class, 'index']);
-
     Route::get('/settings/user', [SettingsUserController::class, 'index']);
     Route::patch('/settings/user', [SettingsUserController::class, 'update']);
     Route::delete('/settings/user', [SettingsUserController::class, 'destroy']);
-
     Route::get('/settings/seller', [SettingsSellerController::class, 'index']);
     Route::post('/settings/seller', [SettingsSellerController::class, 'store']);
     Route::put('/settings/seller', [SettingsSellerController::class, 'update']);
     Route::delete('/settings/seller', [SettingsSellerController::class, 'destroy']);
+});
+
+Route::get('/not-found', function () {
+    return Inertia::render('Auth/NotFound');
+});
+
+Route::get('/invalid-subscription', function () {
+    return Inertia::render('Auth/InvalidSubscription');
 });
 
 require __DIR__ . '/auth.php';
