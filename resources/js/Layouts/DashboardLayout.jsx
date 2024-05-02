@@ -14,7 +14,7 @@ export default function DashboardLayout({ user, children }) {
             </main>
 
             <footer>
-                <Footer/>
+                {/* <Footer/> */}
             </footer>
         </>
     );
