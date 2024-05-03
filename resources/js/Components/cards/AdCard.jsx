@@ -11,7 +11,7 @@ import { CardActionArea } from "@mui/material";
 
 export default function AdCard({ title, sellerName, imageSrc, price, href }) {
     return (
-        <Card sx={{ width: "250px", maxHeight: "auto", borderRadius: "16px" }}>
+        <Card sx={{ width: "auto", maxHeight: "auto", borderRadius: "16px" }}>
             <CardActionArea href={href}>
                 <CardContent sx={{ p: 0 }}>
                     <Box sx={{ width: "100%", pb: 2 }}>

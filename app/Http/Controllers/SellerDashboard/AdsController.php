@@ -23,7 +23,8 @@ class AdsController extends Controller
 
         $ads = Ad::where('seller_id', $sellerId)
             ->with('category')
-            ->orderBy('is_able', 'desc')
+            ->withoutGlobalScope('enabled')
+            ->orderBy('enabled', 'desc')
             ->paginate();
 
         return Inertia::render('SellerDashboard/Ads', [
@@ -133,7 +134,7 @@ class AdsController extends Controller
             ->where('id', $id)
             ->first();
 
-        $ad->is_able = false;
+        $ad->enabled = false;
         $ad->save();
 
         return back();
@@ -147,9 +148,10 @@ class AdsController extends Controller
 
         $ad = Ad::where('seller_id', $sellerId)
             ->where('id', $id)
+            ->withoutGlobalScope('enabled')
             ->first();
 
-        $ad->is_able = true;
+        $ad->enabled = true;
         $ad->save();
 
         return back();

@@ -64,7 +64,7 @@ export default function Ad({ ad, auth }) {
                     width: "100%",
                 }}
             >
-                {!ad.is_able && (
+                {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
                     </Alert>

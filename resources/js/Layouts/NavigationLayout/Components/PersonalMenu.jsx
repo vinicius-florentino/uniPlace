@@ -12,21 +12,31 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
-
 import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 
 import RemixIcon from "@/Components/RemixIcon";
+import stringAvatar from "@/Utils/stringAvatar";
 
 export default function PersonalMenu({ user }) {
     
-    const [open, setOpen] = React.useState(false);
+    const { post } = useForm({});
+
+    const [open, setOpen] = useState(false);
 
     const handleClick = () => {
         setOpen(!open);
     };
 
-    const { post } = useForm({});
+    const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+
+    const handleOpenMenuDrawer = () => {
+        setOpenMenuDrawer(true);
+    };
+
+    const handleCloseMenuDrawer = () => {
+        setOpenMenuDrawer(false);
+    };
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -41,28 +51,6 @@ export default function PersonalMenu({ user }) {
         });
     };
 
-    const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
-
-    const handleOpenMenuDrawer = () => {
-        setOpenMenuDrawer(true);
-    };
-
-    const handleCloseMenuDrawer = () => {
-        setOpenMenuDrawer(false);
-    };
-
-    function stringAvatar(name) {
-        const initials = name
-            .split(" ")
-            .slice(0, 2)
-            .map((part) => part[0])
-            .join("");
-
-        return {
-            children: initials.toUpperCase(),
-        };
-    }
-
     return (
         <>
             <Tooltip title="Menu pessoal">
@@ -71,10 +59,6 @@ export default function PersonalMenu({ user }) {
                         {...stringAvatar(user.name)}
                         alt={user.name.toUpperCase()}
                     />
-                    {/* <AccountCircleIcon
-                        color="var(--dark-color)"
-                        fontSize="large"
-                    /> */}
                 </IconButton>
             </Tooltip>
             <Drawer

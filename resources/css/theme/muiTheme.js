@@ -41,7 +41,7 @@ const MuiTheme = {
             styleOverrides: {
                 root: {
                     boxShadow: "none",
-                    border: "1px solid var(--light-color)"
+                    border: "1px solid var(--light-color)",
                 },
             },
         },
@@ -195,7 +195,7 @@ const MuiTheme = {
                     // disableAnimation: true,
                 },
             },
-        }
+        },
     },
 };
 

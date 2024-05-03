@@ -47,7 +47,7 @@ class SellerController extends Controller
         return back();
     }
 
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
         $userId = $user->id;

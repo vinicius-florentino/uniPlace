@@ -7,10 +7,7 @@ import {
     Button,
     Switch,
     FormControlLabel,
-    Input,
     FormControl,
-    InputLabel,
-    OutlinedInput,
     Dialog,
     DialogTitle,
     IconButton,
@@ -64,7 +61,7 @@ const SellerProfileForm = ({ seller, handleSellerChange }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        put(`/settings/seller/${seller.id}`, {
+        put(`/settings/seller`, {
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },

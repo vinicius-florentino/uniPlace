@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Inertia\Inertia;
 
 class Handler extends ExceptionHandler
 {
@@ -26,5 +27,47 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+
+
+        // $this->renderable(function (Throwable $e, $request) {
+        //     $response = parent::render($request, $e);
+
+        //     if (!app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+        //         return Inertia::render('Error', ['status' => $response->getStatusCode()])
+        //             ->toResponse($request)
+        //             ->setStatusCode($response->getStatusCode());
+        //     } elseif ($response->getStatusCode() === 419) {
+        //         return back()->with([
+        //             'message' => 'The page expired, please try again.',
+        //         ]);
+        //     }
+
+        //     return $response;
+        // });
+    }
+
+    /**
+     * Prepare exception for rendering.
+     *
+     * @param  \Throwable  $e
+     * @return \Throwable
+     */
+
+    public function render($request, Throwable $e)
+    {
+        $response = parent::render($request, $e);
+
+        if (!app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+            return Inertia::render('Error', ['status' => $response->getStatusCode()])
+                ->toResponse($request)
+                ->setStatusCode($response->getStatusCode());
+        } elseif ($response->getStatusCode() === 419) {
+            return back()->with([
+                'message' => 'The page expired, please try again.',
+            ]);
+        }
+
+        return $response;
     }
 }

@@ -15,14 +15,9 @@ use Inertia\Response;
 
 use App\Models\User;
 use App\Models\University;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerifyEmailNotification;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): Response
     {
         $universities = University::all();
@@ -40,7 +35,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::defaults(), 'min:8'],
             'is_student' => 'required|boolean',
             'university_id' => 'required|int'
         ]);

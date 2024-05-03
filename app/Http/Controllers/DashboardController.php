@@ -15,10 +15,15 @@ class DashboardController extends Controller
 {
     public function index(): Response
     {
-        $ads = Ad::with('seller')->paginate(config('paginate.dashboard'));
+        $recentAds = Ad::with('seller')
+        ->latest()
+        ->paginate(config('paginate.dashboard'));
+
+        $promotedAds = [];
         
         return Inertia::render('Dashboard', [
-            'ads' => $ads
+            'recentAds' => $recentAds,
+            'promotedAds' => $promotedAds
          ]);
     }
 }

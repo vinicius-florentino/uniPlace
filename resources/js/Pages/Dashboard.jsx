@@ -3,12 +3,14 @@ import DashboardLayout from "@/Layouts/DashboardLayout";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 
-import Carousel from "react-material-ui-carousel";
 import { Head, useForm } from "@inertiajs/react";
-import { Box, Grid, Paper, Typography, Container } from "@mui/material";
+import { Box, Paper, Container, Alert } from "@mui/material";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
 
 import AdCard from "@/Components/cards/AdCard";
-import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
 
 import Banner1Lg from "@/Assets/BannerUniplace300_1200.webp";
@@ -19,8 +21,10 @@ import Banner1Xs from "@/Assets/BannerUniplace300_600.webp";
 import Banner2Xs from "@/Assets/BannerLanche300_600.webp";
 import Banner3Xs from "@/Assets/BannerVan300_600.webp";
 
-export default function Dashboard({ auth, ads }) {
-    
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+export default function Dashboard({ auth, recentAds, promotedAds }) {
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -38,48 +42,21 @@ export default function Dashboard({ auth, ads }) {
         });
     };
 
+    const theme = useTheme();
+    const greaterThanXs = useMediaQuery(theme.breakpoints.up("xs"));
+    const greaterThanSm = useMediaQuery(theme.breakpoints.up("sm"));
+    const greaterThanMd = useMediaQuery(theme.breakpoints.up("md"));
+    const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
+
     const items = [
         {
-            id: 1,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner1Xs}
-                    lg={Banner1Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner1Xs : Banner1Lg,
         },
         {
-            id: 2,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner2Xs}
-                    lg={Banner2Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner2Xs : Banner2Lg,
         },
         {
-            id: 3,
-            content: (
-                <Image
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        objectFit: "fill",
-                    }}
-                    xs={Banner3Xs}
-                    lg={Banner3Lg}
-                />
-            ),
+            src: !greaterThanMd ? Banner3Xs : Banner3Lg,
         },
     ];
 
@@ -97,53 +74,45 @@ export default function Dashboard({ auth, ads }) {
                     }}
                 >
                     <Box>
-                        <Carousel
-                            navButtonsAlwaysVisible
-                            animation={"fade"}
-                            interval={5000}
-                            swipe={false}
-                            NextIcon={
-                                <RemixIcon
-                                    className={"ri-arrow-right-s-line"}
-                                />
-                            }
-                            PrevIcon={
-                                <RemixIcon className={"ri-arrow-left-s-line"} />
-                            }
-                            IndicatorIcon={
-                                <RemixIcon
-                                    className={"ri-circle-fill"}
-                                    fontSize={"14px"}
-                                    color={"var(--white-color)"}
-                                />
-                            }
-                            activeIndicatorIconButtonProps={{
-                                style: {
-                                    backgroundColor: "var(--dark-color)",
-                                },
+                        <Swiper
+                            className="mySwiper"
+                            slidesPerView={1}
+                            slidesPerGroup={1}
+                            loop={true}
+                            autoplay={{
+                                delay: 5000,
+                                disableOnInteraction: false,
                             }}
-                            navButtonsProps={{
-                                style: {
-                                    backgroundColor: "var(--white-color)",
-                                    borderRadius: 300,
-                                },
-                            }}
+                            navigation={true}
+                            modules={[Navigation, Autoplay]}
                         >
-                            {items.map((item, index) => (
-                                <Paper
-                                    key={index}
-                                    sx={{
-                                        width: "100%",
-                                        height: "300px",
-                                        backgroundColor: "var(--white-color)",
-                                        color: "#FFF",
-                                    }}
-                                >
-                                    {item.content}
-                                </Paper>
+                            {items?.map((item, index) => (
+                                <SwiperSlide>
+                                    <Paper
+                                        key={index}
+                                        sx={{
+                                            p: 0,
+                                            height: "95%",
+                                            width: "100%",
+                                            m: 0,
+                                            backgroundColor: "transparent",
+                                        }}
+                                        elevation={0}
+                                    >
+                                        <Image
+                                            style={{
+                                                height: "100%",
+                                                width: "100%",
+                                                objectFit: "fill",
+                                            }}
+                                            src={item.src}
+                                        />
+                                    </Paper>
+                                </SwiperSlide>
                             ))}
-                        </Carousel>
+                        </Swiper>
                     </Box>
+
                     <Box component="form" onSubmit={onSubmit} noValidate>
                         <SearchField
                             onSubmit={onSubmit}
@@ -161,21 +130,36 @@ export default function Dashboard({ auth, ads }) {
                         title="Promovidos"
                         subTitle="Anúncios promovidos por vendedores"
                     >
-                        <Grid container spacing={2} rowSpacing={0}>
-                            {ads.data.map((ad, index) => (
-                                <Grid
-                                    key={index}
-                                    item
-                                    xs={6}
-                                    sm={4}
-                                    md={3}
-                                    lg={2}
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
+                        <Swiper
+                            className="mySwiper"
+                            spaceBetween={16}
+                            slidesPerView={
+                                greaterThanLg
+                                    ? 6
+                                    : greaterThanMd
+                                    ? 5
+                                    : greaterThanSm
+                                    ? 4
+                                    : greaterThanXs
+                                    ? 2
+                                    : 2
+                            }
+                            slidesPerGroup={
+                                greaterThanLg
+                                    ? 6
+                                    : greaterThanMd
+                                    ? 5
+                                    : greaterThanSm
+                                    ? 4
+                                    : greaterThanXs
+                                    ? 2
+                                    : 2
+                            }
+                            navigation={true}
+                            modules={[Navigation]}
+                        >
+                            {promotedAds?.data?.map((ad, index) => (
+                                <SwiperSlide>
                                     <AdCard
                                         sellerName={ad.seller.name}
                                         price={ad.price}
@@ -183,34 +167,54 @@ export default function Dashboard({ auth, ads }) {
                                         imageSrc={ad.image_url}
                                         href={`/ad/${ad.id}`}
                                     />
-                                </Grid>
+                                </SwiperSlide>
                             ))}
-                        </Grid>
+                            {!promotedAds.data && (
+                                <Alert severity="info">
+                                    Não foi possível encontrar nenhum anúncio
+                                </Alert>
+                            )}
+                        </Swiper>
                     </PageBoxInheritSection>
                 </Container>
             </Box>
 
-            <Box sx={{py: 4}}>
+            <Box sx={{ py: 4 }}>
                 <Container maxWidth="lg">
                     <PageBoxInheritSection
                         title="Mais recentes"
                         subTitle="Anúncios feitos recentemente por vendedores"
                     >
-                        <Grid container spacing={2} rowSpacing={0}>
-                            {ads.data.map((ad, index) => (
-                                <Grid
-                                    key={index}
-                                    item
-                                    xs={6}
-                                    sm={4}
-                                    md={3}
-                                    lg={2}
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                >
+                        <Swiper
+                            className="mySwiper"
+                            spaceBetween={16}
+                            slidesPerView={
+                                greaterThanLg
+                                    ? 6
+                                    : greaterThanMd
+                                    ? 5
+                                    : greaterThanSm
+                                    ? 4
+                                    : greaterThanXs
+                                    ? 2
+                                    : 2
+                            }
+                            slidesPerGroup={
+                                greaterThanLg
+                                    ? 6
+                                    : greaterThanMd
+                                    ? 5
+                                    : greaterThanSm
+                                    ? 4
+                                    : greaterThanXs
+                                    ? 2
+                                    : 2
+                            }
+                            navigation={true}
+                            modules={[Navigation]}
+                        >
+                            {recentAds?.data?.map((ad, index) => (
+                                <SwiperSlide>
                                     <AdCard
                                         sellerName={ad.seller.name}
                                         price={ad.price}
@@ -218,9 +222,14 @@ export default function Dashboard({ auth, ads }) {
                                         imageSrc={ad.image_url}
                                         href={`/ad/${ad.id}`}
                                     />
-                                </Grid>
+                                </SwiperSlide>
                             ))}
-                        </Grid>
+                            {!recentAds.data && (
+                                <Alert severity="info">
+                                    Não foi possível encontrar nenhum anúncio
+                                </Alert>
+                            )}
+                        </Swiper>
                     </PageBoxInheritSection>
                 </Container>
             </Box>

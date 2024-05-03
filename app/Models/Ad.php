@@ -11,10 +11,10 @@ class Ad extends Model
     use HasFactory;
 
     protected $appends = ['image_url'];
-    protected $fillable = ['seller_id', 'title', 'description', 'price', 'is_able', 'image_path', 'category_id'];
+    protected $fillable = ['seller_id', 'title', 'description', 'price', 'enabled', 'image_path', 'category_id'];
 
     protected $casts = [
-        'is_able' => 'boolean',
+        'enabled' => 'boolean',
         'price' => 'double',
         'category_id' => 'int'
     ];
@@ -40,6 +40,10 @@ class Ad extends Model
 
     protected static function booted()
     {
+        static::addGlobalScope('enabled', function ($query) {
+            $query->where('enabled', true);
+        });
+
         static::deleting(function ($ad) {
             if ($ad->image_path) {
                 Storage::disk('public')->delete($ad->image_path);
