@@ -1,26 +1,16 @@
 import React from "react";
-import PersonalMenu from "./PersonalMenu";
 import {
     Typography,
     Box,
     Grid,
     Button,
-    Avatar,
-    IconButton,
-    Menu,
     MenuItem,
-    Tooltip,
-    Alert,
-    AppBar,
     Container,
-    Toolbar,
-    Divider,
+    List,
+    Tabs,
+    Tab,
 } from "@mui/material";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import RemixIcon from "@/Components/RemixIcon";
 
 function CustomTabPanel(props) {
@@ -153,19 +143,16 @@ export default function Footer({ user }) {
                             >
                                 {PesquisasPopulares.map((pp, index) => (
                                     <MenuItem disablePadding
+                                        variant="text"
+                                        key={index}
+                                        href={pp.href}
+                                        disabled={pp.disabled}
+                                        sx={{
+                                            color: "var(--dark-color)",
+                                            fontSize: 14
+                                        }}
                                     >
-                                        <Button
-                                            variant="text"
-                                            key={index}
-                                            href={pp.href}
-                                            disabled={pp.disabled}
-                                            sx={{
-                                                color: "var(--dark-color)",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            {pp.label}
-                                        </Button>
+                                        {pp.label}
                                     </MenuItem>
                                 ))}
                             </List>
@@ -185,19 +172,16 @@ export default function Footer({ user }) {
                             >
                                 {LinksUteis.map((lu, index) => (
                                     <MenuItem disablePadding
+                                        variant="text"
+                                        key={index}
+                                        href={lu.href}
+                                        disabled={lu.disabled}
+                                        sx={{
+                                            color: "var(--dark-color)",
+                                            fontSize: 14
+                                        }}
                                     >
-                                        <Button
-                                            variant="text"
-                                            key={index}
-                                            href={lu.href}
-                                            disabled={lu.disabled}
-                                            sx={{
-                                                color: "var(--dark-color)",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            {lu.label}
-                                        </Button>
+                                        {lu.label}
                                     </MenuItem>
                                 ))}
                             </List>
@@ -217,19 +201,16 @@ export default function Footer({ user }) {
                             >
                                 {CategoriasPrincipais.map((cp, index) => (
                                     <MenuItem disablePadding
+                                        variant="text"
+                                        key={index}
+                                        href={cp.href}
+                                        disabled={cp.disabled}
+                                        sx={{
+                                            color: "var(--dark-color)",
+                                            fontSize: 14
+                                        }}
                                     >
-                                        <Button
-                                            variant="text"
-                                            key={index}
-                                            href={cp.href}
-                                            disabled={cp.disabled}
-                                            sx={{
-                                                color: "var(--dark-color)",
-                                                fontSize: 12
-                                            }}
-                                        >
-                                            {cp.label}
-                                        </Button>
+                                        {cp.label}
                                     </MenuItem>
                                 ))}
                             </List>
@@ -243,7 +224,7 @@ export default function Footer({ user }) {
                             <Typography sx={{ textAlign: "center" }}>&copy; 2024 Uniplace Todos os direitos reservados.</Typography>
                         </Grid>
                         <Grid item md={3} xs={12}>
-                            <Grid container spacing={2}>
+                            {/* <Grid container spacing={2}>
                                 <Grid item xs={2}>
                                     <RemixIcon className="ri-instagram-line" fontSize={"24px"} />
                                 </Grid>
@@ -256,11 +237,11 @@ export default function Footer({ user }) {
                                 <Grid item xs={2}>
                                     <RemixIcon className="ri-linkedin-line" fontSize={"24px"} />
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Grid>
-            </Grid>
-        </Container>
-    </Box >
+                </Grid>
+            </Container>
+        </Box >
     </>
 }
