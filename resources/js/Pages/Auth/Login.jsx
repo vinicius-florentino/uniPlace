@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { toast } from "react-toastify";
 
-export default function Login({ status, canResetPassword }) {
+export default function Login() {
     
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
@@ -49,7 +49,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Entrar"/>
+            <Head title="Entrar" />
             <Box noValidate component="form" onSubmit={onSubmit}>
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12}>
@@ -100,11 +100,9 @@ export default function Login({ status, canResetPassword }) {
                         alignItems={"center"}
                         justifyContent={"end"}
                     >
-                        {canResetPassword && (
-                            <Link href={route("password.request")}>
-                                Esqueci minha senha
-                            </Link>
-                        )}
+                        <Link href={route("password.request")}>
+                            Esqueci minha senha
+                        </Link>
                     </Grid>
 
                     <Grid item xs={12}>

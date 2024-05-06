@@ -18,7 +18,7 @@ use App\Models\University;
 
 class RegisteredUserController extends Controller
 {
-    public function create(): Response
+    public function index(): Response
     {
         $universities = University::all();
 

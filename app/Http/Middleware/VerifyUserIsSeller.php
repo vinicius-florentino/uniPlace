@@ -30,7 +30,7 @@ class VerifyUserIsSeller
             $seller = $user->seller;
 
             if (!$seller){
-                return redirect('/invalid-subscription');
+                abort(404);
             }
         }
 
