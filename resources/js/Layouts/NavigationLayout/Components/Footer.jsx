@@ -3,14 +3,12 @@ import {
     Typography,
     Box,
     Grid,
-    Button,
     MenuItem,
     Container,
     List,
     Tabs,
     Tab,
 } from "@mui/material";
-import PropTypes from 'prop-types';
 import RemixIcon from "@/Components/RemixIcon";
 
 function CustomTabPanel(props) {
@@ -33,20 +31,14 @@ function CustomTabPanel(props) {
     );
 }
 
-CustomTabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
-    };
-}
-
 export default function Footer({ user }) {
+
+    function a11yProps(index) {
+        return {
+            id: `simple-tab-${index}`,
+            "aria-controls": `simple-tabpanel-${index}`,
+        };
+    }
 
     const PesquisasPopulares = [
         {
@@ -114,6 +106,14 @@ export default function Footer({ user }) {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    
+    const iconesSociais = ["ri-instagram-line", "ri-whatsapp-line", "ri-twitter-x-line", "ri-linkedin-line"];
+
+    const Icone = ({ className }) => (
+        <Grid item xs={3} sx={{ justifyContent: "center", display: "flex", alignItems: "center" }}>
+            <RemixIcon className={className} fontSize={"24px"} />
+        </Grid>
+    );
 
     return <>
         <Box sx={{ backgroundColor: ("var(--white-color)"), paddingBottom: "20px" }}>
@@ -130,135 +130,110 @@ export default function Footer({ user }) {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <CustomTabPanel value={value} index={0}>
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: "none", md: "flex" },
-                                justifyContent: "start",
-                            }}
-                        >
-                            <List
-                                sx={{ width: '100%', bgcolor: 'background.paper' }}
-                                aria-label="contacts"
+                    {value === 0 &&
+                        <CustomTabPanel value={value} index={0}>
+                            <Box
+                                sx={{
+                                    flexGrow: 1,
+                                    display: { xs: "none", md: "flex" },
+                                    justifyContent: "start",
+                                }}
                             >
-                                {PesquisasPopulares.map((pp, index) => (
-                                    <MenuItem disablePadding
-                                        variant="text"
-                                        key={index}
-                                        href={pp.href}
-                                        disabled={pp.disabled}
-                                        sx={{
-                                            color: "var(--dark-color)",
-                                            fontSize: 14
-                                        }}
-                                    >
-                                        {pp.label}
-                                    </MenuItem>
-                                ))}
-                            </List>
-                        </Box>
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={1}>
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: "none", md: "flex" },
-                                justifyContent: "start",
-                            }}
-                        >
-                            <List
-                                sx={{ width: '100%', bgcolor: 'background.paper' }}
-                                aria-label="contacts"
+                                <List
+                                    sx={{ width: '100%', bgcolor: 'background.paper' }}
+                                    aria-label="contacts"
+                                >
+                                    {PesquisasPopulares.map((pp, index) => (
+                                        <MenuItem disablePadding
+                                            variant="text"
+                                            key={index}
+                                            href={pp.href}
+                                            disabled={pp.disabled}
+                                            sx={{
+                                                color: "var(--dark-color)",
+                                                fontSize: 14
+                                            }}
+                                        >
+                                            {pp.label}
+                                        </MenuItem>
+                                    ))}
+                                </List>
+                            </Box>
+                        </CustomTabPanel>
+                    }
+                    {value === 1 &&
+                        <CustomTabPanel value={value} index={1}>
+                            <Box
+                                sx={{
+                                    flexGrow: 1,
+                                    display: { xs: "none", md: "flex" },
+                                    justifyContent: "start",
+                                }}
                             >
-                                {LinksUteis.map((lu, index) => (
-                                    <MenuItem disablePadding
-                                        variant="text"
-                                        key={index}
-                                        href={lu.href}
-                                        disabled={lu.disabled}
-                                        sx={{
-                                            color: "var(--dark-color)",
-                                            fontSize: 14
-                                        }}
-                                    >
-                                        {lu.label}
-                                    </MenuItem>
-                                ))}
-                            </List>
-                        </Box>
-                    </CustomTabPanel>
-                    <CustomTabPanel value={value} index={2}>
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: "none", md: "flex" },
-                                justifyContent: "start",
-                            }}
-                        >
-                            <List
-                                sx={{ width: '100%', bgcolor: 'background.paper' }}
-                                aria-label="contacts"
+                                <List
+                                    sx={{ width: '100%', bgcolor: 'background.paper' }}
+                                    aria-label="contacts"
+                                >
+                                    {LinksUteis.map((lu, index) => (
+                                        <MenuItem disablePadding
+                                            variant="text"
+                                            key={index}
+                                            href={lu.href}
+                                            disabled={lu.disabled}
+                                            sx={{
+                                                color: "var(--dark-color)",
+                                                fontSize: 14
+                                            }}
+                                        >
+                                            {lu.label}
+                                        </MenuItem>
+                                    ))}
+                                </List>
+                            </Box>
+                        </CustomTabPanel>
+                    }
+                    {value === 2 &&
+                        <CustomTabPanel value={value} index={2}>
+                            <Box
+                                sx={{
+                                    flexGrow: 1,
+                                    display: { xs: "none", md: "flex" },
+                                    justifyContent: "start",
+                                }}
                             >
-                                {CategoriasPrincipais.map((cp, index) => (
-                                    <MenuItem disablePadding
-                                        variant="text"
-                                        key={index}
-                                        href={cp.href}
-                                        disabled={cp.disabled}
-                                        sx={{
-                                            color: "var(--dark-color)",
-                                            fontSize: 14
-                                        }}
-                                    >
-                                        {cp.label}
-                                    </MenuItem>
-                                ))}
-                            </List>
-                        </Box>
-                    </CustomTabPanel>
+                                <List
+                                    sx={{ width: '100%', bgcolor: 'background.paper' }}
+                                    aria-label="contacts"
+                                >
+                                    {CategoriasPrincipais.map((cp, index) => (
+                                        <MenuItem disablePadding
+                                            variant="text"
+                                            key={index}
+                                            href={cp.href}
+                                            disabled={cp.disabled}
+                                            sx={{
+                                                color: "var(--dark-color)",
+                                                fontSize: 14
+                                            }}
+                                        >
+                                            {cp.label}
+                                        </MenuItem>
+                                    ))}
+                                </List>
+                            </Box>
+                        </CustomTabPanel>
+                    }
                 </Grid>
                 <Grid>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Box
-                                sx={{ borderBottom: 1, borderColor: "divider" }}
-                            >
-                                <Tabs
-                                    value={value}
-                                    onChange={handleChange}
-                                    aria-label="basic tabs example"
-                                >
-                                    <Tab
-                                        label="Pesquisas populares "
-                                        {...a11yProps(0)}
-                                    />
-                                    <Tab
-                                        label="Links úteis"
-                                        {...a11yProps(1)}
-                                    />
-                                    <Tab
-                                        label="Categorias principais"
-                                        {...a11yProps(2)}
-                                    />
-                                </Tabs>
-                            </Box>
+                        <Grid item md={3} />
+                        <Grid item md={6} xs={12}>
+                            <Typography sx={{ textAlign: "center" }}>&copy; 2024 Uniplace Todos os direitos reservados.</Typography>
                         </Grid>
                         <Grid item md={3} xs={12}>
-                            {/* <Grid container spacing={2}>
-                                <Grid item xs={2}>
-                                    <RemixIcon className="ri-instagram-line" fontSize={"24px"} />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <RemixIcon className="ri-whatsapp-line" fontSize={"24px"} />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <RemixIcon className="ri-twitter-x-line" fontSize={"24px"} />
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <RemixIcon className="ri-linkedin-line" fontSize={"24px"} />
-                                </Grid>
-                            </Grid> */}
+                            <Grid container spacing={2}>
+                                {iconesSociais.map(className => <Icone key={className} className={className} />)}
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
