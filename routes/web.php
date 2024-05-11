@@ -58,10 +58,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/settings/seller', [SettingsSellerController::class, 'destroy']);
 });
 
-Route::get('/not-found', function () {
-    return Inertia::render('Auth/NotFound');
-});
-
 Route::get('/invalid-subscription', function () {
     return Inertia::render('Auth/InvalidSubscription');
 });

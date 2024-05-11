@@ -8,7 +8,6 @@ import { Box, Paper, Container, Alert } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
 
 import AdCard from "@/Components/cards/AdCard";
 import Image from "@/Components/Image";
@@ -25,6 +24,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Dashboard({ auth, recentAds, promotedAds }) {
+
     const { data, setData, get, processing } = useForm({
         search: "",
     });
@@ -87,7 +87,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                             modules={[Navigation, Autoplay]}
                         >
                             {items?.map((item, index) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <Paper
                                         key={index}
                                         sx={{
@@ -159,7 +159,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                             modules={[Navigation]}
                         >
                             {promotedAds?.data?.map((ad, index) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <AdCard
                                         sellerName={ad.seller.name}
                                         price={ad.price}
@@ -169,7 +169,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                     />
                                 </SwiperSlide>
                             ))}
-                            {!promotedAds.data && (
+                            {promotedAds?.data?.length === 0 && (
                                 <Alert severity="info">
                                     Não foi possível encontrar nenhum anúncio
                                 </Alert>
@@ -214,7 +214,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                             modules={[Navigation]}
                         >
                             {recentAds?.data?.map((ad, index) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={index}>
                                     <AdCard
                                         sellerName={ad.seller.name}
                                         price={ad.price}
@@ -224,7 +224,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                     />
                                 </SwiperSlide>
                             ))}
-                            {!recentAds.data && (
+                            {recentAds?.data?.length === 0 && (
                                 <Alert severity="info">
                                     Não foi possível encontrar nenhum anúncio
                                 </Alert>

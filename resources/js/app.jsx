@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import muiTheme from "../css/theme/muiTheme";
 import 'remixicon/fonts/remixicon.css'
 import "react-toastify/dist/ReactToastify.css";
+import "swiper/css";
 import "../css/app.css";
 
 import "./bootstrap";

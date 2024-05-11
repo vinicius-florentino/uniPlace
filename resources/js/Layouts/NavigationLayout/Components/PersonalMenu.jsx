@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "@inertiajs/react";
+import { useForm, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 
 import IconButton from "@mui/material/IconButton";
@@ -89,13 +89,13 @@ export default function PersonalMenu({ user }) {
                             </IconButton>
                         </ListItem>
                         <Divider />
-                        <ListItemButton href={`/user/${user.id}`}>
+                        <ListItemButton onClick={() => router.visit(`/user/${user.id}`)}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-user-line" />
                             </ListItemIcon>
                             <ListItemText primary={"Meu perfil"} />
                         </ListItemButton>
-                        <ListItemButton href={"/conversations"}>
+                        <ListItemButton onClick={() => router.visit("/conversations")}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-discuss-line" />
                             </ListItemIcon>
@@ -117,7 +117,7 @@ export default function PersonalMenu({ user }) {
                             <List component="div" disablePadding sx={{ pl: 4 }}>
                                 <ListItemButton
                                     disabled={!user.seller}
-                                    href={`/seller/${user.seller?.id}`}
+                                    onClick={() => router.visit(`/seller/${user.seller?.id}`)}
                                 >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-2-line" />
@@ -125,7 +125,7 @@ export default function PersonalMenu({ user }) {
                                     <ListItemText primary="Meu perfil de vendedor" />
                                 </ListItemButton>
                                 <ListItemButton
-                                    href={"/seller-dashboard/ads"}
+                                    onClick={() => router.visit("/seller-dashboard/ads")}
                                     disabled={!user.seller}
                                 >
                                     <ListItemIcon>
@@ -136,7 +136,7 @@ export default function PersonalMenu({ user }) {
                             </List>
                         </Collapse>
                         <Divider sx={{ my: 1 }} />
-                        <ListItemButton href={"/settings"}>
+                        <ListItemButton onClick={() => router.visit("/settings")}>
                             <ListItemIcon>
                                 <RemixIcon className="ri-settings-line" />
                             </ListItemIcon>

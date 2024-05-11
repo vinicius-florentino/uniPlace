@@ -15,7 +15,7 @@ class CategoriesSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\AdsCategorie::create([
-            'name' => 'Yasmin'
+            'name' => 'teste'
         ]);
     }
 }
