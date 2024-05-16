@@ -54,6 +54,7 @@ export default function Login() {
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="email"
                             name="email"
                             label="E-mail"
@@ -67,6 +68,7 @@ export default function Login() {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="password"
                             name="password"
                             label="Senha"

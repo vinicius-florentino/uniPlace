@@ -28,7 +28,6 @@ class AdsController extends Controller
             ->paginate();
 
         return Inertia::render('SellerDashboard/Ads', [
-            'status' => session('status'),
             'ads' => $ads
         ]);
     }
@@ -43,7 +42,7 @@ class AdsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'price' => 'required|numeric|max:999999.99',
-            'category_id' => 'required|int',
+            'category_id' => 'nullable|int',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
@@ -73,6 +72,7 @@ class AdsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'price' => 'required|numeric|max:999999.99',
+            'category_id' => 'nullable|int',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 

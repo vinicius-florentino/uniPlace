@@ -51,6 +51,7 @@ const UpdateProfileInformationForm = ({ user }) => {
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="name"
                             name="name"
                             label="Nome"
@@ -65,6 +66,7 @@ const UpdateProfileInformationForm = ({ user }) => {
 
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="email"
                             name="email"
                             label="Email"
@@ -149,6 +151,7 @@ const UpdatePasswordForm = () => {
             <Grid container spacing={0} rowGap={2}>
                 <Grid item xs={12}>
                     <TextField
+                        required
                         id="current_password"
                         name="current_password"
                         label="Senha atual"
@@ -163,6 +166,7 @@ const UpdatePasswordForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                        required
                         id="password"
                         name="password"
                         label="Nova senha"
@@ -177,6 +181,7 @@ const UpdatePasswordForm = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                        required
                         id="password_confirmation"
                         name="password_confirmation"
                         label="Confirme a senha"
@@ -267,6 +272,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
 
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 variant="outlined"
                                 id="password"
                                 type="password"

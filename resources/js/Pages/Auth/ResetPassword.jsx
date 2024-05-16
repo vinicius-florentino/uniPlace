@@ -43,6 +43,7 @@ export default function ResetPassword({ token, email }) {
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12} md={12}>
                         <TextField
+                            required
                             id="email"
                             type="email"
                             name="email"
@@ -56,6 +57,7 @@ export default function ResetPassword({ token, email }) {
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <TextField
+                            required
                             id="password"
                             type="password"
                             name="password"
@@ -69,6 +71,7 @@ export default function ResetPassword({ token, email }) {
                     </Grid>
                     <Grid item xs={12} md={12}>
                         <TextField
+                            required
                             type="password"
                             name="password_confirmation"
                             value={data.password_confirmation}

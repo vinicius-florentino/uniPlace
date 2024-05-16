@@ -8,7 +8,8 @@ import AdCard from "@/Components/cards/AdCard";
 import { useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
-import Alert from "@mui/material/Alert"
+import Alert from "@mui/material/Alert";
+
 export default function Ads({ ads, auth, search }) {
 
     const { data, setData, get, processing, errors } = useForm({
