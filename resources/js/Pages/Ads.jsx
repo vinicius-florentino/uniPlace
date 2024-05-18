@@ -1,31 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import { Head, useForm, router } from "@inertiajs/react";
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Loading from "@/Components/Loading";
 import AdCard from "@/Components/cards/AdCard";
-import { useState } from "react";
 import Pagination from "@mui/material/Pagination";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
-import Alert from "@mui/material/Alert"
-export default function Ads({ ads, auth, search }) {
+import Alert from "@mui/material/Alert";
+import CheckBoxFilters from "../Components/CheckBoxFilters";
 
-    const { data, setData, get, processing, errors } = useForm({
-        search: search,
+export default function Ads({ ads, auth, adsCategories }) {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    const { data, setData, get, processing } = useForm({
+        search: searchParams.get("search") || "",
+        filters: { ads_categories: [] }
     });
 
     const [loading, setLoading] = useState(false);
-    let paginationTotal = ads?.last_page;
-
-    let actualPage = ads?.current_page;
 
     const handleSearchChange = (e) => {
         const { value } = e.target;
-        setData(
-            'search', value
-        )
-    }
+        setData("search", value);
+    };
 
     const handlePaginationChange = (e, page) => {
         setLoading(true);
@@ -44,16 +42,34 @@ export default function Ads({ ads, auth, search }) {
         });
     };
 
+    let paginationTotal = ads?.last_page;
+
+    let actualPage = ads?.current_page;
+
     return (
         <NavigationLayout user={auth.user}>
             <Head title="Anúncios" />
 
-            <Box component="form" onSubmit={onSubmit} noValidate sx={{ pb: 2 }}>
-                <SearchField value={data.search} onChange={handleSearchChange} />
+            <Box component="form" onSubmit={onSubmit} noValidate>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <SearchField
+                            value={data.search}
+                            onChange={handleSearchChange}
+                            disabled={processing}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <CheckBoxFilters
+                            adsCategories={adsCategories}
+                            setData={setData}
+                        />
+                    </Grid>
+                </Grid>
             </Box>
             {!loading && (
                 <>
-                    <Box sx={{ pb: 2 }}>
+                    <Box sx={{ my: 2 }}>
                         <Grid container spacing={2} rowSpacing={0}>
                             {ads.data.map((ad, index) => (
                                 <Grid
@@ -81,13 +97,11 @@ export default function Ads({ ads, auth, search }) {
                         </Grid>
                     </Box>
                     {ads.data.length === 0 && (
-                        <Box sx={{width: "100%"}}>
-                            <Alert severity="info">
-                                Nenhum anúncio foi encontrado
-                            </Alert>
+                        <Box sx={{ width: "100%" }}>
+                            <Alert severity="info">Nenhum anúncio foi encontrado</Alert>
                         </Box>
                     )}
-                    {ads.data.length >= 1 &&
+                    {ads.data.length >= 1 && (
                         <Box>
                             <Pagination
                                 color="primary"
@@ -99,11 +113,11 @@ export default function Ads({ ads, auth, search }) {
                                     justifyContent: "center",
                                 }}
                             />
-                        </Box>}
+                        </Box>
+                    )}
                 </>
             )}
             {loading && <Loading />}
-
         </NavigationLayout>
     );
 }
