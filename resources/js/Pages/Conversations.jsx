@@ -17,9 +17,10 @@ import {
     Button,
     Tab,
     Tabs,
+    Collapse,
 } from "@mui/material";
 
-import { Head, useForm, router } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import stringAvatar from "@/Utils/stringAvatar";
 import RemixIcon from "@/Components/RemixIcon";
 
@@ -51,13 +52,13 @@ const ConversationInfo = ({ selected, name, id }) => {
                 p: 2,
                 gap: "8px",
             }}
-            href={`/conversations/${id}`}
             selected={selected}
+            onClick={() => router.visit(`/conversations/${id}`)}
         >
             <ListItemIcon>
                 <Avatar {...stringAvatar(name)} alt={name.toUpperCase()} />
             </ListItemIcon>
-            <ListItemText>{name}</ListItemText>
+            <ListItemText primary={name} secondary="teste" />
             <Typography>10/04</Typography>
         </MenuItem>
     );
@@ -69,63 +70,85 @@ const ConversationsSideList = ({
     conversationsWithUsers,
     conversationsWithSellers,
 }) => {
-
     const defaultTabContent = auth.user.seller ? "users" : "sellers";
     const [tabContent, setTabContent] = useState(defaultTabContent);
 
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
     const handleChangeTab = (e, value) => {
         setTabContent(value);
+    };
+
+    const handleCollapseToggle = () => {
+        setIsCollapsed(!isCollapsed);
     };
 
     return (
         <Box
             component="aside"
             sx={{
-                width: "100%",
+                flexGrow: !isCollapsed ? 2 : 1,
+                flexBasis: !isCollapsed ? "400px" : "20px",
                 backgroundColor: "var(--white-color)",
-                height: "100%",
-                border: "var(--borders)",
+                // border: "var(--borders)",
             }}
         >
-            <Tabs
-                value={tabContent}
-                onChange={handleChangeTab}
-                textColor="primary"
-                indicatorColor="primary"
-                variant="fullWidth"
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                    alignItems: "center",
+                    p: 2
+                }}
             >
-                <Tab value="sellers" label="Vendedores" />
-                <Tab
-                    value="users"
-                    label="Usuários"
-                    disabled={!auth.user.seller}
-                />
-            </Tabs>
-
-            {tabContent === "sellers" && (
-                <MenuList id="basic-menu" sx={{ py: 0 }}>
-                    {conversationsWithSellers?.map((item, index) => (
-                        <ConversationInfo
-                            key={index}
-                            id={item.id}
-                            name={item.seller.name}
-                            selected={conversation?.id === item.id}
+                <IconButton onClick={() => handleCollapseToggle()}>
+                    <RemixIcon className={!isCollapsed ? "ri-expand-left-line"  : "ri-expand-right-line"  }/>
+                </IconButton>
+            </Box>
+            {!isCollapsed && (
+                <>
+                    <Tabs
+                        value={tabContent}
+                        onChange={handleChangeTab}
+                        textColor="primary"
+                        indicatorColor="primary"
+                        variant="fullWidth"
+                    >
+                        <Tab value="sellers" label="Vendedores" />
+                        <Tab
+                            value="users"
+                            label="Usuários"
+                            disabled={!auth.user.seller}
                         />
-                    ))}
-                </MenuList>
-            )}
-
-            {tabContent === "users" && (
-                <MenuList id="basic-menu" sx={{ py: 0 }}>
-                    {conversationsWithUsers?.map((item, index) => (
-                        <ConversationInfo
-                            key={index}
-                            id={item.id}
-                            name={item.user.name}
-                            selected={conversation?.id === item.id}
-                        />
-                    ))}
-                </MenuList>
+                    </Tabs>
+                    {tabContent === "sellers" && (
+                        <MenuList
+                            id="basic-menu"
+                            sx={{ py: 0, border: "1px solid green" }}
+                        >
+                            {conversationsWithSellers?.map((item, index) => (
+                                <ConversationInfo
+                                    key={index}
+                                    id={item.id}
+                                    name={item.seller.name}
+                                    selected={conversation?.id === item.id}
+                                />
+                            ))}
+                        </MenuList>
+                    )}
+                    {tabContent === "users" && (
+                        <MenuList id="basic-menu" sx={{ py: 0 }}>
+                            {conversationsWithUsers?.map((item, index) => (
+                                <ConversationInfo
+                                    key={index}
+                                    id={item.id}
+                                    name={item.user.name}
+                                    selected={conversation?.id === item.id}
+                                />
+                            ))}
+                        </MenuList>
+                    )}
+                </>
             )}
         </Box>
     );
@@ -179,7 +202,7 @@ export default function Conversations({
     };
 
     const handleKeyDown = (event) => {
-        if (event.key === "Enter" && !event.shiftKey && !message) {
+        if (event.key === "Enter" && !event.shiftKey && message) {
             event.preventDefault();
             sendMessage();
             setMessage("");
@@ -190,99 +213,100 @@ export default function Conversations({
         <NavigationLayout user={auth.user} disableContainer disablePadding>
             <Head title="Conversas" />
 
-            <Box sx={{ width: "100%", height: "100%" }}>
-                <Grid container spacing={0}>
-                    <Grid item xs={2}>
-                        <ConversationsSideList
-                            auth={auth}
-                            conversation={conversation}
-                            conversationsWithUsers={conversationsWithUsers}
-                            conversationsWithSellers={conversationsWithSellers}
-                        />
-                    </Grid>
-                    <Grid item xs={10}>
-                        <Box
-                            sx={{
-                                width: "100%",
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column-reverse",
-                                    p: 4,
-                                    minHeight: "76vh",
-                                    maxHeight: "660px",
-                                    overflowY: "auto",
-                                }}
-                            >
-                                <Grid container spacing={2}>
-                                    {events?.map((event, index) => (
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            key={index}
-                                            display={"flex"}
-                                            justifyContent={
-                                                auth.user.id === event.sender_id
-                                                    ? "end"
-                                                    : "start"
-                                            }
-                                        >
-                                            <MessageBaloon
-                                                message={event.message}
-                                                isSender={
-                                                    auth.user.id ===
-                                                    event.sender_id
-                                                }
-                                            />
-                                        </Grid>
-                                    ))}
+            <Box
+                sx={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "row",
+                }}
+            >
+                <ConversationsSideList
+                    auth={auth}
+                    conversation={conversation}
+                    conversationsWithUsers={conversationsWithUsers}
+                    conversationsWithSellers={conversationsWithSellers}
+                />
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column-reverse",
+                            p: 4,
+                            height: "72vh",
+                            overflowY: "auto",
+                        }}
+                    >
+                        <Grid container spacing={2}>
+                            {events?.map((event, index) => (
+                                <Grid
+                                    item
+                                    xs={12}
+                                    key={index}
+                                    display={"flex"}
+                                    justifyContent={
+                                        auth.user.id === event.sender_id
+                                            ? "end"
+                                            : "start"
+                                    }
+                                >
+                                    <MessageBaloon
+                                        message={event.message}
+                                        isSender={
+                                            auth.user.id === event.sender_id
+                                        }
+                                    />
                                 </Grid>
-                            </Box>
+                            ))}
+                        </Grid>
+                    </Box>
 
-                            <Box
-                                sx={{
-                                    backgroundColor: "var(--white-color)",
-                                }}
+                    <Box
+                        sx={{
+                            backgroundColor: "var(--white-color)",
+                        }}
+                    >
+                        <Grid container spacing={0}>
+                            <Grid
+                                item
+                                xs={12}
+                                sx={{ p: 2 }}
+                                display={"flex"}
+                                justifyContent={"space-between"}
+                                alignItems={"center"}
+                                gap={"8px"}
                             >
-                                <Grid container spacing={0}>
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        sx={{ p: 2 }}
-                                        display={"flex"}
-                                        justifyContent={"space-between"}
-                                        alignItems={"center"}
-                                        gap={"8px"}
-                                    >
-                                        <TextField
-                                            fullWidth
-                                            variant="standard"
-                                            multiline
-                                            name="message"
-                                            value={message}
-                                            maxRows={4}
-                                            onChange={handleChange}
-                                            placeholder="Digite sua mensagem"
-                                            onKeyDown={handleKeyDown}
-                                            disabled={!conversation}
-                                        />
-                                        <IconButton
-                                            onClick={() => sendMessage()}
-                                            disabled={loading || !conversation || !message}
-                                        >
-                                            <RemixIcon
-                                                className="ri-send-plane-2-line"
-                                                color="var(--primary-color)"
-                                            />
-                                        </IconButton>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Box>
-                    </Grid>
-                </Grid>
+                                <TextField
+                                    fullWidth
+                                    variant="standard"
+                                    multiline
+                                    name="message"
+                                    value={message}
+                                    maxRows={4}
+                                    onChange={handleChange}
+                                    placeholder="Digite sua mensagem"
+                                    onKeyDown={handleKeyDown}
+                                    disabled={!conversation}
+                                />
+                                <IconButton
+                                    onClick={() => sendMessage()}
+                                    disabled={
+                                        loading || !conversation || !message
+                                    }
+                                >
+                                    <RemixIcon
+                                        className="ri-send-plane-2-line"
+                                        color="var(--primary-color)"
+                                    />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
             </Box>
         </NavigationLayout>
     );

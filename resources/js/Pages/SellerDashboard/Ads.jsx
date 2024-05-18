@@ -1228,7 +1228,7 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="right">
                                                                     <Tooltip title="Visualizar" placement="top" arrow> 
                                                                         <IconButton
-                                                                            href={`/ad/${ad.id}`}
+                                                                            onClick={ () => router.visit(`/ad/${ad.id}`)}
                                                                         >
                                                                             <RemixIcon className="ri-eye-line"></RemixIcon>
                                                                         </IconButton>                                                              
@@ -1440,7 +1440,7 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="right">
                                                                     <Tooltip title="Visualizar" placement="top" arrow>
                                                                         <IconButton
-                                                                            href={`/ad/${ad.id}`}
+                                                                            onClick={ () => router.visit(`/ad/${ad.id}`)}
                                                                         >
                                                                             <RemixIcon className="ri-eye-line"></RemixIcon>
                                                                         </IconButton>

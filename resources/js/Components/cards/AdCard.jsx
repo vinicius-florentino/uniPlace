@@ -8,11 +8,12 @@ import formatPrice from "@/Utils/formatPrice";
 import RemixIcon from "../RemixIcon";
 import Image from "../Image";
 import { CardActionArea } from "@mui/material";
+import { router } from "@inertiajs/react";
 
 export default function AdCard({ title, sellerName, imageSrc, price, href }) {
     return (
         <Card sx={{ width: "auto", maxHeight: "auto", borderRadius: "16px" }}>
-            <CardActionArea href={href}>
+            <CardActionArea onClick={() => router.visit(href)}>
                 <CardContent sx={{ p: 0 }}>
                     <Box sx={{ width: "100%", pb: 2 }}>
                         <Grid container spacing={0} rowSpacing={1}>
@@ -55,7 +56,7 @@ export default function AdCard({ title, sellerName, imageSrc, price, href }) {
                                     gap: "8px",
                                 }}
                             >
-                                {sellerName &&
+                                {sellerName && (
                                     <>
                                         <RemixIcon
                                             className={"ri-user-2-line"}
@@ -71,7 +72,7 @@ export default function AdCard({ title, sellerName, imageSrc, price, href }) {
                                             {sellerName}
                                         </Typography>
                                     </>
-                                }
+                                )}
                             </Grid>
                         </Grid>
                     </Box>

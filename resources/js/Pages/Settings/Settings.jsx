@@ -12,6 +12,7 @@ import {
     Avatar,
     IconButton,
     Typography,
+    Divider,
 } from "@mui/material";
 
 import NavigationLayout from "@/Layouts/NavigationLayout";
@@ -114,12 +115,26 @@ export const Settings = ({ auth }) => {
                                     </ListItemIcon>
                                     <ListItemText>Vendedor</ListItemText>
                                 </MenuItem>
+                                <Divider />
+                                <MenuItem disabled>
+                                    <ListItemText>Sobre</ListItemText>
+                                </MenuItem>
+                                <MenuItem disabled>
+                                    <ListItemIcon>
+                                        <RemixIcon className="ri-article-line" />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Termos de privacidade
+                                    </ListItemText>
+                                </MenuItem>
                             </MenuList>
                         </PageBox>
                     </Grid>
                     <Grid item xs={12} md={8}>
                         {pathname === "/settings" && (
-                            <Alert severity="info">Nenhuma opção de configurações selecionada</Alert>
+                            <Alert severity="info">
+                                Nenhuma opção de configurações selecionada
+                            </Alert>
                         )}
                         {pathname === "/settings/user" && (
                             <UserProfileSettings user={user} />

@@ -128,7 +128,7 @@ export default function Ad({ ad, auth }) {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Chip
-                                        href={`/seller/${ad.seller.id}`}
+                                        onClick={() => router.visit(`/seller/${ad.seller.id}`)}
                                         component={"a"}
                                         clickable
                                         label={ad.seller.name}

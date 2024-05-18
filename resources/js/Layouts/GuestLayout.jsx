@@ -1,6 +1,7 @@
 import React from "react";
 import Box from "@mui/system/Box";
 import Logo from "@/Components/Logo";
+import { router } from "@inertiajs/react";
 
 export default function Guest({ children }) {
     return (

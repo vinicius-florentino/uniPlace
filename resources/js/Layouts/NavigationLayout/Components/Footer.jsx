@@ -9,6 +9,7 @@ import {
     Tabs,
     Tab,
 } from "@mui/material";
+import { router } from "@inertiajs/react";
 
 export default function Footer() {
 
@@ -123,7 +124,7 @@ export default function Footer() {
                                         {mostSearched.map((ms, index) => (
                                             <MenuItem
                                                 key={index}
-                                                href={ms.href}
+                                                onClick={ () => router.visit(ms.href)}
                                                 disabled={ms.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
@@ -154,7 +155,7 @@ export default function Footer() {
                                             <MenuItem
                                                 variant="text"
                                                 key={index}
-                                                href={ul.href}
+                                                onClick={ () => router.visit(ul.href)}
                                                 disabled={ul.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
@@ -185,7 +186,7 @@ export default function Footer() {
                                             <MenuItem
                                                 variant="text"
                                                 key={index}
-                                                href={mc.href}
+                                                onClick={ () => router.visit(mc.href)}
                                                 disabled={mc.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
