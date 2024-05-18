@@ -677,7 +677,7 @@ const EditAdDialog = ({
                         <RemixIcon className="ri-close-line" />
                     </IconButton>
                     <DialogContent dividers>
-                        <Box noValidate>
+                        <Box noValidate sx={{width: "100%"}}>
                             <Grid container spacing={0} rowSpacing={2}>
                                 <Grid
                                     item
@@ -707,6 +707,7 @@ const EditAdDialog = ({
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        required
                                         variant="outlined"
                                         id="title"
                                         type="text"
@@ -721,6 +722,7 @@ const EditAdDialog = ({
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        required
                                         variant="outlined"
                                         id="description"
                                         name="description"
@@ -737,6 +739,7 @@ const EditAdDialog = ({
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField
+                                        required
                                         variant="outlined"
                                         id="price"
                                         name="price"
@@ -885,10 +888,11 @@ const CreateAdDialog = ({ onClose, open }) => {
                 <RemixIcon className="ri-close-line" />
             </IconButton>
             <DialogContent dividers>
-                <Box noValidate>
+                <Box noValidate sx={{width: "100%"}}>
                     <Grid container spacing={0} rowSpacing={2}>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 variant="outlined"
                                 id="title"
                                 type="text"
@@ -903,6 +907,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 variant="outlined"
                                 id="description"
                                 name="description"
@@ -919,6 +924,7 @@ const CreateAdDialog = ({ onClose, open }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 variant="outlined"
                                 id="price"
                                 name="price"
@@ -1117,7 +1123,7 @@ export default function Ads({ auth, ads }) {
                                     color="var(--success-color)"
                                 />
                             }
-                            title="Meus anúncios habilitados"
+                            title={`Meus anúncios habilitados (${adsAble.length})`}
                             subTitle="Anúncios disponíveis para possíveis clientes"
                         >
                             <Grid container spacing={2}>
@@ -1331,7 +1337,7 @@ export default function Ads({ auth, ads }) {
                                     color="var(--danger-color)"
                                 />
                             }
-                            title="Meus anúncios desabilitados"
+                            title={`Meus anúncios desabilitados (${adsUnable.length})`}
                             subTitle="Anúncios não disponíveis para possíveis clientes"
                         >
                             <Grid container spacing={2}>

@@ -50,6 +50,7 @@ export default function ForgotPassword({ status }) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="email"
                             name="email"
                             label="E-mail"
@@ -61,13 +62,6 @@ export default function ForgotPassword({ status }) {
                             fullWidth
                         />
                     </Grid>
-                    <Grid
-                        item
-                        xs={12}
-                        display={"flex"}
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                    ></Grid>
                     <Grid item xs={12}>
                         <Button
                             variant="contained"

@@ -68,6 +68,7 @@ export default function Register({ universities }) {
                 <Grid container spacing={0} rowGap={2}>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="name"
                             name="name"
                             label="Nome"
@@ -81,6 +82,7 @@ export default function Register({ universities }) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="email"
                             name="email"
                             label="E-mail"
@@ -94,6 +96,7 @@ export default function Register({ universities }) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="password"
                             name="password"
                             label="Senha"
@@ -108,6 +111,7 @@ export default function Register({ universities }) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                            required
                             id="password_confirmation"
                             name="password_confirmation"
                             label="Confirmação de senha"
@@ -121,7 +125,7 @@ export default function Register({ universities }) {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl error={errors.is_student}>
+                        <FormControl error={errors.is_student} required>
                             <FormLabel id="demo-row-radio-buttons-group-label">
                                 Você é estudante?
                             </FormLabel>
@@ -149,7 +153,7 @@ export default function Register({ universities }) {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl fullWidth error={errors.university_id}>
+                        <FormControl fullWidth error={errors.university_id} required>
                             <InputLabel id="university-label">
                                 Selecione sua universidade
                             </InputLabel>

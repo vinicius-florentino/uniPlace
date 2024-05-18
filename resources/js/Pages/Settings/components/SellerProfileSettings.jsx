@@ -76,6 +76,7 @@ const SellerProfileForm = ({ seller, handleSellerChange }) => {
             <Grid container spacing={0} rowGap={2}>
                 <Grid item xs={12}>
                     <TextField
+                        required
                         id="name"
                         name="name"
                         label="Nome de vendedor"
@@ -161,6 +162,7 @@ const NotSellerProfileForm = ({ userName }) => {
             <Grid container spacing={0} rowGap={2}>
                 <Grid item xs={12}>
                     <TextField
+                        required
                         id="name"
                         name="name"
                         label="Nome de vendedor"
@@ -276,6 +278,7 @@ const DeleteSellerDialog = ({ onClose, open }) => {
 
                         <Grid item xs={12}>
                             <TextField
+                                required
                                 variant="outlined"
                                 id="password"
                                 type="password"

@@ -8,7 +8,7 @@ import {
     MenuList,
     ListItemIcon,
     ListItemText,
-    Divider,
+    Alert,
     Avatar,
     IconButton,
     Typography,
@@ -118,6 +118,9 @@ export const Settings = ({ auth }) => {
                         </PageBox>
                     </Grid>
                     <Grid item xs={12} md={8}>
+                        {pathname === "/settings" && (
+                            <Alert severity="info">Nenhuma opção de configurações selecionada</Alert>
+                        )}
                         {pathname === "/settings/user" && (
                             <UserProfileSettings user={user} />
                         )}
