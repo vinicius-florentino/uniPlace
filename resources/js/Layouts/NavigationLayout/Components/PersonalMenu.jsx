@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import Switch from "@mui/material/Switch";
@@ -12,7 +12,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import RemixIcon from "@/Components/RemixIcon";
@@ -22,17 +21,19 @@ export default function PersonalMenu({ user }) {
 
     const { post } = useForm({});
 
-    const [open, setOpen] = useState(false);
+    const [isSwitchOn, setIsSwitchOn] = useState(() => {
+        const storedState = localStorage.getItem("switchState");
+        return storedState ? JSON.parse(storedState) : false;
+    });
 
-    const handleClick = () => {
-        setOpen(!open);
-    };
-
-    const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [displayName, setDisplayName] = useState(user.name);
     const [sellerOn, setSellerOn] = useState(false);
-
     const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+
+    useEffect(() => {
+        setDisplayName(isSwitchOn ? user.seller.name : user.name);
+        setSellerOn(isSwitchOn);
+    }, [isSwitchOn]);
 
     const handleOpenMenuDrawer = () => {
         setOpenMenuDrawer(true);
@@ -55,18 +56,10 @@ export default function PersonalMenu({ user }) {
         });
     };
 
-    // console.log(user)
-
     const handleSwitchChange = (event) => {
         const { checked } = event.target;
         setIsSwitchOn(checked);
-        if (checked) {
-            setDisplayName(user.seller.name);
-            setSellerOn(true);
-        } else {
-            setDisplayName(user.name);
-            setSellerOn(false);
-        }
+        localStorage.setItem("switchState", JSON.stringify(checked));
     };
 
     return (
@@ -102,46 +95,30 @@ export default function PersonalMenu({ user }) {
                         </ListItem>
                         <FormControlLabel sx={{ marginLeft: "5px" }}
                             control={<Switch checked={isSwitchOn} onChange={handleSwitchChange} />}
-                            label="Troque de conta"
+                            label="Troque de perfil"
                         />
                         <Divider sx={{ my: 1 }} />
 
                         {sellerOn &&
                             <>
-
-                                <ListItemButton onClick={handleClick}>
+                                <ListItemButton
+                                    disabled={!user.seller}
+                                    onClick={() => router.visit(`/seller/${user.seller?.id}`)}
+                                >
                                     <ListItemIcon>
-                                        <RemixIcon className="ri-dashboard-line" />
+                                        <RemixIcon className="ri-user-2-line" />
                                     </ListItemIcon>
-                                    <ListItemText primary="Painel para vendedores" />
-                                    {open ? (
-                                        <RemixIcon className="ri-arrow-up-s-line" />
-                                    ) : (
-                                        <RemixIcon className="ri-arrow-down-s-line" />
-                                    )}
+                                    <ListItemText primary="Meu perfil de vendedor" />
                                 </ListItemButton>
-                                <Collapse in={open} timeout="auto" unmountOnExit>
-                                    <List component="div" disablePadding sx={{ pl: 4 }}>
-                                        <ListItemButton
-                                            disabled={!user.seller}
-                                            onClick={() => router.visit(`/seller/${user.seller?.id}`)}
-                                        >
-                                            <ListItemIcon>
-                                                <RemixIcon className="ri-user-2-line" />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Meu perfil de vendedor" />
-                                        </ListItemButton>
-                                        <ListItemButton
-                                        onClick={() => router.visit("/seller-dashboard/ads")}
-                                            disabled={!user.seller}
-                                        >
-                                            <ListItemIcon>
-                                                <RemixIcon className="ri-price-tag-3-line" />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Meus anúncios" />
-                                        </ListItemButton>
-                                    </List>
-                                </Collapse>
+                                <ListItemButton
+                                    onClick={() => router.visit("/seller-dashboard/ads")}
+                                    disabled={!user.seller}
+                                >
+                                    <ListItemIcon>
+                                        <RemixIcon className="ri-price-tag-3-line" />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Meus anúncios" />
+                                </ListItemButton>
                                 <Divider sx={{ my: 1 }} />
                                 <ListItemButton onClick={() => router.visit("/settings")}>
                                     <ListItemIcon>
