@@ -21,19 +21,14 @@ export default function PersonalMenu({ user }) {
 
     const { post } = useForm({});
 
-    const [isSwitchOn, setIsSwitchOn] = useState(() => {
-        const storedState = localStorage.getItem("switchState");
+    const [isPersonalMenuSeller, setIsPersonalMenuSeller] = useState(() => {
+        const storedState = localStorage.getItem("personalMenuSeller");
         return storedState ? JSON.parse(storedState) : false;
     });
 
-    const [displayName, setDisplayName] = useState(user.name);
-    const [sellerOn, setSellerOn] = useState(false);
-    const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
+    const displayName = isPersonalMenuSeller && user?.seller ? user?.seller?.name : user.name;
 
-    useEffect(() => {
-        setDisplayName(isSwitchOn ? user.seller.name : user.name);
-        setSellerOn(isSwitchOn);
-    }, [isSwitchOn]);
+    const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
 
     const handleOpenMenuDrawer = () => {
         setOpenMenuDrawer(true);
@@ -58,15 +53,25 @@ export default function PersonalMenu({ user }) {
 
     const handleSwitchChange = (event) => {
         const { checked } = event.target;
-        setIsSwitchOn(checked);
-        localStorage.setItem("switchState", JSON.stringify(checked));
+        setIsPersonalMenuSeller(checked);
+        localStorage.setItem("personalMenuSeller", JSON.stringify(checked));
     };
+
+    useEffect(() => {
+        if (isPersonalMenuSeller && !user?.seller) {
+            setIsPersonalMenuSeller(false);
+            localStorage.setItem("personalMenuSeller", JSON.stringify(false));
+        }
+    }, [user, isPersonalMenuSeller]);
 
     return (
         <>
-            <Tooltip title="Menu pessoal">
+            <Tooltip arrow title="Menu pessoal">
                 <IconButton onClick={handleOpenMenuDrawer}>
-                    <Avatar {...stringAvatar(displayName)} alt={displayName.toUpperCase()} />
+                    <Avatar
+                        {...stringAvatar(displayName)}
+                        alt={displayName.toUpperCase()}
+                    />
                 </IconButton>
             </Tooltip>
             <Drawer
@@ -78,7 +83,10 @@ export default function PersonalMenu({ user }) {
                     <List>
                         <ListItem>
                             <ListItemIcon>
-                                <Avatar {...stringAvatar(displayName)} alt={displayName.toUpperCase()} />
+                                <Avatar
+                                    {...stringAvatar(displayName)}
+                                    alt={displayName.toUpperCase()}
+                                />
                             </ListItemIcon>
                             <ListItemText primary={displayName} />
                             <IconButton
@@ -93,17 +101,30 @@ export default function PersonalMenu({ user }) {
                                 <RemixIcon className="ri-close-line" />
                             </IconButton>
                         </ListItem>
-                        <FormControlLabel sx={{ marginLeft: "5px" }}
-                            control={<Switch checked={isSwitchOn} onChange={handleSwitchChange} />}
-                            label="Troque de perfil"
-                        />
-                        <Divider sx={{ my: 1 }} />
-
-                        {sellerOn &&
+                        {user?.seller && (
+                            <>
+                                <FormControlLabel
+                                    sx={{ marginLeft: "5px" }}
+                                    control={
+                                        <Switch
+                                            checked={isPersonalMenuSeller}
+                                            onChange={handleSwitchChange}
+                                        />
+                                    }
+                                    label="Troque de perfil"
+                                />
+                                <Divider sx={{ my: 1 }} />
+                            </>
+                        )}
+                        {isPersonalMenuSeller && (
                             <>
                                 <ListItemButton
-                                    disabled={!user.seller}
-                                    onClick={() => router.visit(`/seller/${user.seller?.id}`)}
+                                    disabled={!user?.seller}
+                                    onClick={() =>
+                                        router.visit(
+                                            `/seller/${user?.seller?.id}`
+                                        )
+                                    }
                                 >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-2-line" />
@@ -111,70 +132,61 @@ export default function PersonalMenu({ user }) {
                                     <ListItemText primary="Meu perfil de vendedor" />
                                 </ListItemButton>
                                 <ListItemButton
-                                    onClick={() => router.visit("/seller-dashboard/ads")}
-                                    disabled={!user.seller}
+                                    onClick={() =>
+                                        router.visit("/seller-dashboard/ads")
+                                    }
+                                    disabled={!user?.seller}
                                 >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-price-tag-3-line" />
                                     </ListItemIcon>
                                     <ListItemText primary="Meus anúncios" />
                                 </ListItemButton>
-                                <Divider sx={{ my: 1 }} />
-                                <ListItemButton onClick={() => router.visit("/settings")}>
-                                    <ListItemIcon>
-                                        <RemixIcon className="ri-settings-line" />
-                                    </ListItemIcon>
-                                    <ListItemText primary={"Configurações"} />
-                                </ListItemButton>
-                                <ListItemButton onClick={handleLogout}>
-                                    <ListItemIcon>
-                                        <RemixIcon
-                                            className="ri-logout-box-line"
-                                            color={"var(--danger-color)"}
-                                        />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        sx={{ color: "var(--danger-color)" }}
-                                        primary={"Sair"}
-                                    />
-                                </ListItemButton>
                             </>
-                        }
-                        {!sellerOn &&
+                        )}
+                        {!isPersonalMenuSeller && (
                             <>
-                                <ListItemButton onClick={() => router.visit(`/user/${user.id}`)}>
+                                <ListItemButton
+                                    onClick={() =>
+                                        router.visit(`/user/${user.id}`)
+                                    }
+                                >
                                     <ListItemIcon>
                                         <RemixIcon className="ri-user-line" />
                                     </ListItemIcon>
                                     <ListItemText primary={"Meu perfil"} />
                                 </ListItemButton>
-                                <ListItemButton onClick={() => router.visit("/conversations")}>
-                                    <ListItemIcon>
-                                        <RemixIcon className="ri-discuss-line" />
-                                    </ListItemIcon>
-                                    <ListItemText primary={"Conversas"} />
-                                </ListItemButton>
-                                <Divider sx={{ my: 1 }} />
-                                <ListItemButton onClick={() => router.visit("/settings")}>
-                                    <ListItemIcon>
-                                        <RemixIcon className="ri-settings-line" />
-                                    </ListItemIcon>
-                                    <ListItemText primary={"Configurações"} />
-                                </ListItemButton>
-                                <ListItemButton onClick={handleLogout}>
-                                    <ListItemIcon>
-                                        <RemixIcon
-                                            className="ri-logout-box-line"
-                                            color={"var(--danger-color)"}
-                                        />
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        sx={{ color: "var(--danger-color)" }}
-                                        primary={"Sair"}
-                                    />
-                                </ListItemButton>
                             </>
-                        }
+                        )}
+                        <ListItemButton
+                            onClick={() => router.visit("/conversations")}
+                        >
+                            <ListItemIcon>
+                                <RemixIcon className="ri-discuss-line" />
+                            </ListItemIcon>
+                            <ListItemText primary={"Conversas"} />
+                        </ListItemButton>
+                        <Divider sx={{ my: 1 }} />
+                        <ListItemButton
+                            onClick={() => router.visit("/settings")}
+                        >
+                            <ListItemIcon>
+                                <RemixIcon className="ri-settings-line" />
+                            </ListItemIcon>
+                            <ListItemText primary={"Configurações"} />
+                        </ListItemButton>
+                        <ListItemButton onClick={handleLogout}>
+                            <ListItemIcon>
+                                <RemixIcon
+                                    className="ri-logout-box-line"
+                                    color={"var(--danger-color)"}
+                                />
+                            </ListItemIcon>
+                            <ListItemText
+                                sx={{ color: "var(--danger-color)" }}
+                                primary={"Sair"}
+                            />
+                        </ListItemButton>
                     </List>
                 </Box>
             </Drawer>

@@ -31,6 +31,9 @@
     --toastify-font-family: var(--font-family);
 
     --toastify-toast-width: 520px;
+
+    /* Lib swiper */
+    --swiper-navigation-size: 12px;
 }
 
 body {
@@ -42,14 +45,6 @@ body {
     font-family: var(--font-family);
 }
 
-:root {
-    --swiper-navigation-size: 12px;
-    /*
-    --swiper-navigation-top-offset: 50%;
-    --swiper-navigation-sides-offset: 10px;
-    --swiper-navigation-color: var(--swiper-theme-color);
-    */
-}
 .swiper-button-prev,
 .swiper-button-next {
     position: absolute;

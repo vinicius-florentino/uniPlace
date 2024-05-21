@@ -196,6 +196,13 @@ const MuiTheme = {
                 },
             },
         },
+        MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    boxShadow: "var(--box-shadow)",
+                },
+            },
+        },
     },
 };
 
