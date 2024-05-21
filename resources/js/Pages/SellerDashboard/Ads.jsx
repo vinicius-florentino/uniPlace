@@ -1203,8 +1203,8 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="start">
                                                                     {
                                                                         ad
-                                                                            .category
-                                                                            .name
+                                                                            ?.category
+                                                                            ?.name
                                                                     }
                                                                 </TableCell>
                                                                 <TableCell align="start">
@@ -1250,7 +1250,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.image_url
                                                                         }
                                                                         categoryId={
-                                                                            ad.category_id
+                                                                            ad?.category_id
                                                                         }
                                                                     />
                                                                     {ad.enabled && (
@@ -1271,7 +1271,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad.image_url
                                                                             }
                                                                             categoryId={
-                                                                                ad.category_id
+                                                                                ad?.category_id
                                                                             }
                                                                         />
                                                                     )}
@@ -1293,7 +1293,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad.image_url
                                                                             }
                                                                             categoryId={
-                                                                                ad.category_id
+                                                                                ad?.category_id
                                                                             }
                                                                         />
                                                                     )}
@@ -1314,7 +1314,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.image_url
                                                                         }
                                                                         categoryId={
-                                                                            ad.category_id
+                                                                            ad?.category_id
                                                                         }
                                                                     />
                                                                 </TableCell>
@@ -1415,8 +1415,8 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="start">
                                                                     {
                                                                         ad
-                                                                            .category
-                                                                            .name
+                                                                            ?.category
+                                                                            ?.name
                                                                     }
                                                                 </TableCell>
                                                                 <TableCell align="start">
@@ -1462,7 +1462,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.image_url
                                                                         }
                                                                         categoryId={
-                                                                            ad.category_id
+                                                                            ad?.category_id
                                                                         }
                                                                     />
                                                                     {ad.enabled && (
@@ -1483,7 +1483,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad.image_url
                                                                             }
                                                                             categoryId={
-                                                                                ad.category_id
+                                                                                ad?.category_id
                                                                             }
                                                                         />
                                                                     )}
@@ -1505,7 +1505,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad.image_url
                                                                             }
                                                                             categoryId={
-                                                                                ad.category_id
+                                                                                ad?.category_id
                                                                             }
                                                                         />
                                                                     )}
@@ -1526,7 +1526,7 @@ export default function Ads({ auth, ads }) {
                                                                             ad.image_url
                                                                         }
                                                                         categoryId={
-                                                                            ad.category_id
+                                                                            ad?.category_id
                                                                         }
                                                                     />
                                                                 </TableCell>

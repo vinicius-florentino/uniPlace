@@ -141,6 +141,7 @@ const MuiTheme = {
                         textDecoration: "underline",
                     },
                     fontSize: 14,
+                    cursor: "pointer"
                 },
             },
         },

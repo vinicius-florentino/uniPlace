@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
@@ -102,7 +102,7 @@ export default function Login() {
                         alignItems={"center"}
                         justifyContent={"end"}
                     >
-                        <Link href={route("password.request")}>
+                        <Link onClick={() => router.visit("/forgot-password")}>
                             Esqueci minha senha
                         </Link>
                     </Grid>
@@ -125,7 +125,7 @@ export default function Login() {
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Link href={route("register")}>Criar conta</Link>
+                        <Link onClick={() => router.visit("/register")}>Criar conta</Link>
                     </Grid>
                     <Grid
                         item
@@ -134,7 +134,7 @@ export default function Login() {
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Link href={"/"}>Página inicial</Link>
+                        <Link onClick={() => router.visit("/")}>Página inicial</Link>
                     </Grid>
                 </Grid>
             </Box>

@@ -22,17 +22,17 @@ export default function Footer() {
     const mostSearched = [
         {
             label: "Anúncios com UP",
-            href: "/",
+            to: "/",
             disabled: false,
         },
         {
             label: "Conselhos para Anúncios Eficazes",
-            href: "/dicas-anuncio",
+            to: "/dicas-anuncio",
             disabled: false,
         },
         {
             label: "Evitando Fraudes no WhatsApp",
-            href: "/golpes-whatsapp",
+            to: "/golpes-whatsapp",
             disabled: false,
         },
     ];
@@ -40,22 +40,22 @@ export default function Footer() {
     const usefulLinks = [
         {
             label: "Ajuda Rápida",
-            href: "/ajuda-rapida",
+            to: "/ajuda-rapida",
             disabled: false,
         },
         {
             label: "Privacidade e Segurança",
-            href: "/privacidade-seguranca",
+            to: "/privacidade-seguranca",
             disabled: false,
         },
         {
             label: "Tutorial de como fazer seus Anúncios",
-            href: "/tutorial-anuncios",
+            to: "/tutorial-anuncios",
             disabled: false,
         },
         {
             label: "Proteção contra Golpes",
-            href: "/protecao-golpes",
+            to: "/protecao-golpes",
             disabled: false,
         },
     ];
@@ -63,22 +63,22 @@ export default function Footer() {
     const mainCategories = [
         {
             label: "Suporte ao Cliente",
-            href: "/suporte",
+            to: "/suporte",
             disabled: false,
         },
         {
             label: "Iniciar um Anúncio",
-            href: "/iniciar-anuncio",
+            to: "/iniciar-anuncio",
             disabled: false,
         },
         {
             label: "Dicas de Marketing",
-            href: "/dicas-marketing",
+            to: "/dicas-marketing",
             disabled: false,
         },
         {
             label: "Alerta de Golpes",
-            href: "/alerta-golpes",
+            to: "/alerta-golpes",
             disabled: false,
         },
     ];
@@ -124,7 +124,7 @@ export default function Footer() {
                                         {mostSearched.map((ms, index) => (
                                             <MenuItem
                                                 key={index}
-                                                onClick={ () => router.visit(ms.href)}
+                                                onClick={ () => router.visit(ms.to)}
                                                 disabled={ms.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
@@ -155,7 +155,7 @@ export default function Footer() {
                                             <MenuItem
                                                 variant="text"
                                                 key={index}
-                                                onClick={ () => router.visit(ul.href)}
+                                                onClick={ () => router.visit(ul.to)}
                                                 disabled={ul.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
@@ -186,7 +186,7 @@ export default function Footer() {
                                             <MenuItem
                                                 variant="text"
                                                 key={index}
-                                                onClick={ () => router.visit(mc.href)}
+                                                onClick={ () => router.visit(mc.to)}
                                                 disabled={mc.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",

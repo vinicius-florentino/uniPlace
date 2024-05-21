@@ -62,6 +62,7 @@ const SellerProfileForm = ({ seller, handleSellerChange }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         put(`/settings/seller`, {
+            preserveScroll: true,
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -133,6 +134,7 @@ const NotSellerProfileForm = ({ userName }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         post("/settings/seller", {
+            preserveScroll: true,
             onSuccess: () => {
                 toast.success("Ação realizada com sucesso!");
             },
@@ -390,7 +392,7 @@ export default function SellerProfileSettings({ user }) {
                         <Grid item xs={12}>
                             <PageBoxRedirect
                                 title="Gerenciar meus anúncios"
-                                href="/seller-dashboard/ads"
+                                to="/seller-dashboard/ads"
                             />
                         </Grid>
                     </>

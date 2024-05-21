@@ -122,7 +122,7 @@ export default function User({ user, auth }) {
                         <Grid item xs={12}>
                             <PageBoxRedirect
                                 title={`Perfil de vendedor de ${user.name} (${user.seller.name})`}
-                                href={`/seller/${user.seller.id}`}
+                                to={`/seller/${user.seller.id}`}
                             ></PageBoxRedirect>
                         </Grid>
                     )}

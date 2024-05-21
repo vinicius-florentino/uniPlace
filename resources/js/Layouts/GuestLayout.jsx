@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Logo from "@/Components/Logo";
 import { router } from "@inertiajs/react";
+import Link from "@mui/material/Link";
 
 export default function Guest({ children }) {
     return (
@@ -21,7 +22,7 @@ export default function Guest({ children }) {
                 backgroundColor: "var(--white-color)"
             }}
         >
-            <Box component="a" href="/" sx={{ mb: 2 }}>
+            <Box component={Link} onClick={() => router.visit("/")} sx={{ mb: 2 }}>
                 <Logo height="48px" width="48px" />
             </Box>
 

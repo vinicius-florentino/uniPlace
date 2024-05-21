@@ -15,19 +15,19 @@ export default function NavigationMenu({}) {
     const pages = [
         {
             label: "Início",
-            href: "/",
+            to: "/",
             disabled: false
             // startIcon: <RemixIcon className="ri-home-4-line"/>,
         },
         {
             label: "Planos",
-            href: "/plans",
+            to: "/plans",
             disabled: false
             // startIcon: <RemixIcon className="ri-briefcase-line"/>,
         },
         {
             label: "Ajuda",
-            href: "#",
+            to: "#",
             disabled: true
             // startIcon: <RemixIcon className="ri-question-line"/>,
         },
@@ -70,7 +70,7 @@ export default function NavigationMenu({}) {
                         <List>
                             {pages.map((page, index) => (
                                 <ListItem key={index} disablePadding>
-                                    <ListItemButton onClick={() => router.visit(page.href)} disabled={page.disabled}>
+                                    <ListItemButton onClick={() => router.visit(page.to)} disabled={page.disabled}>
                                         <ListItemIcon>
                                             {page.startIcon}
                                         </ListItemIcon>
@@ -93,7 +93,7 @@ export default function NavigationMenu({}) {
                     <Button
                         variant="text"
                         key={index}
-                        onClick={() => router.visit(page.href)}
+                        onClick={() => router.visit(page.to)}
                         disabled={page.disabled}
                         sx={{
                             my: 2,

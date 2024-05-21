@@ -10,10 +10,10 @@ import Image from "../Image";
 import { CardActionArea } from "@mui/material";
 import { router } from "@inertiajs/react";
 
-export default function AdCard({ title, sellerName, imageSrc, price, href }) {
+export default function AdCard({ title, sellerName, imageSrc, price, to }) {
     return (
         <Card sx={{ width: "auto", maxHeight: "auto", borderRadius: "16px" }}>
-            <CardActionArea onClick={() => router.visit(href)}>
+            <CardActionArea onClick={() => router.visit(to)}>
                 <CardContent sx={{ p: 0 }}>
                     <Box sx={{ width: "100%", pb: 2 }}>
                         <Grid container spacing={0} rowSpacing={1}>
