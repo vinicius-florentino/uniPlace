@@ -11,20 +11,39 @@ import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
 import RemixIcon from "@/Components/RemixIcon";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
 
 export default function CheckBoxFilters({ adsCategories, setData }) {
+
+    const [personName, setPersonName] = React.useState([]);
+
+    const handleChange = (event) => {
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
 
     const handleCheckBoxChange = (e) => {
         const { name, checked } = e.target;
         setData((prevData) => {
             let newFilters = { ...prevData.filters };
-
             if (checked) {
                 newFilters.ads_categories = [...newFilters.ads_categories, name];
+                const categoryName = adsCategories.find(category => category.id === parseInt(name))?.name || '';
+                setPersonName(prevPersonName => [...prevPersonName, categoryName]);
             } else {
                 newFilters.ads_categories = newFilters.ads_categories.filter(
                     (cat) => cat !== name
                 );
+                const categoryName = adsCategories.find(category => category.id === parseInt(name))?.name || '';
+                setPersonName(prevPersonName => prevPersonName.filter(cat => cat !== categoryName));
             }
             return { ...prevData, filters: newFilters };
         });
@@ -45,27 +64,23 @@ export default function CheckBoxFilters({ adsCategories, setData }) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container spacing={2} sx={{ pl: 2, pb: 1 }}>
-                        <Grid item xs={12}>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography variant="h6">Categorias</Typography>
-                            </Box>
-                            <FormControl component="fieldset" variant="standard">
-                                <FormGroup sx={{ flexDirection: "row"}}>
-                                    {adsCategories.map((category) => (
-                                        <FormControlLabel
-                                            key={category.id}
-                                            control={
-                                                <Checkbox
-                                                    onChange={handleCheckBoxChange}
-                                                    name={category.id.toString()}
-                                                />
-                                            }
-                                            label={category.name}
-                                        />
-                                    ))}
-                                </FormGroup>
-                            </FormControl>
-                        </Grid>
+                        <FormControl sx={{ m: 1, width: 300 }}>
+                            <InputLabel>Categorias</InputLabel>
+                            <Select
+                                multiple
+                                value={personName}
+                                onChange={handleChange}
+                                input={<OutlinedInput label="Categorias" />}
+                                renderValue={(selected) => selected.join(',')}
+                            >
+                                {adsCategories.map((category) => (
+                                    <MenuItem key={category.id} value={category.id}>
+                                        <Checkbox checked={personName.indexOf(category.id) > -1} />
+                                        <ListItemText primary={category.name} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                         <Grid item xs={12}>
                             <Button
                                 type='submit'

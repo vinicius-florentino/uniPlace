@@ -11,7 +11,7 @@ import Alert from "@mui/material/Alert";
 import CheckBoxFilters from "../Components/CheckBoxFilters";
 
 export default function Ads({ ads, auth, adsCategories }) {
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(window.location.search);    
 
     const { data, setData, get, processing } = useForm({
         search: searchParams.get("search") || "",
