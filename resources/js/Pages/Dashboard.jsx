@@ -165,7 +165,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                         price={ad.price}
                                         title={ad.title}
                                         imageSrc={ad.image_url}
-                                        href={`/ad/${ad.id}`}
+                                        to={`/ad/${ad.id}`}
                                     />
                                 </SwiperSlide>
                             ))}
@@ -220,7 +220,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                         price={ad.price}
                                         title={ad.title}
                                         imageSrc={ad.image_url}
-                                        href={`/ad/${ad.id}`}
+                                        to={`/ad/${ad.id}`}
                                     />
                                 </SwiperSlide>
                             ))}

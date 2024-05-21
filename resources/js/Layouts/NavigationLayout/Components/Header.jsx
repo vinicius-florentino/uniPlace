@@ -8,6 +8,8 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import PersonalMenu from "./PersonalMenu";
 import NavigationMenu from "./NavigationMenu";
+import Link from "@mui/material/Link";
+import { router } from "@inertiajs/react";
 
 export default function Header({ user }) {
     return (
@@ -15,7 +17,7 @@ export default function Header({ user }) {
             <AppBar position="sticky">
                 <Container maxWidth="lg">
                     <Toolbar disableGutters>
-                        <Box component="a" href="/">
+                        <Box component={Link} onClick={() => router.visit("/")}>
                             <Logo />
                         </Box>
 
@@ -24,7 +26,7 @@ export default function Header({ user }) {
                         <Box sx={{ flexGrow: 0 }}>
                             {!user ? (
                                 <Button
-                                    href="/login"
+                                    onClick={() => router.visit("/login")}
                                     disableElevation
                                     fullWidth
                                     variant="containedLight"

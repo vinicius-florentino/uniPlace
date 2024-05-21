@@ -13,15 +13,24 @@ import {
     MenuItem,
     Tooltip,
     ListItemText,
-    ListItemIcon,
     Alert,
 } from "@mui/material";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
 import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
 import stringAvatar from "@/Utils/stringAvatar";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export default function Seller({ seller, auth }) {
+
+    const theme = useTheme();
+    const greaterThanXs = useMediaQuery(theme.breakpoints.up("xs"));
+    const greaterThanSm = useMediaQuery(theme.breakpoints.up("sm"));
+    const greaterThanMd = useMediaQuery(theme.breakpoints.up("md"));
+    const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
 
     const [loading, setLoading] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,8 +45,9 @@ export default function Seller({ seller, auth }) {
 
     const redirectToWhatsApp = () => {
         if (seller.phone) {
-            const whatsappLink = `https://wa.me/${seller.phone
-                }?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
+            const whatsappLink = `https://wa.me/${
+                seller.phone
+            }?text=${encodeURIComponent(`Olá, ${seller.name}`)}`;
             window.open(whatsappLink, "_blank");
         }
     };
@@ -183,37 +193,51 @@ export default function Seller({ seller, auth }) {
                             title={`Anúncios de ${seller.name}`}
                             subTitle={"Todos os anúncios feitos pelo vendedor"}
                         >
-                            {seller.ads?.length === 0 && (
-                                <Box sx={{ width: "100%" }}>
-                                    <Alert severity="info">
-                                        Nenhum anúncio foi encontrado
-                                    </Alert>
-                                </Box>
-                            )}
-                            <Grid container spacing={2} rowSpacing={0}>
-                                {seller.ads?.map((ad, index) => (
-                                    <Grid
-                                        key={index}
-                                        item
-                                        xs={6}
-                                        sm={4}
-                                        md={3}
-                                        lg={2}
-                                        sx={{
-                                            display: "flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
+                            <Swiper
+                                className="mySwiper"
+                                spaceBetween={16}
+                                slidesPerView={
+                                    greaterThanLg
+                                        ? 6
+                                        : greaterThanMd
+                                        ? 5
+                                        : greaterThanSm
+                                        ? 4
+                                        : greaterThanXs
+                                        ? 2
+                                        : 2
+                                }
+                                slidesPerGroup={
+                                    greaterThanLg
+                                        ? 6
+                                        : greaterThanMd
+                                        ? 5
+                                        : greaterThanSm
+                                        ? 4
+                                        : greaterThanXs
+                                        ? 2
+                                        : 2
+                                }
+                                navigation={true}
+                                modules={[Navigation]}
+                            >
+                                {seller?.ads?.map((ad, index) => (
+                                    <SwiperSlide key={index}>
                                         <AdCard
                                             price={ad.price}
                                             title={ad.title}
                                             imageSrc={ad.image_url}
-                                            href={`/ad/${ad.id}`}
+                                            to={`/ad/${ad.id}`}
                                         />
-                                    </Grid>
+                                    </SwiperSlide>
                                 ))}
-                            </Grid>
+                                {seller?.ads?.length === 0 && (
+                                    <Alert severity="info">
+                                        Não foi possível encontrar nenhum
+                                        anúncio
+                                    </Alert>
+                                )}
+                            </Swiper>
                         </PageBoxInheritSection>
                     </Grid>
                 </Grid>

@@ -2,17 +2,18 @@ import React from "react";
 import Box from "@mui/system/Box";
 import Typography from "@mui/material/Typography";
 import RemixIcon from "../RemixIcon";
+import Link from "@mui/material/Link";
+import { router } from "@inertiajs/react";
 
-const PageBoxRedirect = ({ title, href }) => {
+const PageBoxRedirect = ({ title, to }) => {
     return (
         <Box
-            component={"a"}
-            href={href}
+            component={Link}
+            onClick={() => router.visit(to)}
             noValidate
             sx={{
                 p: 4,
                 boxShadow: "var(--box-shadow)",
-                // borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
                 display: "flex",
                 justifyContent: "space-between",
@@ -21,15 +22,13 @@ const PageBoxRedirect = ({ title, href }) => {
                 textDecoration: "none",
                 "&:hover": {
                     backgroundColor: "var(--hover-color)",
+                    textDecoration: "none",
                 },
             }}
         >
             <Typography sx={{ fontWeight: 500, fontSize: 16 }}>
                 {title}
             </Typography>
-            {/* <Typography sx={{ fontWeight: 300 }}>
-                            {subTitle}
-                </Typography> */}
             <RemixIcon className="ri-external-link-line" />
         </Box>
     );

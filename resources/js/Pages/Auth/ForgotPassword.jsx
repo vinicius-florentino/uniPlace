@@ -1,5 +1,5 @@
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import Box from "@mui/system/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -80,7 +80,7 @@ export default function ForgotPassword({ status }) {
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Link href={route("login")}>Fazer login</Link>
+                        <Link onClick={() => router.visit("/login")}>Fazer login</Link>
                     </Grid>
                 </Grid>
             </Box>

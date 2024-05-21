@@ -1,7 +1,6 @@
-// import { Link } from '@inertiajs/react';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, router } from "@inertiajs/react";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
@@ -193,7 +192,7 @@ export default function Register({ universities }) {
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Link href={route("login")}>Fazer login</Link>
+                        <Link onClick={() => router.visit("/login")}>Fazer login</Link>
                     </Grid>
                     <Grid
                         item
@@ -202,7 +201,7 @@ export default function Register({ universities }) {
                         alignItems={"center"}
                         justifyContent={"center"}
                     >
-                        <Link href={"/"}>Página inicial</Link>
+                        <Link onClick={() => router.visit("/")}>Página inicial</Link>
                     </Grid>
                 </Grid>
             </Box>

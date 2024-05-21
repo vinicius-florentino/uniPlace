@@ -141,6 +141,7 @@ const MuiTheme = {
                         textDecoration: "underline",
                     },
                     fontSize: 14,
+                    cursor: "pointer"
                 },
             },
         },
@@ -193,6 +194,13 @@ const MuiTheme = {
                 InputLabelProps: {
                     // shrink: true,
                     // disableAnimation: true,
+                },
+            },
+        },
+        MuiAccordion: {
+            styleOverrides: {
+                root: {
+                    boxShadow: "var(--box-shadow)",
                 },
             },
         },
