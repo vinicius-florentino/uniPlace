@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\AdsCategorie;
 
 class CategoriesSeeder extends Seeder
 {
@@ -14,8 +15,20 @@ class CategoriesSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\AdsCategorie::create([
-            'name' => 'teste'
-        ]);
+        $categories = [
+            'Ensino',
+            'Eletrônicos',
+            'Roupas',
+            'Comidas',
+            'Bebidas',
+            'Serviços',
+            'Vagas',
+            'Acessórios',
+            'Automotivo'
+        ];
+
+        foreach ($categories as $category) {
+            AdsCategorie::create(['name' => $category]);
+        }
     }
 }
