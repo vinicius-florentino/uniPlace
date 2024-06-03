@@ -18,7 +18,6 @@ import RemixIcon from "@/Components/RemixIcon";
 import stringAvatar from "@/Utils/stringAvatar";
 
 export default function PersonalMenu({ user }) {
-
     const { post } = useForm({});
 
     const [isPersonalMenuSeller, setIsPersonalMenuSeller] = useState(() => {
@@ -26,7 +25,8 @@ export default function PersonalMenu({ user }) {
         return storedState ? JSON.parse(storedState) : false;
     });
 
-    const displayName = isPersonalMenuSeller && user?.seller ? user?.seller?.name : user.name;
+    const displayName =
+        isPersonalMenuSeller && user?.seller ? user?.seller?.name : user.name;
 
     const [openMenuDrawer, setOpenMenuDrawer] = useState(false);
 
@@ -88,7 +88,22 @@ export default function PersonalMenu({ user }) {
                                     alt={displayName.toUpperCase()}
                                 />
                             </ListItemIcon>
-                            <ListItemText primary={displayName} />
+                            <Tooltip title={displayName} arrow>
+                                <ListItemText
+                                    primary={displayName}
+                                    sx={{
+                                        maxWidth: "180px",
+                                    }}
+                                    primaryTypographyProps={{
+                                        style: {
+                                            whiteSpace: "nowrap",
+                                            overflow: "hidden",
+                                            textOverflow: "ellipsis",
+                                        },
+                                    }}
+                                />
+                            </Tooltip>
+
                             <IconButton
                                 aria-label="close"
                                 onClick={handleCloseMenuDrawer}
@@ -111,7 +126,7 @@ export default function PersonalMenu({ user }) {
                                             onChange={handleSwitchChange}
                                         />
                                     }
-                                    label="Troque de perfil"
+                                    label="Trocar de perfil"
                                 />
                                 <Divider sx={{ my: 1 }} />
                             </>
