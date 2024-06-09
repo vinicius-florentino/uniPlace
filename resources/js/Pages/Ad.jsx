@@ -25,7 +25,9 @@ export default function Ad({ ad, auth }) {
 
     useEffect(() => {
         setDisabledButton(!ad.seller.phone);
+        setDisabledButton(ad.seller.id === auth.user.id);
     }, [ad.seller.phone]);
+
 
     function stringAvatar(name) {
         const initials = name
@@ -51,11 +53,12 @@ export default function Ad({ ad, auth }) {
             "/conversations/start",
             { id: ad.seller.id, ad_id: ad.id },
             {
-                onSuccess: () => {setLoading(false)},
+                onSuccess: () => { setLoading(false) },
             }
         );
     };
 
+    console.log(ad)
     return (
         <NavigationLayout user={auth.user}>
             <Head title={ad.title} />
@@ -64,6 +67,13 @@ export default function Ad({ ad, auth }) {
                     width: "100%",
                 }}
             >
+                {ad.seller.id === auth.user.id && (
+                    <Box sx={{ width: "100%", mb: 2 }}>
+                        <Alert severity="info">
+                            Seu anúncio é visto assim por possíveis clientes
+                        </Alert>
+                    </Box>
+                )}
                 {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
@@ -119,6 +129,24 @@ export default function Ad({ ad, auth }) {
                                         {formatPrice(ad.price)}
                                     </Typography>
                                 </Grid>
+                                {ad.category_id &&
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{ fontWeight: 500, fontSize: 14 }}
+                                        >
+                                            {/* Categoria: {ad.category.name} */}
+                                        </Typography>
+                                    </Grid>
+                                }
+                                {!ad.category_id &&
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            sx={{ fontWeight: 500, fontSize: 14 }}
+                                        >
+                                            Categoria: Sem categoria                                    
+                                        </Typography>
+                                    </Grid>
+                                }
                                 <Grid item xs={12}>
                                     <Typography
                                         sx={{ fontWeight: 500, fontSize: 14 }}
@@ -154,7 +182,7 @@ export default function Ad({ ad, auth }) {
                                                 color={"var(--success-color)"}
                                             />
                                         }
-                                        disabled={disabledButton}
+                                        disabled={disabledButton || loading}
                                         onClick={redirectToWhatsApp}
                                     >
                                         Inicie uma conversa via WhatsApp
@@ -170,7 +198,7 @@ export default function Ad({ ad, auth }) {
                                             />
                                         }
                                         onClick={redirectToChat}
-                                        disabled={loading}
+                                        disabled={disabledButton || loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>
