@@ -9,6 +9,7 @@ const PageBox = ({
     children,
     disablePaddingX,
     disablePaddingY,
+    sx
 }) => {
     return (
         <Box
@@ -19,6 +20,7 @@ const PageBox = ({
                 boxShadow: "var(--box-shadow)",
                 // borderRadius: "16px",
                 backgroundColor: "var(--white-color)",
+                ...sx
             }}
         >
             {title && (

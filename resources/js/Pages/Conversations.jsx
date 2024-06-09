@@ -2,43 +2,71 @@ import React, { useState, useEffect } from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import {
     Box,
-    Paper,
     MenuList,
     MenuItem,
     ListItemIcon,
     ListItemText,
-    Drawer,
     Typography,
     Grid,
-    Menu,
     Avatar,
     TextField,
     IconButton,
-    Button,
     Tab,
     Tabs,
-    Collapse,
+    Container,
 } from "@mui/material";
 
 import { Head, router } from "@inertiajs/react";
 import stringAvatar from "@/Utils/stringAvatar";
 import RemixIcon from "@/Components/RemixIcon";
 
-const MessageBaloon = ({ message, isSender }) => {
+import formatDateTime from "@/Utils/formatDateTime";
+
+const MessageBaloon = ({ message, isSender, createdAt }) => {
     return (
         <Box
-            sx={{
-                maxWidth: "560px",
-                borderRadius: "16px",
-                p: 2,
-                backgroundColor: !isSender
-                    ? "var(--primary-color)"
-                    : "var(--white-color)",
-                color: !isSender ? "var(--white-color)" : "inherit",
-                // textAlign: !isSender ? "start" : "end",
-            }}
+            display="flex"
+            flexDirection="column"
+            gap="8px"
+            sx={{ maxWidth: "570px", px: 2 }}
         >
-            <Typography sx={{ fontWeight: 500 }}>{message}</Typography>
+            <Box
+                sx={{
+                    borderRadius: "16px",
+                    px: 2,
+                    py: 1,
+                    mr: !isSender ? 2 : 0,
+                    ml: !isSender ? 0 : 2,
+                    backgroundColor: !isSender
+                        ? "var(--primary-color)"
+                        : "var(--white-color)",
+                    color: !isSender ? "var(--white-color)" : "inherit",
+                    // textAlign: !isSender ? "start" : "end",
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: 14,
+                        fontWeight: 400,
+                        wordBreak: "break-word",
+                        whiteSpace: "pre-wrap",
+                        overflowWrap: "anywhere",
+                    }}
+                >
+                    {message}
+                </Typography>
+            </Box>
+            <Box>
+                <Typography
+                    sx={{
+                        fontWeight: 300,
+                        fontSize: 12,
+                        textAlign: isSender ? "end" : "start",
+                    }}
+                >
+                    {formatDateTime(createdAt) || "Data inválida"}
+                </Typography>
+            </Box>
         </Box>
     );
 };
@@ -87,10 +115,9 @@ const ConversationsSideList = ({
         <Box
             component="aside"
             sx={{
-                flexGrow: !isCollapsed ? 2 : 1,
-                flexBasis: !isCollapsed ? "400px" : "20px",
                 backgroundColor: "var(--white-color)",
-                // border: "var(--borders)",
+                height: "100%",
+                minWidth: !isCollapsed ? { xs: "50vw", md: "30vw" } : "auto",
             }}
         >
             <Box
@@ -98,11 +125,17 @@ const ConversationsSideList = ({
                     display: "flex",
                     justifyContent: "end",
                     alignItems: "center",
-                    p: 2
+                    p: 2,
                 }}
             >
                 <IconButton onClick={() => handleCollapseToggle()}>
-                    <RemixIcon className={!isCollapsed ? "ri-expand-left-line"  : "ri-expand-right-line"  }/>
+                    <RemixIcon
+                        className={
+                            !isCollapsed
+                                ? "ri-expand-left-line"
+                                : "ri-expand-right-line"
+                        }
+                    />
                 </IconButton>
             </Box>
             {!isCollapsed && (
@@ -122,10 +155,7 @@ const ConversationsSideList = ({
                         />
                     </Tabs>
                     {tabContent === "sellers" && (
-                        <MenuList
-                            id="basic-menu"
-                            sx={{ py: 0, border: "1px solid green" }}
-                        >
+                        <MenuList id="basic-menu" sx={{ py: 0 }}>
                             {conversationsWithSellers?.map((item, index) => (
                                 <ConversationInfo
                                     key={index}
@@ -147,6 +177,56 @@ const ConversationsSideList = ({
                                 />
                             ))}
                         </MenuList>
+                    )}
+                </>
+            )}
+            {isCollapsed && (
+                <>
+                    {tabContent === "sellers" && (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            {conversationsWithSellers?.map((item, index) => (
+                                <Avatar
+                                    key={index}
+                                    {...stringAvatar(item.seller.name)}
+                                    alt={item.seller.name.toUpperCase()}
+                                />
+                            ))}
+                        </Box>
+                    )}
+                    {tabContent === "users" && (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            {conversationsWithUsers?.map((item, index) => (
+                                <IconButton
+                                    onClick={() =>
+                                        router.visit(
+                                            `/conversations/${item.id}`
+                                        )
+                                    }
+                                >
+                                    <Avatar
+                                        key={index}
+                                        {...stringAvatar(item.user.name)}
+                                        alt={item.user.name.toUpperCase()}
+                                    />
+                                </IconButton>
+                            ))}
+                        </Box>
                     )}
                 </>
             )}
@@ -209,6 +289,8 @@ export default function Conversations({
         }
     };
 
+    console.log(conversation);
+
     return (
         <NavigationLayout user={auth.user} disableContainer disablePadding>
             <Head title="Conversas" />
@@ -227,84 +309,134 @@ export default function Conversations({
                     conversationsWithUsers={conversationsWithUsers}
                     conversationsWithSellers={conversationsWithSellers}
                 />
+
                 <Box
                     sx={{
-                        flexGrow: 1,
+                        height: "100%",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
                     }}
                 >
                     <Box
                         sx={{
+                            width: "100%",
                             display: "flex",
-                            flexDirection: "column-reverse",
-                            p: 4,
-                            height: "72vh",
-                            overflowY: "auto",
+                            py: 2,
+                            backgroundColor: "var(--white-color)",
                         }}
                     >
-                        <Grid container spacing={2}>
-                            {events?.map((event, index) => (
-                                <Grid
-                                    item
-                                    xs={12}
-                                    key={index}
-                                    display={"flex"}
-                                    justifyContent={
-                                        auth.user.id === event.sender_id
-                                            ? "end"
-                                            : "start"
-                                    }
-                                >
-                                    <MessageBaloon
-                                        message={event.message}
-                                        isSender={
-                                            auth.user.id === event.sender_id
-                                        }
+                        <Container maxWidth="lg" disableGutters>
+                            {auth.user.id === conversation.user_id && (
+                                <>
+                                    <Avatar
+                                        {...stringAvatar(
+                                            conversation.seller.name
+                                        )}
+                                        alt={conversation.seller.name.toUpperCase()}
                                     />
-                                </Grid>
-                            ))}
-                        </Grid>
+                                    <Typography>
+                                        {conversation.seller.name}
+                                    </Typography>
+                                </>
+                            )}
+                            {auth.user.id !== conversation.user_id && (
+                                <>
+                                    <Avatar
+                                        {...stringAvatar(
+                                            conversation.user.name
+                                        )}
+                                        alt={conversation.user.name.toUpperCase()}
+                                    />
+                                    <Typography>
+                                        {conversation.user.name}
+                                    </Typography>
+                                </>
+                            )}
+                        </Container>
+                    </Box>
+
+                    <Box
+                        sx={{
+                            height: "100%",
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column-reverse",
+                            overflowY: "auto",
+                            py: 2,
+                            flexGrow: 1,
+                        }}
+                    >
+                        <Container maxWidth="lg" disableGutters>
+                            <Grid container spacing={2} sx={{ width: "100%" }}>
+                                {events?.map((event, index) => (
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        key={index}
+                                        display={"flex"}
+                                        justifyContent={
+                                            auth.user.id === event.sender_id
+                                                ? "end"
+                                                : "start"
+                                        }
+                                    >
+                                        <MessageBaloon
+                                            message={event.message}
+                                            isSender={
+                                                auth.user.id === event.sender_id
+                                            }
+                                            createdAt={event.created_at}
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Container>
                     </Box>
 
                     <Box
                         sx={{
                             backgroundColor: "var(--white-color)",
+                            width: "100%",
                         }}
                     >
-                        <Grid container spacing={0}>
-                            <Grid
-                                item
-                                xs={12}
-                                sx={{ p: 2 }}
-                                display={"flex"}
-                                justifyContent={"space-between"}
-                                alignItems={"center"}
-                                gap={"8px"}
-                            >
-                                <TextField
-                                    fullWidth
-                                    variant="standard"
-                                    multiline
-                                    name="message"
-                                    value={message}
-                                    maxRows={4}
-                                    onChange={handleChange}
-                                    placeholder="Digite sua mensagem"
-                                    onKeyDown={handleKeyDown}
-                                    disabled={!conversation}
-                                />
-                                <IconButton
-                                    onClick={() => sendMessage()}
-                                    disabled={
-                                        loading || !conversation || !message
-                                    }
+                        <Container maxWidth="lg" disableGutters>
+                            <Grid container spacing={0}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sx={{ p: 2 }}
+                                    display={"flex"}
+                                    justifyContent={"space-between"}
+                                    alignItems={"center"}
+                                    gap={"8px"}
                                 >
-                                    <RemixIcon
-                                        className="ri-send-plane-2-line"
-                                        color="var(--primary-color)"
+                                    <TextField
+                                        fullWidth
+                                        variant="standard"
+                                        multiline
+                                        name="message"
+                                        value={message}
+                                        maxRows={4}
+                                        onChange={handleChange}
+                                        placeholder="Digite sua mensagem"
+                                        onKeyDown={handleKeyDown}
+                                        disabled={!conversation}
                                     />
-                                </IconButton>
+                                    <IconButton
+                                        onClick={() => sendMessage()}
+                                        disabled={
+                                            loading || !conversation || !message
+                                        }
+                                    >
+                                        <RemixIcon
+                                            className="ri-send-plane-2-line"
+                                            color="var(--primary-color)"
+                                        />
+                                    </IconButton>
+                                </Grid>
                             </Grid>
-                        </Grid>
+                        </Container>
                     </Box>
                 </Box>
             </Box>

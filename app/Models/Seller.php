@@ -9,7 +9,7 @@ class Seller extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'name', 'phone'];
+    protected $fillable = ['user_id', 'name', 'phone', 'plan_id'];
 
     public function user()
     {
@@ -19,5 +19,15 @@ class Seller extends Model
     public function ads()
     {
         return $this->hasMany(Ad::class);
+    }
+
+    public function up()
+    {
+        return $this->hasOne(Up::class);
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 }

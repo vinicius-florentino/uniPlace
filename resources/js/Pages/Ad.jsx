@@ -103,7 +103,7 @@ export default function Ad({ ad, auth }) {
                         </Card>
                     </Grid>
                     <Grid item xs={12} md={8}>
-                        <PageBox sx={{ width: "100%" }}>
+                        <PageBox>
                             <Grid container rowSpacing={2} spacing={2}>
                                 <Grid item xs={12}>
                                     <Typography

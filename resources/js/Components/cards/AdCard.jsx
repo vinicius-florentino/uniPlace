@@ -9,6 +9,8 @@ import RemixIcon from "../RemixIcon";
 import Image from "../Image";
 import { CardActionArea } from "@mui/material";
 import { router } from "@inertiajs/react";
+import Chip from "@mui/material/Chip";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function AdCard({ title, sellerName, imageSrc, price, to }) {
     return (
@@ -17,7 +19,7 @@ export default function AdCard({ title, sellerName, imageSrc, price, to }) {
                 <CardContent sx={{ p: 0 }}>
                     <Box sx={{ width: "100%", pb: 2 }}>
                         <Grid container spacing={0} rowSpacing={1}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sx={{ position: "relative" }}>
                                 <Image
                                     style={{
                                         width: "100%",
@@ -26,6 +28,29 @@ export default function AdCard({ title, sellerName, imageSrc, price, to }) {
                                     }}
                                     src={imageSrc}
                                 />
+                                <Tooltip title="Impulsionado até" arrow>
+                                    <Chip
+                                        sx={{
+                                            position: "absolute",
+                                            top: 20,
+                                            left: 10,
+                                            backgroundColor:
+                                                "var(--primary-color)",
+                                            color: "var(--white-color)",
+                                            fontSize: 12,
+                                            fontWeight: 500
+                                        }}
+                                        size="small"
+                                        variant="filled"
+                                        label="UP"
+                                        icon={
+                                            <RemixIcon
+                                                className="ri-arrow-up-circle-line"
+                                                color="var(--white-color)"
+                                            />
+                                        }
+                                    />
+                                </Tooltip>
                             </Grid>
                             <Grid item xs={12} sx={{ px: 2 }}>
                                 <Typography

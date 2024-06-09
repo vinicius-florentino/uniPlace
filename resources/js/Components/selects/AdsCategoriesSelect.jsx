@@ -38,7 +38,7 @@ export const AdsCategoriesSelect = ({id, name, label, onChange, value, error, he
                 disabled={loading || disabled}
                 error={error}
             >
-                <MenuItem value="">Selecione</MenuItem>
+                <MenuItem value="">Nenhuma</MenuItem>
                 {options?.map((option, index) => (
                     <MenuItem key={index} value={option.id}>
                         {option.name}
