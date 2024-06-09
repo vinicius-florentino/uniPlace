@@ -129,24 +129,13 @@ export default function Ad({ ad, auth }) {
                                         {formatPrice(ad.price)}
                                     </Typography>
                                 </Grid>
-                                {ad.category_id &&
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            sx={{ fontWeight: 500, fontSize: 14 }}
-                                        >
-                                            {/* Categoria: {ad.category.name} */}
-                                        </Typography>
-                                    </Grid>
-                                }
-                                {!ad.category_id &&
-                                    <Grid item xs={12}>
-                                        <Typography
-                                            sx={{ fontWeight: 500, fontSize: 14 }}
-                                        >
-                                            Categoria: Sem categoria                                    
-                                        </Typography>
-                                    </Grid>
-                                }
+                                <Grid item xs={12}>
+                                    <Typography
+                                        sx={{ fontWeight: 500, fontSize: 14 }}
+                                    >
+                                        Categoria: {ad.category.name || "Sem categoria"}
+                                    </Typography>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <Typography
                                         sx={{ fontWeight: 500, fontSize: 14 }}
