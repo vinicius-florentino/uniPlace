@@ -15,8 +15,8 @@ class AdController extends Controller
 {
     public function show($id): Response
     {
-        $ad = Ad::where('id', $id)->with('seller')->withoutGlobalScope('enabled')->first();
-
+        $ad = Ad::where('id', $id)->with(['seller', 'category'])->withoutGlobalScope('enabled')->first();
+                
         return Inertia::render('Ad', [
             'ad' => $ad
         ]);
