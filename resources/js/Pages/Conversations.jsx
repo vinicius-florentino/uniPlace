@@ -316,43 +316,45 @@ export default function Conversations({
                         flexDirection: "column",
                     }}
                 >
-                    <Box
-                        sx={{
-                            width: "100%",
-                            display: "flex",
-                            py: 2,
-                            backgroundColor: "var(--white-color)",
-                        }}
-                    >
-                        <Container maxWidth="lg" disableGutters>
-                            {auth.user.id === conversation?.user_id && (
-                                <>
-                                    <Avatar
-                                        {...stringAvatar(
-                                            conversation?.seller?.name
-                                        )}
-                                        alt={conversation?.seller?.name.toUpperCase()}
-                                    />
-                                    <Typography>
-                                        {conversation?.seller?.name}
-                                    </Typography>
-                                </>
-                            )}
-                            {auth.user.id !== conversation?.user_id && (
-                                <>
-                                    <Avatar
-                                        {...stringAvatar(
-                                            conversation?.user?.name
-                                        )}
-                                        alt={conversation?.user?.name.toUpperCase()}
-                                    />
-                                    <Typography>
-                                        {conversation?.user?.name}
-                                    </Typography>
-                                </>
-                            )}
-                        </Container>
-                    </Box>
+                    {conversation && (
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                py: 2,
+                                backgroundColor: "var(--white-color)",
+                            }}
+                        >
+                            <Container maxWidth="lg" disableGutters>
+                                {auth.user.id === conversation?.user_id && (
+                                    <>
+                                        <Avatar
+                                            {...stringAvatar(
+                                                conversation?.seller?.name
+                                            )}
+                                            alt={conversation?.seller?.name.toUpperCase()}
+                                        />
+                                        <Typography>
+                                            {conversation?.seller?.name}
+                                        </Typography>
+                                    </>
+                                )}
+                                {auth.user.id !== conversation?.user_id && (
+                                    <>
+                                        <Avatar
+                                            {...stringAvatar(
+                                                conversation?.user?.name
+                                            )}
+                                            alt={conversation?.user?.name.toUpperCase()}
+                                        />
+                                        <Typography>
+                                            {conversation?.user?.name}
+                                        </Typography>
+                                    </>
+                                )}
+                            </Container>
+                        </Box>
+                    )}
 
                     <Box
                         sx={{
