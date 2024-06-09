@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavigationLayout from "@/Layouts/NavigationLayout";
+import ConversationsLayout from "@/Layouts/ConversationsLayout";
 import {
     Box,
     MenuList,
@@ -289,10 +289,8 @@ export default function Conversations({
         }
     };
 
-    console.log(conversation);
-
     return (
-        <NavigationLayout user={auth.user} disableContainer disablePadding>
+        <ConversationsLayout user={auth.user} disableContainer disablePadding>
             <Head title="Conversas" />
 
             <Box
@@ -327,29 +325,29 @@ export default function Conversations({
                         }}
                     >
                         <Container maxWidth="lg" disableGutters>
-                            {auth.user.id === conversation.user_id && (
+                            {auth.user.id === conversation?.user_id && (
                                 <>
                                     <Avatar
                                         {...stringAvatar(
-                                            conversation.seller.name
+                                            conversation?.seller?.name
                                         )}
-                                        alt={conversation.seller.name.toUpperCase()}
+                                        alt={conversation?.seller?.name.toUpperCase()}
                                     />
                                     <Typography>
-                                        {conversation.seller.name}
+                                        {conversation?.seller?.name}
                                     </Typography>
                                 </>
                             )}
-                            {auth.user.id !== conversation.user_id && (
+                            {auth.user.id !== conversation?.user_id && (
                                 <>
                                     <Avatar
                                         {...stringAvatar(
-                                            conversation.user.name
+                                            conversation?.user?.name
                                         )}
-                                        alt={conversation.user.name.toUpperCase()}
+                                        alt={conversation?.user?.name.toUpperCase()}
                                     />
                                     <Typography>
-                                        {conversation.user.name}
+                                        {conversation?.user?.name}
                                     </Typography>
                                 </>
                             )}
@@ -440,6 +438,6 @@ export default function Conversations({
                     </Box>
                 </Box>
             </Box>
-        </NavigationLayout>
+        </ConversationsLayout>
     );
 }

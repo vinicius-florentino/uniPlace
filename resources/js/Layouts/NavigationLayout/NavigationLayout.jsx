@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "./Components/Header";
-import { Box, Container } from "@mui/material";
+import Container from "@mui/material/Container";
 
 export default function NavigationLayout({
     user,
@@ -11,27 +11,18 @@ export default function NavigationLayout({
 }) {
     return (
         <>
-            <header style={{ padding: disablePadding ? "0px" : "16px 0px" }}>
+            <header>
                 <Header user={user} />
             </header>
 
-            <Box
-                component="main"
-                sx={{
-                    padding: disablePadding ? "0px" : "16px 0px",
-                    height: {
-                        xs: "calc(99vh - 51px)",
-                        sm: "calc(99vh - 60px)",
-                        md: "calc(99vh - 72px)",
-                    },
-                    width: "100vw"
-                }}
-            >
+            <main style={{ padding: disablePadding ? "0px" : "16px 0px" }}>
                 {disableContainer && <>{children}</>}
                 {!disableContainer && (
                     <Container maxWidth={"lg"}>{children}</Container>
                 )}
-            </Box>
+            </main>
+
+            <footer></footer>
         </>
     );
 }
