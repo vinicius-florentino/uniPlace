@@ -9,7 +9,6 @@ import {
     Avatar,
     Box,
     Grid,
-    Alert,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import formatPrice from "@/Utils/formatPrice";
@@ -73,11 +72,11 @@ export default function Ad({ ad, auth }) {
                         </Alert>
                     </Box>
                 )} */}
-                {!ad.enabled && (
+                {/* {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
                     </Alert>
-                )}
+                )} */}
                 <Grid
                     container
                     spacing={2}
@@ -88,7 +87,7 @@ export default function Ad({ ad, auth }) {
                         item
                         xs={12}
                         md={4}
-                        sx={{ width: "100%", height: { md: "395px" } }}
+                        sx={{ width: "100%", height: { md: "430px" } }}
                     >
                         <Card
                             sx={{
