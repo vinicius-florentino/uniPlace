@@ -19,7 +19,9 @@ class DashboardController extends Controller
             ->latest()
             ->paginate(config('paginate.dashboard'));
 
-        $promotedAds = ["data" => []];
+        $promotedAds = Ad::with('seller')
+        ->latest()
+        ->paginate(config('paginate.dashboard'));
 
         return Inertia::render('Dashboard', [
             'recentAds' => $recentAds,

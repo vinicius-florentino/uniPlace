@@ -29,6 +29,11 @@ class Ad extends Model
         return $this->belongsTo(AdsCategorie::class);
     }
 
+    public function upUsage ()
+    {
+        return $this->hasOne(UpsUsage::class);
+    }
+
     public function getImageUrlAttribute()
     {
         if ($this->image_path) {

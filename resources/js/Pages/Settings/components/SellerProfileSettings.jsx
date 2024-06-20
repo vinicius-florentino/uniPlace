@@ -391,7 +391,7 @@ export default function SellerProfileSettings({ user }) {
                         </Grid>
                         <Grid item xs={12}>
                             <PageBoxRedirect
-                                title="Gerenciar meus anúncios"
+                                title="Meus anúncios"
                                 to="/seller-dashboard/ads"
                             />
                         </Grid>

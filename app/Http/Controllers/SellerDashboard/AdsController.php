@@ -22,12 +22,12 @@ class AdsController extends Controller
         $sellerId = $seller->id;
 
         $ads = Ad::where('seller_id', $sellerId)
-            ->with('category')
+            ->with(['category', 'upUsage'])
             ->withoutGlobalScope('enabled')
             ->orderBy('enabled', 'desc')
-            ->paginate();
+            ->get();
 
-        return Inertia::render('SellerDashboard/Ads', [
+        return Inertia::render('SellerDashboard/Ads/Ads', [
             'ads' => $ads
         ]);
     }
@@ -37,6 +37,13 @@ class AdsController extends Controller
         $user = $request->user();
         $seller = $user->seller;
         $sellerId = $seller->id;
+        $sellerPlan = $seller->plan;
+
+        $adsCount = Ad::where('seller_id', $sellerId)->count();
+
+        if ($sellerPlan->max_ads === $adsCount){
+            return back()->withErrors(['message' => 'Máximo de anúncios atingido.']);
+        }
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -155,5 +162,26 @@ class AdsController extends Controller
         $ad->save();
 
         return back();
+    }
+
+    public function up(Request $request, $id): RedirectResponse
+    {
+        $user = $request->user();
+        $seller = $user?->seller;
+        $sellerId = $seller?->id;
+        $sellerUp = $seller?->up;
+
+        $request->validate([
+            'ups' => 'required|int|min:1',
+        ]);
+
+        $ad = Ad::where('id', $id)->where('seller_id', $sellerId)->exists();
+
+        if ($ad && $sellerUp?->available_count > 0 && $sellerUp?->available_count > $request->ups) {
+            $sellerUp?->useUp($id, $request->ups);
+            return back();
+        } else {
+            return back()->withErrors(['message' => 'Quantidade de UPs inválida.']);
+        }
     }
 }

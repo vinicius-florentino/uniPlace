@@ -58,7 +58,6 @@ export default function Ad({ ad, auth }) {
         );
     };
 
-    console.log(ad)
     return (
         <NavigationLayout user={auth.user}>
             <Head title={ad.title} />
@@ -67,13 +66,13 @@ export default function Ad({ ad, auth }) {
                     width: "100%",
                 }}
             >
-                {ad.seller.id === auth.user.id && (
+                {/* {ad.seller.id === auth.user.id && (
                     <Box sx={{ width: "100%", mb: 2 }}>
                         <Alert severity="info">
                             Seu anúncio é visto assim por possíveis clientes
                         </Alert>
                     </Box>
-                )}
+                )} */}
                 {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
@@ -113,7 +112,7 @@ export default function Ad({ ad, auth }) {
                         </Card>
                     </Grid>
                     <Grid item xs={12} md={8}>
-                        <PageBox sx={{ width: "100%" }}>
+                        <PageBox>
                             <Grid container rowSpacing={2} spacing={2}>
                                 <Grid item xs={12}>
                                     <Typography
@@ -133,7 +132,7 @@ export default function Ad({ ad, auth }) {
                                     <Typography
                                         sx={{ fontWeight: 500, fontSize: 14 }}
                                     >
-                                        Categoria: {ad.category.name || "Sem categoria"}
+                                        Categoria: {ad?.category?.name || "Sem categoria"}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>

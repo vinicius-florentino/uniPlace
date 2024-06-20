@@ -41,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/seller-dashboard/ads/{id}/delete-image', [SellerDashboardAdsController::class, 'deleteImage']);
         Route::put('/seller-dashboard/ads/{id}/disable', [SellerDashboardAdsController::class, 'disable']);
         Route::put('/seller-dashboard/ads/{id}/reenable', [SellerDashboardAdsController::class, 'reenable']);
+        Route::put('/seller-dashboard/ads/{id}/up', [SellerDashboardAdsController::class, 'up']);
     });
 
     Route::get('/conversations/start', [ConversationsController::class, 'startConversation']);

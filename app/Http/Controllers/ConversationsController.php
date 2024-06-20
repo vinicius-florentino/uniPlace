@@ -37,7 +37,7 @@ class ConversationsController extends Controller
         $userId = $user->id;
         $sellerId = $user->seller?->id;
 
-        $conversation = Conversation::findOrFail($id)->where(function ($query) use ($userId, $sellerId) {
+        $conversation = Conversation::findOrFail($id)->with(['seller', 'user'])->where(function ($query) use ($userId, $sellerId) {
             $query->where('user_id', $userId)
                 ->orWhere('seller_id', $sellerId);
         })

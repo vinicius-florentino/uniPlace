@@ -248,6 +248,7 @@ const DeleteUserDialog = ({ onClose, open }) => {
             open={open}
             component="form"
             onSubmit={deleteUser}
+            noValidate
         >
             <DialogTitle>Excluir conta</DialogTitle>
             <IconButton
