@@ -20,13 +20,6 @@ import Image from "@/Components/Image";
 export default function Ad({ ad, auth }) {
 
     const [loading, setLoading] = useState(false);
-    const [disabledButton, setDisabledButton] = useState(true);
-
-    useEffect(() => {
-        setDisabledButton(!ad.seller.phone);
-        setDisabledButton(ad.seller.id === auth.user.id);
-    }, [ad.seller.phone]);
-
 
     function stringAvatar(name) {
         const initials = name
@@ -169,7 +162,7 @@ export default function Ad({ ad, auth }) {
                                                 color={"var(--success-color)"}
                                             />
                                         }
-                                        disabled={disabledButton || loading}
+                                        disabled={!ad.seller.phone || auth.user.seller.id === ad.seller.id || loading}
                                         onClick={redirectToWhatsApp}
                                     >
                                         Inicie uma conversa via WhatsApp
@@ -185,7 +178,7 @@ export default function Ad({ ad, auth }) {
                                             />
                                         }
                                         onClick={redirectToChat}
-                                        disabled={disabledButton || loading}
+                                        disabled={auth.user.seller.id === ad.seller.id || loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>
