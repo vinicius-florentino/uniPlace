@@ -25,7 +25,7 @@ class ConversationsController extends Controller
         $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->with('user')->get();
         $conversationsWithSellers = Conversation::where('user_id', $userId)->with('seller')->get();
 
-        return Inertia::render('Conversations', [
+        return Inertia::render('Conversations/Conversations', [
             'conversationsWithUsers' => $conversationsWithUsers,
             'conversationsWithSellers' => $conversationsWithSellers
         ]);
@@ -53,7 +53,7 @@ class ConversationsController extends Controller
         $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->with('user')->get();
         $conversationsWithSellers = Conversation::where('user_id', $userId)->with('seller')->get();
 
-        return Inertia::render('Conversations', [
+        return Inertia::render('Conversations/Conversations', [
             'conversation' => $conversation,
             'conversationEvents' => $conversationEvents,
             'conversationsWithUsers' => $conversationsWithUsers,

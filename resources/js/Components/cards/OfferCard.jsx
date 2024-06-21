@@ -45,24 +45,27 @@ function OfferCard({ name, description, price, benefits, processing }) {
     const [openQrCode, setOpenQrCode] = useState(false);
     const [copied, setCopied] = useState(false);
     const [textTooltip, setTextTooltip] = useState('Copiar código');
+    const [alignment, setAlignment] = useState('Pix');
     const [textCodigoMensal] = useState('00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8');
     const [textCodigoSemestral] = useState('00020126360014BR.GOV.BCB.PIX0114+55129918750005204000053039865406203.495802BR5908Uniplace6006Lorena62070503***63049E7F');
 
     const handleClickOpen = () => {
         setOpenDialog(true);
-    };
+        setAlignment('Pix');
+    }
 
     const handleCloseDialogs = () => {
         setOpenDialog(false);
-        setOpenQrCode(false);
+        setAlignment(null); 
         setCopied(false);
         setTextTooltip('Copiar código')
     };
 
-    const [alignment, setAlignment] = React.useState('left');
 
     const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+        if (newAlignment !== null) {
+            setAlignment(newAlignment);
+        }
     };
 
     const handleCopyToClipboard = () => {
@@ -155,48 +158,49 @@ function OfferCard({ name, description, price, benefits, processing }) {
                         Assinar plano {name}
                     </DialogTitle>
                     <DialogContent>
-                        {alignment === 'Pix'}
-                        <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+                    <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
                             <ToggleButtonGroup
                                 value={alignment}
                                 exclusive
                                 onChange={handleAlignment}
                                 aria-label="text alignment"
                             >
-                                <ToggleButton value="left" aria-label="left aligned">
+                                <ToggleButton value="Pix" aria-label="Pix">
                                     Pix
                                 </ToggleButton>
-                                <ToggleButton value="center" aria-label="centered" disabled>
+                                <ToggleButton value="Cartao" aria-label="Cartão" disabled>
                                     Cartão
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <Box width="100%" maxWidth="300px" mb={2}>
-                                <Image
-                                    src={name === 'Mensal' ? QrCodeMensal : QrCodeSemestral}
-                                    alt={`QR Code for ${name} plan`}
-                                    style={{
-                                        objectFit: "contain",
-                                        width: "100%",
-                                        height: "auto",
-                                    }}
-                                />
+                        {alignment === 'Pix' && (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <Box width="100%" maxWidth="300px" mb={2}>
+                                    <Image
+                                        src={name === 'Mensal' ? QrCodeMensal : QrCodeSemestral}
+                                        alt={`QR Code for ${name} plan`}
+                                        style={{
+                                            objectFit: "contain",
+                                            width: "100%",
+                                            height: "auto",
+                                        }}
+                                    />
+                                </Box>
+                                <Typography justifyContent="start" display="flex" flexDirection="row">
+                                    Código copia e cola
+                                </Typography>
+                                <Typography sx={{ wordBreak: 'break-all', marginTop: '10px', maxWidth: '250px', my: '20px' }}>
+                                    {name === 'Mensal' ? textCodigoMensal : textCodigoSemestral}
+                                </Typography>
+                                <Box sx={{ mb: '10px' }}>
+                                    <Tooltip arrow title={textTooltip}>
+                                        <IconButton onClick={handleCopyToClipboard}>
+                                            <RemixIcon className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Box>
                             </Box>
-                            <Typography justifyContent="start" display="flex" flexDirection="row">
-                                Código copia e cola
-                            </Typography>
-                            <Typography sx={{ wordBreak: 'break-all', marginTop: '10px', maxWidth: '250px', my: '20px' }}>
-                                {name === 'Mensal' ? textCodigoMensal : textCodigoSemestral}
-                            </Typography>
-                            <Box sx={{ mb: '10px' }}>
-                                <Tooltip arrow title={textTooltip}>
-                                    <IconButton onClick={handleCopyToClipboard}>
-                                        <RemixIcon className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"} />
-                                    </IconButton>
-                                </Tooltip>
-                            </Box>
-                        </Box>
+                        )}
                     </DialogContent>
                 </Dialog>
                 <Box

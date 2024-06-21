@@ -32,7 +32,10 @@ class AdsController extends Controller
             ->when(!empty($filters['ads_categories']), function ($query) use ($filters) {
                 return $query->whereIn('category_id', $filters['ads_categories']);
             })
-            ->with('seller')->paginate();
+            ->with(['seller', 'upUsage' => function ($query) {
+                $query->orderByDesc('expires_at');
+            }])
+            ->paginate();
 
         $adsCategories = AdsCategorie::all();
 

@@ -15,7 +15,9 @@ class SellerController extends Controller
 {
     public function show($id): Response
     {
-        $seller = Seller::with('ads')->where('id', $id)->first();
+        $seller = Seller::with(['ads', 'ads.upUsage' => function ($query) {
+            $query->orderByDesc('expires_at');
+        }])->where('id', $id)->first();
 
         return Inertia::render('Seller', [
             'seller' => $seller

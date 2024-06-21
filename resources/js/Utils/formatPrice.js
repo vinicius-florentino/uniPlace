@@ -3,5 +3,5 @@ export default function formatPrice(value){
     style: "currency",
     currency: "BRL",
     });
-    return valuePrice;
+    return value === 0 ? "Grátis" : valuePrice;
 }

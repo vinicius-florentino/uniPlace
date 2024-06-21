@@ -230,6 +230,7 @@ export default function Seller({ seller, auth }) {
                                             title={ad.title}
                                             imageSrc={ad.image_url}
                                             to={`/ad/${ad.id}`}
+                                            promotedUntil={ad?.up_usage?.expires_at}
                                         />
                                     </SwiperSlide>
                                 ))}
