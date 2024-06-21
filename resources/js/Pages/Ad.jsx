@@ -16,18 +16,14 @@ import formatDate from "@/Utils/formatDate";
 import PageBox from "@/Components/pagebox/PageBox";
 import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
+import Tooltip from "@mui/material/Tooltip";
+import formatDateTime from "@/Utils/formatDateTime";
 
 export default function Ad({ ad, auth }) {
 
     const [loading, setLoading] = useState(false);
 
+    console.log(ad);
     function stringAvatar(name) {
         const initials = name
             .split(" ")
@@ -100,14 +96,43 @@ export default function Ad({ ad, auth }) {
                             }}
                             noValidate
                         >
-                            <Image
-                                style={{
-                                    objectFit: "fill",
-                                    width: "100%",
-                                    height: "100%",
-                                }}
-                                src={ad.image_url}
-                            />
+                            <Box sx={{ position: "relative", height: "100%", width: "100%" }}>
+                                <Image
+                                    style={{
+                                        objectFit: "cover",
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                    src={ad.image_url}
+                                />
+                                {promotedUntil && (
+                                    <Tooltip title={`Promovido até ${formatDate(
+                                        '2024-06-28'
+                                    )}`} arrow>
+                                        <Chip
+                                            sx={{
+                                                position: "absolute",
+                                                top: 20,
+                                                left: 10,
+                                                backgroundColor: "var(--primary-color)",
+                                                color: "var(--white-color)",
+                                                fontSize: 12,
+                                                fontWeight: 500,
+                                            }}
+                                            size="small"
+                                            variant="filled"
+                                            label="UP"
+                                            icon={
+                                                <RemixIcon
+                                                    className="ri-arrow-up-circle-line"
+                                                    color="var(--white-color)"
+                                                />
+                                            }
+                                        />
+                                    </Tooltip>
+                                )}
+                            </Box>
+
                         </Card>
                     </Grid>
                     <Grid item xs={12} md={8}>
