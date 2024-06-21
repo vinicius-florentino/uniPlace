@@ -11,8 +11,16 @@ import { CardActionArea } from "@mui/material";
 import { router } from "@inertiajs/react";
 import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
+import formatDateTime from "@/Utils/formatDateTime";
 
-export default function AdCard({ title, sellerName, imageSrc, price, to }) {
+export default function AdCard({
+    title,
+    sellerName,
+    imageSrc,
+    price,
+    to,
+    promotedUntil,
+}) {
     return (
         <Card sx={{ width: "auto", maxHeight: "auto", borderRadius: "16px" }}>
             <CardActionArea onClick={() => router.visit(to)}>
@@ -28,29 +36,36 @@ export default function AdCard({ title, sellerName, imageSrc, price, to }) {
                                     }}
                                     src={imageSrc}
                                 />
-                                <Tooltip title="Impulsionado até" arrow>
-                                    <Chip
-                                        sx={{
-                                            position: "absolute",
-                                            top: 20,
-                                            left: 10,
-                                            backgroundColor:
-                                                "var(--primary-color)",
-                                            color: "var(--white-color)",
-                                            fontSize: 12,
-                                            fontWeight: 500
-                                        }}
-                                        size="small"
-                                        variant="filled"
-                                        label="UP"
-                                        icon={
-                                            <RemixIcon
-                                                className="ri-arrow-up-circle-line"
-                                                color="var(--white-color)"
-                                            />
-                                        }
-                                    />
-                                </Tooltip>
+                                {promotedUntil && (
+                                    <Tooltip
+                                        title={`Promovido até ${formatDateTime(
+                                            promotedUntil
+                                        )}`}
+                                        arrow
+                                    >
+                                        <Chip
+                                            sx={{
+                                                position: "absolute",
+                                                top: 20,
+                                                left: 10,
+                                                backgroundColor:
+                                                    "var(--primary-color)",
+                                                color: "var(--white-color)",
+                                                fontSize: 12,
+                                                fontWeight: 500,
+                                            }}
+                                            size="small"
+                                            variant="filled"
+                                            label="UP"
+                                            icon={
+                                                <RemixIcon
+                                                    className="ri-arrow-up-circle-line"
+                                                    color="var(--white-color)"
+                                                />
+                                            }
+                                        />
+                                    </Tooltip>
+                                )}
                             </Grid>
                             <Grid item xs={12} sx={{ px: 2 }}>
                                 <Typography

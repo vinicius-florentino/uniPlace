@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Head, router } from "@inertiajs/react";
+import dayjs from 'dayjs';
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import formatPrice from "@/Utils/formatPrice";
@@ -145,7 +146,7 @@ export default function Ads({ auth, ads }) {
                                                 md: "auto",
                                             },
                                         }}
-                                        disabled
+                                        onClick={() => console.log("a")}
                                     >
                                         Adquirir UP's
                                     </Button>
@@ -198,6 +199,9 @@ export default function Ads({ auth, ads }) {
                                                         </TableCell>
                                                         <TableCell align="left">
                                                             Data de criação
+                                                        </TableCell>
+                                                        <TableCell align="left">
+                                                            Promovido até
                                                         </TableCell>
                                                         <TableCell align="right"></TableCell>
                                                     </TableRow>
@@ -259,6 +263,11 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="left">
                                                                     {formatDate(
                                                                         ad.created_at
+                                                                    )}
+                                                                </TableCell>
+                                                                <TableCell align="left" sx={{color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : ""}}>
+                                                                    {formatDate(
+                                                                        ad?.up_usage?.expires_at
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">
@@ -445,6 +454,9 @@ export default function Ads({ auth, ads }) {
                                                         <TableCell align="left">
                                                             Data de criação
                                                         </TableCell>
+                                                        <TableCell align="left">
+                                                            Promovido até
+                                                        </TableCell>
                                                         <TableCell align="right"></TableCell>
                                                     </TableRow>
                                                 </TableHead>
@@ -505,6 +517,11 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="left">
                                                                     {formatDate(
                                                                         ad.created_at
+                                                                    )}
+                                                                </TableCell>
+                                                                <TableCell align="left" sx={{color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : ""}}>
+                                                                    {formatDate(
+                                                                        ad?.up_usage?.expires_at
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">

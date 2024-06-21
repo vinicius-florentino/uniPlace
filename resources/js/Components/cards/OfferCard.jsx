@@ -6,14 +6,14 @@ import Typography from "@mui/material/Typography";
 import formatPrice from "@/Utils/formatPrice";
 import RemixIcon from "../RemixIcon";
 import IconButton from "@mui/material/IconButton";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
-import QrCodeMensal from '../../Assets/qrcode-pix-plano-mensal.png';
-import QrCodeSemestral from '../../Assets/qrcode-pix-plano-semestral.png';
+import QrCodeMensal from "../../Assets/qrcode-pix-plano-mensal.png";
+import QrCodeSemestral from "../../Assets/qrcode-pix-plano-semestral.png";
 import Image from "@/Components/Image";
 
 import { useState } from "react";
@@ -30,7 +30,11 @@ const BenefitLine = ({ label }) => {
                 gap: "8px",
             }}
         >
-            <RemixIcon className="ri-check-line" color="var(--success-color)" fontSize={"24px"} />
+            <RemixIcon
+                className="ri-check-line"
+                color="var(--success-color)"
+                fontSize={"24px"}
+            />
             <span>{label}</span>
         </Typography>
     );
@@ -41,9 +45,13 @@ function OfferCard({ name, description, price, benefits, processing }) {
     const [openDialog, setOpenDialog] = useState(false);
     const [openQrCode, setOpenQrCode] = useState(false);
     const [copied, setCopied] = useState(false);
-    const [textTooltip, setTextTooltip] = useState('Copiar código');
-    const [textCodigoMensal] = useState('00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8');
-    const [textCodigoSemestral] = useState('00020126360014BR.GOV.BCB.PIX0114+55129918750005204000053039865406203.495802BR5908Uniplace6006Lorena62070503***63049E7F');
+    const [textTooltip, setTextTooltip] = useState("Copiar código");
+    const [textCodigoMensal] = useState(
+        "00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8"
+    );
+    const [textCodigoSemestral] = useState(
+        "00020126360014BR.GOV.BCB.PIX0114+55129918750005204000053039865406203.495802BR5908Uniplace6006Lorena62070503***63049E7F"
+    );
 
     const handleClickOpen = () => {
         setOpenDialog(true);
@@ -53,7 +61,7 @@ function OfferCard({ name, description, price, benefits, processing }) {
         setOpenDialog(false);
         setOpenQrCode(false);
         setCopied(false);
-        setTextTooltip('Copiar código')
+        setTextTooltip("Copiar código");
     };
 
     const handleOpenQrCode = () => {
@@ -61,15 +69,13 @@ function OfferCard({ name, description, price, benefits, processing }) {
     };
 
     const handleCopyToClipboard = () => {
-        const textToCopy = name === 'Mensal'
-            ? textCodigoMensal
-            : textCodigoSemestral;
+        const textToCopy =
+            name === "Mensal" ? textCodigoMensal : textCodigoSemestral;
 
-        navigator.clipboard.writeText(textToCopy)
-            .then(() => {
-                setCopied(true);
-                setTextTooltip('Código copiado')
-            })
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopied(true);
+            setTextTooltip("Código copiado");
+        });
     };
 
     return (
@@ -110,24 +116,27 @@ function OfferCard({ name, description, price, benefits, processing }) {
                             textAlign: "start",
                         }}
                     >
-                        {formatPrice(39.98)}
+                        {formatPrice(price)}
                     </Typography>
                 </Box>
                 <Box
                     noValidate
                     sx={{
                         px: 2,
-                        py: 1
+                        py: 1,
                     }}
+                    display="flex"
+                    alignItems="center"
                 >
                     <Typography
                         sx={{
                             fontSize: 14,
                             fontWeight: 300,
                             textAlign: "start",
+                            height: 200,
                         }}
                     >
-                        Valor cobrado no plano {name} com 20% de desconto
+                        {description}
                     </Typography>
                 </Box>
                 <Box
@@ -153,8 +162,14 @@ function OfferCard({ name, description, price, benefits, processing }) {
                 >
                     <DialogTitle>Assinar o plano {name}</DialogTitle>
                     <DialogActions>
-                        <Box display="flex" justifyContent="space-between" width="100%">
-                            <Button onClick={handleCloseDialogs}>Cancelar</Button>
+                        <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            width="100%"
+                        >
+                            <Button onClick={handleCloseDialogs}>
+                                Cancelar
+                            </Button>
                             <Button onClick={handleOpenQrCode}>Assinar</Button>
                         </Box>
                     </DialogActions>
@@ -165,12 +180,29 @@ function OfferCard({ name, description, price, benefits, processing }) {
                     onClose={handleCloseDialogs}
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Plano {name}</DialogTitle>
+                    <DialogTitle
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        Plano {name}
+                    </DialogTitle>
                     <DialogContent dividers>
-                        <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+                        <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            flexDirection="column"
+                        >
                             <Box width="100%" maxWidth="300px">
                                 <Image
-                                    src={name === 'Mensal' ? QrCodeMensal : QrCodeSemestral}
+                                    src={
+                                        name === "Mensal"
+                                            ? QrCodeMensal
+                                            : QrCodeSemestral
+                                    }
                                     alt={`QR Code for ${name} plan`}
                                     style={{
                                         objectFit: "contain",
@@ -179,18 +211,34 @@ function OfferCard({ name, description, price, benefits, processing }) {
                                     }}
                                 />
                             </Box>
-                            <Typography justifyContent="start" display="flex" flexDirection="row">
+                            <Typography
+                                justifyContent="start"
+                                display="flex"
+                                flexDirection="row"
+                            >
                                 Código copia e cola
                             </Typography>
-                            <Typography sx={{ wordBreak: 'break-all', marginTop: '10px', maxWidth: '250px', my: '20px' }}>
-                                {name === 'Mensal' ? textCodigoMensal
+                            <Typography
+                                sx={{
+                                    wordBreak: "break-all",
+                                    marginTop: "10px",
+                                    maxWidth: "250px",
+                                    my: "20px",
+                                }}
+                            >
+                                {name === "Mensal"
+                                    ? textCodigoMensal
                                     : textCodigoSemestral}
                             </Typography>
-                            <Box sx={{ mb: '10px' }}>
+                            <Box sx={{ mb: "10px" }}>
                                 <Tooltip arrow title={textTooltip}>
                                     <IconButton onClick={handleCopyToClipboard}>
                                         <RemixIcon
-                                            className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"}
+                                            className={
+                                                copied
+                                                    ? "ri-file-copy-fill"
+                                                    : "ri-file-copy-line"
+                                            }
                                         />
                                     </IconButton>
                                 </Tooltip>

@@ -243,6 +243,7 @@ export default function Ads({ ads, auth, adsCategories }) {
                                         title={ad.title}
                                         to={`/ad/${ad.id}`}
                                         imageSrc={ad.image_url}
+                                        promotedUntil={ad?.up_usage?.expires_at}
                                     />
                                 </Grid>
                             ))}

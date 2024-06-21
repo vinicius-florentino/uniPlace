@@ -33,31 +33,6 @@ class DatabaseSeeder extends Seeder
             'cnpj' => '62.823.257/0001-09',
         ]);
 
-        \App\Models\Plan::create([
-            'name' => 'Mensal',
-            'description' => 'Lorem ipsum anet dolor',
-            'benefits' => ['Benefício 1', 'Benefício 2', 'Benefício 3'],
-            'buy_link' => 'www.teste.com.br',
-            'price' => 0,
-            'duration' => null
-        ]);        
 
-        \App\Models\Plan::create([
-            'name' => 'Semestral',
-            'description' => 'Lorem ipsum anet dolor',
-            'benefits' => ['Benefício 1', 'Benefício 2', 'Benefício 3'],
-            'buy_link' => 'www.teste.com.br',
-            'price' => 0,
-            'duration' => null
-        ]);
-
-        \App\Models\Plan::create([
-            'name' => 'Anual',
-            'description' => 'Lorem ipsum anet dolor',
-            'benefits' => ['Benefício 1', 'Benefício 2', 'Benefício 3'],
-            'buy_link' => 'www.teste.com.br',
-            'price' => 0,
-            'duration' => null
-        ]);
     }
 }

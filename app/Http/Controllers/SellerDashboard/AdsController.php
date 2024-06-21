@@ -22,11 +22,12 @@ class AdsController extends Controller
         $sellerId = $seller->id;
 
         $ads = Ad::where('seller_id', $sellerId)
-            ->with(['category', 'upUsage'])
-            ->withoutGlobalScope('enabled')
-            ->orderBy('enabled', 'desc')
-            ->get();
-
+        ->with(['category', 'upUsage' => function ($query) {
+            $query->orderByDesc('expires_at');
+        }])
+        ->withoutGlobalScope('enabled')
+        ->get();
+    
         return Inertia::render('SellerDashboard/Ads/Ads', [
             'ads' => $ads
         ]);

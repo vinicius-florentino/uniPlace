@@ -15,13 +15,17 @@ class DashboardController extends Controller
 {
     public function index(): Response
     {
-        $recentAds = Ad::with('seller')
+        $recentAds = Ad::with(['seller', 'upUsage'])
             ->latest()
             ->paginate(config('paginate.dashboard'));
 
-        $promotedAds = Ad::with('seller')
-        ->latest()
-        ->paginate(config('paginate.dashboard'));
+        $promotedAds = Ad::with(['seller', 'upUsage' => function ($query) {
+            $query->orderByDesc('expires_at');
+        }])
+            ->whereHas('upUsage', function ($query) {
+                $query->where('expires_at', '>', now());
+            })
+            ->paginate(config('paginate.dashboard'));
 
         return Inertia::render('Dashboard', [
             'recentAds' => $recentAds,

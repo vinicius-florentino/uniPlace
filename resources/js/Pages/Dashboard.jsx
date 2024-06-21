@@ -166,6 +166,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                         title={ad.title}
                                         imageSrc={ad.image_url}
                                         to={`/ad/${ad.id}`}
+                                        promotedUntil={ad?.up_usage?.expires_at}
                                     />
                                 </SwiperSlide>
                             ))}
@@ -221,6 +222,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                         title={ad.title}
                                         imageSrc={ad.image_url}
                                         to={`/ad/${ad.id}`}
+                                        promotedUntil={ad?.up_usage?.expires_at}
                                     />
                                 </SwiperSlide>
                             ))}
