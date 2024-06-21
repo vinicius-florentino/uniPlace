@@ -16,6 +16,13 @@ import formatDate from "@/Utils/formatDate";
 import PageBox from "@/Components/pagebox/PageBox";
 import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
+import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
+import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
+import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight';
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
 
 export default function Ad({ ad, auth }) {
 

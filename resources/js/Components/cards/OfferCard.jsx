@@ -15,6 +15,9 @@ import Button from "@mui/material/Button";
 import QrCodeMensal from '../../Assets/qrcode-pix-plano-mensal.png';
 import QrCodeSemestral from '../../Assets/qrcode-pix-plano-semestral.png';
 import Image from "@/Components/Image";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
 
 import { useState } from "react";
 
@@ -56,8 +59,10 @@ function OfferCard({ name, description, price, benefits, processing }) {
         setTextTooltip('Copiar código')
     };
 
-    const handleOpenQrCode = () => {
-        setOpenQrCode(true);
+    const [alignment, setAlignment] = React.useState('left');
+
+    const handleAlignment = (event, newAlignment) => {
+        setAlignment(newAlignment);
     };
 
     const handleCopyToClipboard = () => {
@@ -145,30 +150,29 @@ function OfferCard({ name, description, price, benefits, processing }) {
                         Assinar
                     </Button>
                 </Box>
-                <Dialog
-                    open={openDialog}
-                    keepMounted
-                    onClose={handleCloseDialogs}
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle>Assinar o plano {name}</DialogTitle>
-                    <DialogActions>
-                        <Box display="flex" justifyContent="space-between" width="100%">
-                            <Button onClick={handleCloseDialogs}>Cancelar</Button>
-                            <Button onClick={handleOpenQrCode}>Assinar</Button>
-                        </Box>
-                    </DialogActions>
-                </Dialog>
-                <Dialog
-                    open={openQrCode}
-                    keepMounted
-                    onClose={handleCloseDialogs}
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Plano {name}</DialogTitle>
-                    <DialogContent dividers>
+                <Dialog open={openDialog} onClose={handleCloseDialogs}>
+                    <DialogTitle style={{ textAlign: 'center' }}>
+                        Assinar plano {name}
+                    </DialogTitle>
+                    <DialogContent>
+                        {alignment === 'Pix'}
                         <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-                            <Box width="100%" maxWidth="300px">
+                            <ToggleButtonGroup
+                                value={alignment}
+                                exclusive
+                                onChange={handleAlignment}
+                                aria-label="text alignment"
+                            >
+                                <ToggleButton value="left" aria-label="left aligned">
+                                    Pix
+                                </ToggleButton>
+                                <ToggleButton value="center" aria-label="centered" disabled>
+                                    Cartão
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Box>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Box width="100%" maxWidth="300px" mb={2}>
                                 <Image
                                     src={name === 'Mensal' ? QrCodeMensal : QrCodeSemestral}
                                     alt={`QR Code for ${name} plan`}
@@ -183,15 +187,12 @@ function OfferCard({ name, description, price, benefits, processing }) {
                                 Código copia e cola
                             </Typography>
                             <Typography sx={{ wordBreak: 'break-all', marginTop: '10px', maxWidth: '250px', my: '20px' }}>
-                                {name === 'Mensal' ? textCodigoMensal
-                                    : textCodigoSemestral}
+                                {name === 'Mensal' ? textCodigoMensal : textCodigoSemestral}
                             </Typography>
                             <Box sx={{ mb: '10px' }}>
                                 <Tooltip arrow title={textTooltip}>
                                     <IconButton onClick={handleCopyToClipboard}>
-                                        <RemixIcon
-                                            className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"}
-                                        />
+                                        <RemixIcon className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"} />
                                     </IconButton>
                                 </Tooltip>
                             </Box>
