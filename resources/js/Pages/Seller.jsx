@@ -23,6 +23,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useEffect } from "react";
 
 export default function Seller({ seller, auth }) {
 
@@ -33,6 +34,7 @@ export default function Seller({ seller, auth }) {
     const greaterThanLg = useMediaQuery(theme.breakpoints.up("lg"));
 
     const [loading, setLoading] = useState(false);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const open = Boolean(anchorEl);
@@ -180,7 +182,7 @@ export default function Seller({ seller, auth }) {
                                             />
                                         }
                                         onClick={redirectToChat}
-                                        disabled={loading}
+                                        disabled={auth.user.seller.id === seller.id || loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>

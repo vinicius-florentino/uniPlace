@@ -9,7 +9,6 @@ import {
     Avatar,
     Box,
     Grid,
-    Alert,
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import formatPrice from "@/Utils/formatPrice";
@@ -21,13 +20,6 @@ import Image from "@/Components/Image";
 export default function Ad({ ad, auth }) {
 
     const [loading, setLoading] = useState(false);
-    const [disabledButton, setDisabledButton] = useState(true);
-
-    useEffect(() => {
-        setDisabledButton(!ad.seller.phone);
-        setDisabledButton(ad.seller.id === auth.user.id);
-    }, [ad.seller.phone]);
-
 
     function stringAvatar(name) {
         const initials = name
@@ -73,11 +65,11 @@ export default function Ad({ ad, auth }) {
                         </Alert>
                     </Box>
                 )} */}
-                {!ad.enabled && (
+                {/* {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
                     </Alert>
-                )}
+                )} */}
                 <Grid
                     container
                     spacing={2}
@@ -88,7 +80,7 @@ export default function Ad({ ad, auth }) {
                         item
                         xs={12}
                         md={4}
-                        sx={{ width: "100%", height: { md: "395px" } }}
+                        sx={{ width: "100%", height: { md: "430px" } }}
                     >
                         <Card
                             sx={{
@@ -170,7 +162,7 @@ export default function Ad({ ad, auth }) {
                                                 color={"var(--success-color)"}
                                             />
                                         }
-                                        disabled={disabledButton || loading}
+                                        disabled={!ad.seller.phone || auth.user.seller.id === ad.seller.id || loading}
                                         onClick={redirectToWhatsApp}
                                     >
                                         Inicie uma conversa via WhatsApp
@@ -186,7 +178,7 @@ export default function Ad({ ad, auth }) {
                                             />
                                         }
                                         onClick={redirectToChat}
-                                        disabled={disabledButton || loading}
+                                        disabled={auth.user.seller.id === ad.seller.id || loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>
