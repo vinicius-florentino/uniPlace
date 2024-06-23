@@ -37,7 +37,7 @@ export default function AdCard({
                                     }}
                                     src={imageSrc}
                                 />
-                                {(promotedUntil && promotedUntil > dayjs()) && (
+                                {(promotedUntil && dayjs(promotedUntil) > dayjs()) && (
                                     <Tooltip
                                         title={`Promovido até ${formatDateTime(
                                             promotedUntil

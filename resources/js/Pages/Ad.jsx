@@ -105,7 +105,7 @@ export default function Ad({ ad, auth }) {
                                     }}
                                     src={ad.image_url}
                                 />
-                                {(ad?.up_usage?.expires_at && ad?.up_usage?.expires_at > dayjs()) && (
+                                {(ad?.up_usage?.expires_at && dayjs(ad?.up_usage?.expires_at) > dayjs()) && (
                                     <Tooltip title={`Promovido até ${formatDateTime(
                                         ad?.up_usage?.expires_at
                                     )}`} arrow>
