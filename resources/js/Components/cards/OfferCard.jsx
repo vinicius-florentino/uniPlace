@@ -1,4 +1,5 @@
 import React from "react";
+import { Grid, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,18 +7,17 @@ import Typography from "@mui/material/Typography";
 import formatPrice from "@/Utils/formatPrice";
 import RemixIcon from "../RemixIcon";
 import IconButton from "@mui/material/IconButton";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
-import QrCodeMensal from '../../Assets/qrcode-pix-plano-mensal.png';
-import QrCodeSemestral from '../../Assets/qrcode-pix-plano-semestral.png';
+import QrCodeMensal from "../../Assets/qrcode-pix-plano-mensal.png";
+import QrCodeSemestral from "../../Assets/qrcode-pix-plano-semestral.png";
 import Image from "@/Components/Image";
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 import { useState } from "react";
 
@@ -33,51 +33,54 @@ const BenefitLine = ({ label }) => {
                 gap: "8px",
             }}
         >
-            <RemixIcon className="ri-check-line" color="var(--success-color)" fontSize={"24px"} />
+            <RemixIcon
+                className="ri-check-line"
+                color="var(--success-color)"
+                fontSize={"24px"}
+            />
             <span>{label}</span>
         </Typography>
     );
 };
 
 function OfferCard({ name, description, price, benefits, processing }) {
-
     const [openDialog, setOpenDialog] = useState(false);
-    const [openQrCode, setOpenQrCode] = useState(false);
     const [copied, setCopied] = useState(false);
-    const [textTooltip, setTextTooltip] = useState('Copiar código');
-    const [alignment, setAlignment] = useState('Pix');
-    const [textCodigoMensal] = useState('00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8');
-    const [textCodigoSemestral] = useState('00020126360014BR.GOV.BCB.PIX0114+55129918750005204000053039865406203.495802BR5908Uniplace6006Lorena62070503***63049E7F');
+    const [textTooltip, setTextTooltip] = useState("Copiar código");
+    const [paymentMethod, setPaymentMethod] = useState("Pix");
+    const [textCodigoMensal] = useState(
+        "00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8"
+    );
+    const [textCodigoSemestral] = useState(
+        "00020126360014BR.GOV.BCB.PIX0114+55129918750005204000053039865406203.495802BR5908Uniplace6006Lorena62070503***63049E7F"
+    );
 
     const handleClickOpen = () => {
         setOpenDialog(true);
-        setAlignment('Pix');
-    }
+        setPaymentMethod("Pix");
+    };
 
     const handleCloseDialogs = () => {
         setOpenDialog(false);
-        setAlignment(null); 
+        setPaymentMethod(null);
         setCopied(false);
-        setTextTooltip('Copiar código')
+        setTextTooltip("Copiar código");
     };
 
-
-    const handleAlignment = (event, newAlignment) => {
-        if (newAlignment !== null) {
-            setAlignment(newAlignment);
+    const handlePaymentMethod = (event, newPaymentMethod) => {
+        if (newPaymentMethod !== null) {
+            setPaymentMethod(newPaymentMethod);
         }
     };
 
     const handleCopyToClipboard = () => {
-        const textToCopy = name === 'Mensal'
-            ? textCodigoMensal
-            : textCodigoSemestral;
+        const textToCopy =
+            name === "Mensal" ? textCodigoMensal : textCodigoSemestral;
 
-        navigator.clipboard.writeText(textToCopy)
-            .then(() => {
-                setCopied(true);
-                setTextTooltip('Código copiado')
-            })
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopied(true);
+            setTextTooltip("Código copiado");
+        });
     };
 
     return (
@@ -118,14 +121,15 @@ function OfferCard({ name, description, price, benefits, processing }) {
                             textAlign: "start",
                         }}
                     >
-                        {formatPrice(39.98)}
+                        {formatPrice(price)}
                     </Typography>
                 </Box>
                 <Box
                     noValidate
                     sx={{
                         px: 2,
-                        py: 1
+                        py: 1,
+                        minHeight: "200px"
                     }}
                 >
                     <Typography
@@ -135,7 +139,7 @@ function OfferCard({ name, description, price, benefits, processing }) {
                             textAlign: "start",
                         }}
                     >
-                        Valor cobrado no plano {name} com 20% de desconto
+                        {description}
                     </Typography>
                 </Box>
                 <Box
@@ -145,7 +149,7 @@ function OfferCard({ name, description, price, benefits, processing }) {
                 >
                     <Button
                         variant="contained"
-                        disabled={processing}
+                        disabled={processing || price === 0}
                         disableElevation
                         onClick={handleClickOpen}
                         fullWidth
@@ -153,55 +157,100 @@ function OfferCard({ name, description, price, benefits, processing }) {
                         Assinar
                     </Button>
                 </Box>
-                <Dialog open={openDialog} onClose={handleCloseDialogs}>
-                    <DialogTitle style={{ textAlign: 'center' }}>
-                        Assinar plano {name}
-                    </DialogTitle>
-                    <DialogContent>
-                    <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-                            <ToggleButtonGroup
-                                value={alignment}
-                                exclusive
-                                onChange={handleAlignment}
-                                aria-label="text alignment"
-                            >
-                                <ToggleButton value="Pix" aria-label="Pix">
-                                    Pix
-                                </ToggleButton>
-                                <ToggleButton value="Cartao" aria-label="Cartão" disabled>
-                                    Cartão
-                                </ToggleButton>
-                            </ToggleButtonGroup>
+                <Dialog
+                    open={openDialog}
+                    onClose={handleCloseDialogs}
+                >
+                    <DialogTitle>Assinar plano {name} ({formatPrice(price)})</DialogTitle>
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleCloseDialogs}
+                        sx={{ position: "absolute", right: 16, top: 12 }}
+                    >
+                        <RemixIcon className="ri-close-line" />
+                    </IconButton>
+                    <DialogContent dividers>
+                        <Box sx={{ width: "100%" }} noValidate>
+                            <Grid container spacing={0} rowSpacing={2}>
+                                <Grid item xs={12}>
+                                    <ToggleButtonGroup
+                                        value={paymentMethod}
+                                        exclusive
+                                        onChange={handlePaymentMethod}
+                                        fullWidth
+                                    >
+                                        <ToggleButton
+                                            value="Pix"
+                                            aria-label="Pix"
+                                        >
+                                            Pix
+                                        </ToggleButton>
+                                        <ToggleButton
+                                            value="Cartao"
+                                            aria-label="Cartão"
+                                            disabled
+                                        >
+                                            Cartão
+                                        </ToggleButton>
+                                    </ToggleButtonGroup>
+                                </Grid>
+                                {paymentMethod === "Pix" && (
+                                    <>
+                                        <Grid item xs={12}>
+                                            <Image
+                                                src={
+                                                    name === "Mensal"
+                                                        ? QrCodeMensal
+                                                        : QrCodeSemestral
+                                                }
+                                                alt={`QR Code for ${name} plan`}
+                                                style={{
+                                                    objectFit: "contain",
+                                                    width: "100%",
+                                                    height: "300px",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            display="flex"
+                                            gap="8px"
+                                        >
+                                            <IconButton
+                                                onClick={handleCopyToClipboard}
+                                            >
+                                                <RemixIcon
+                                                    className={
+                                                        copied
+                                                            ? "ri-file-copy-fill"
+                                                            : "ri-file-copy-line"
+                                                    }
+                                                />
+                                            </IconButton>
+                                            <TextField
+                                                variant="outlined"
+                                                type="text"
+                                                label="Código copia e cola"
+                                                value={textCodigoMensal}
+                                                fullWidth
+                                                aria-readonly
+                                            />
+                                        </Grid>
+                                    </>
+                                )}
+                            </Grid>
                         </Box>
-                        {alignment === 'Pix' && (
-                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                <Box width="100%" maxWidth="300px" mb={2}>
-                                    <Image
-                                        src={name === 'Mensal' ? QrCodeMensal : QrCodeSemestral}
-                                        alt={`QR Code for ${name} plan`}
-                                        style={{
-                                            objectFit: "contain",
-                                            width: "100%",
-                                            height: "auto",
-                                        }}
-                                    />
-                                </Box>
-                                <Typography justifyContent="start" display="flex" flexDirection="row">
-                                    Código copia e cola
-                                </Typography>
-                                <Typography sx={{ wordBreak: 'break-all', marginTop: '10px', maxWidth: '250px', my: '20px' }}>
-                                    {name === 'Mensal' ? textCodigoMensal : textCodigoSemestral}
-                                </Typography>
-                                <Box sx={{ mb: '10px' }}>
-                                    <Tooltip arrow title={textTooltip}>
-                                        <IconButton onClick={handleCopyToClipboard}>
-                                            <RemixIcon className={copied ? "ri-file-copy-fill" : "ri-file-copy-line"} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Box>
-                            </Box>
-                        )}
                     </DialogContent>
+                    <DialogActions>
+                        <Button
+                            variant="containedLight"
+                            disableElevation
+                            onClick={handleCloseDialogs}
+                        >
+                            Cancelar
+                        </Button>
+                    </DialogActions>
                 </Dialog>
                 <Box
                     noValidate

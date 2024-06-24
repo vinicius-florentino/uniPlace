@@ -141,7 +141,7 @@ const MuiTheme = {
                         textDecoration: "underline",
                     },
                     fontSize: 14,
-                    cursor: "pointer"
+                    cursor: "pointer",
                 },
             },
         },
@@ -182,6 +182,12 @@ const MuiTheme = {
                 root: {
                     padding: "16px",
                 },
+            },
+        },
+        MuiDialog: {
+            defaultProps: {
+                fullWidth: true,
+                maxWidth: "sm",
             },
         },
         MuiTextField: {
