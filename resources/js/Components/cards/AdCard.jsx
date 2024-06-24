@@ -12,6 +12,7 @@ import { router } from "@inertiajs/react";
 import Chip from "@mui/material/Chip";
 import Tooltip from "@mui/material/Tooltip";
 import formatDateTime from "@/Utils/formatDateTime";
+import dayjs from "dayjs";
 
 export default function AdCard({
     title,
@@ -36,7 +37,7 @@ export default function AdCard({
                                     }}
                                     src={imageSrc}
                                 />
-                                {promotedUntil && (
+                                {(promotedUntil && dayjs(promotedUntil) > dayjs()) && (
                                     <Tooltip
                                         title={`Promovido até ${formatDateTime(
                                             promotedUntil

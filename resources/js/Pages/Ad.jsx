@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import { Head, router } from "@inertiajs/react";
 import {
@@ -9,8 +9,8 @@ import {
     Avatar,
     Box,
     Grid,
+    Alert
 } from "@mui/material";
-import { useState, useEffect } from "react";
 import formatPrice from "@/Utils/formatPrice";
 import formatDate from "@/Utils/formatDate";
 import PageBox from "@/Components/pagebox/PageBox";
@@ -18,12 +18,12 @@ import RemixIcon from "@/Components/RemixIcon";
 import Image from "@/Components/Image";
 import Tooltip from "@mui/material/Tooltip";
 import formatDateTime from "@/Utils/formatDateTime";
+import dayjs from "dayjs";
 
 export default function Ad({ ad, auth }) {
 
     const [loading, setLoading] = useState(false);
 
-    console.log(ad);
     function stringAvatar(name) {
         const initials = name
             .split(" ")
@@ -54,25 +54,25 @@ export default function Ad({ ad, auth }) {
     };
 
     return (
-        <NavigationLayout user={auth.user}>
+        <NavigationLayout user={auth?.user}>
             <Head title={ad.title} />
             <Box
                 sx={{
                     width: "100%",
                 }}
             >
-                {/* {ad.seller.id === auth.user.id && (
+                {ad?.seller?.id === auth?.seller?.id && (
                     <Box sx={{ width: "100%", mb: 2 }}>
                         <Alert severity="info">
                             Seu anúncio é visto assim por possíveis clientes
                         </Alert>
                     </Box>
-                )} */}
-                {/* {!ad.enabled && (
+                )}
+                {!ad.enabled && (
                     <Alert severity="info" sx={{ mb: 2 }}>
                         O anúncio está desabilitado
                     </Alert>
-                )} */}
+                )}
                 <Grid
                     container
                     spacing={2}
@@ -105,9 +105,9 @@ export default function Ad({ ad, auth }) {
                                     }}
                                     src={ad.image_url}
                                 />
-                                {promotedUntil && (
-                                    <Tooltip title={`Promovido até ${formatDate(
-                                        '2024-06-28'
+                                {(ad?.up_usage?.expires_at && dayjs(ad?.up_usage?.expires_at) > dayjs()) && (
+                                    <Tooltip title={`Promovido até ${formatDateTime(
+                                        ad?.up_usage?.expires_at
                                     )}`} arrow>
                                         <Chip
                                             sx={{
@@ -194,7 +194,7 @@ export default function Ad({ ad, auth }) {
                                                 color={"var(--success-color)"}
                                             />
                                         }
-                                        disabled={!ad.seller.phone || auth.user.seller.id === ad.seller.id || loading}
+                                        disabled={!ad.seller.phone || auth?.user?.seller?.id === ad.seller.id || loading}
                                         onClick={redirectToWhatsApp}
                                     >
                                         Inicie uma conversa via WhatsApp
@@ -210,7 +210,7 @@ export default function Ad({ ad, auth }) {
                                             />
                                         }
                                         onClick={redirectToChat}
-                                        disabled={auth.user.seller.id === ad.seller.id || loading}
+                                        disabled={auth?.user?.seller?.id === ad.seller.id || loading}
                                     >
                                         Inicie uma conversa via Chat
                                     </Button>

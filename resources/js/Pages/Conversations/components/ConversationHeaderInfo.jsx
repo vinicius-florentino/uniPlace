@@ -1,14 +1,9 @@
 import React from "react";
-import {
-    Box,
-    Typography,
-    Avatar,
-    Container,
-} from "@mui/material";
+import { Box, Typography, Avatar, Container } from "@mui/material";
 
 import stringAvatar from "@/Utils/stringAvatar";
 
-const ConversationHeaderInfo = ({conversation, auth}) => {
+const ConversationHeaderInfo = ({ conversation, auth }) => {
     return (
         <Box
             sx={{
@@ -23,7 +18,12 @@ const ConversationHeaderInfo = ({conversation, auth}) => {
         >
             <Container maxWidth="lg" disableGutters>
                 {auth.user.id === conversation?.user_id && (
-                    <Box sx={{ width: "100%" }} display="flex">
+                    <Box
+                        sx={{ width: "100%" }}
+                        display="flex"
+                        alignItems="center"
+                        gap="8px"
+                    >
                         <Avatar
                             {...stringAvatar(conversation?.seller?.name)}
                             alt={conversation?.seller?.name.toUpperCase()}
