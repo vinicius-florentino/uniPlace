@@ -6,6 +6,7 @@ use App\Http\Controllers\AdsController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlansController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\ConversationsController;
 
 use App\Http\Controllers\SellerDashboard\AdsController as SellerDashboardAdsController;
@@ -25,6 +26,7 @@ use Inertia\Inertia;
 
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/plans', [PlansController::class, 'index']);
+Route::get('/help', [HelpController::class, 'index']);
 Route::get('/ads', [AdsController::class, 'index']);
 
 Route::get('/ad/{id}', [AdController::class, 'show']);

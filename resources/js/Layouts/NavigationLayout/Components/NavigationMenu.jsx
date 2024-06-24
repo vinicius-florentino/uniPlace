@@ -27,8 +27,7 @@ export default function NavigationMenu({}) {
         },
         {
             label: "Ajuda",
-            to: "#",
-            disabled: true
+            to: "/help",
             // startIcon: <RemixIcon className="ri-question-line"/>,
         },
     ];
