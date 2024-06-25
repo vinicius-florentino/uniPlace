@@ -19,7 +19,7 @@ const ConversationHeaderInfo = ({ conversation, auth }) => {
             <Container maxWidth="lg" disableGutters>
                 {auth.user.id === conversation?.user_id && (
                     <Box
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", px: {xs: 2, lg: 0} }}
                         display="flex"
                         alignItems="center"
                         gap="8px"
@@ -33,7 +33,7 @@ const ConversationHeaderInfo = ({ conversation, auth }) => {
                 )}
                 {auth.user.id !== conversation?.user_id && (
                     <Box
-                        sx={{ width: "100%" }}
+                        sx={{ width: "100%", px: {xs: 2, lg: 0} }}
                         display="flex"
                         alignItems="center"
                         gap="8px"

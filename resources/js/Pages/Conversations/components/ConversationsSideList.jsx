@@ -6,6 +6,7 @@ import {
     IconButton,
     Tab,
     Tabs,
+    Alert,
 } from "@mui/material";
 
 import { router } from "@inertiajs/react";
@@ -19,7 +20,6 @@ const ConversationsSideList = ({
     conversationsWithUsers,
     conversationsWithSellers,
 }) => {
-
     const defaultTabContent = auth.user.seller ? "users" : "sellers";
     const [tabContent, setTabContent] = useState(defaultTabContent);
 
@@ -39,7 +39,7 @@ const ConversationsSideList = ({
             sx={{
                 backgroundColor: "var(--white-color)",
                 height: "100%",
-                minWidth: !isCollapsed ? { xs: "50vw", md: "30vw" } : "auto",
+                width: !isCollapsed ? { xs: "50vw", md: "30vw" } : "auto",
                 border: "var(--borders)",
                 borderTop: "none",
                 borderLeft: "none",
@@ -72,36 +72,59 @@ const ConversationsSideList = ({
                         indicatorColor="primary"
                         variant="fullWidth"
                     >
-                        <Tab value="sellers" label="Vendedores" />
+                        <Tab
+                            value="sellers"
+                            label={`Vendedores (${conversationsWithSellers?.length})`}
+                        />
                         <Tab
                             value="users"
-                            label="Usuários"
+                            label={`Usuários (${conversationsWithUsers?.length})`}
                             disabled={!auth.user.seller}
                         />
                     </Tabs>
-                    {tabContent === "sellers" && (
-                        <MenuList id="basic-menu" sx={{ py: 0 }}>
-                            {conversationsWithSellers?.map((item, index) => (
-                                <ConversationInfo
-                                    key={index}
-                                    id={item.id}
-                                    name={item.seller.name}
-                                    selected={conversation?.id === item.id}
-                                />
-                            ))}
-                        </MenuList>
-                    )}
-                    {tabContent === "users" && (
-                        <MenuList id="basic-menu" sx={{ py: 0 }}>
-                            {conversationsWithUsers?.map((item, index) => (
-                                <ConversationInfo
-                                    key={index}
-                                    id={item.id}
-                                    name={item.user.name}
-                                    selected={conversation?.id === item.id}
-                                />
-                            ))}
-                        </MenuList>
+                    {tabContent === "sellers" &&
+                        conversationsWithSellers?.length > 0 && (
+                            <MenuList id="basic-menu" sx={{ py: 0 }}>
+                                {conversationsWithSellers?.map(
+                                    (item, index) => (
+                                        <ConversationInfo
+                                            key={index}
+                                            id={item.id}
+                                            name={item.seller.name}
+                                            selected={
+                                                conversation?.id === item.id
+                                            }
+                                            lastConversationEvent={
+                                                item?.last_conversation_event
+                                            }
+                                        />
+                                    )
+                                )}
+                            </MenuList>
+                        )}
+                    {tabContent === "users" &&
+                        conversationsWithUsers?.length > 0 && (
+                            <MenuList id="basic-menu" sx={{ py: 0 }}>
+                                {conversationsWithUsers?.map((item, index) => (
+                                    <ConversationInfo
+                                        key={index}
+                                        id={item.id}
+                                        name={item.user.name}
+                                        selected={conversation?.id === item.id}
+                                        lastConversationEvent={
+                                            item?.last_conversation_event
+                                        }
+                                    />
+                                ))}
+                            </MenuList>
+                        )}
+                    {((tabContent === "users" &&
+                        conversationsWithUsers?.length === 0) ||
+                        (tabContent === "sellers" &&
+                            conversationsWithSellers?.length === 0)) && (
+                        <Alert severity="info">
+                            Nenhuma conversa encontrada
+                        </Alert>
                     )}
                 </>
             )}
@@ -138,6 +161,7 @@ const ConversationsSideList = ({
                         >
                             {conversationsWithUsers?.map((item, index) => (
                                 <IconButton
+                                    key={index}
                                     onClick={() =>
                                         router.visit(
                                             `/conversations/${item.id}`
@@ -145,7 +169,6 @@ const ConversationsSideList = ({
                                     }
                                 >
                                     <Avatar
-                                        key={index}
                                         {...stringAvatar(item.user.name)}
                                         alt={item.user.name.toUpperCase()}
                                     />

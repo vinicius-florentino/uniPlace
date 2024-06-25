@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ConversationsLayout from "@/Layouts/ConversationsLayout";
-import { Box, Grid, TextField, IconButton, Container } from "@mui/material";
+import { Box, Grid, TextField, IconButton, Container, Alert } from "@mui/material";
 
 import { Head, router } from "@inertiajs/react";
 import RemixIcon from "@/Components/RemixIcon";
@@ -78,6 +78,7 @@ export default function Conversations({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
+                    overflow: "hidden",
                 }}
             >
                 <ConversationsSideList
@@ -109,14 +110,17 @@ export default function Conversations({
                                 sx={{
                                     backgroundColor: "var(--white-color)",
                                     width: "100%",
+                                    border: "var(--borders)",
+                                    borderLeft: "none",
+                                    borderBottom: "none",
                                 }}
                             >
-                                <Container maxWidth="lg" disableGutters>
+                                <Container maxWidth="lg">
                                     <Grid container spacing={0}>
                                         <Grid
                                             item
                                             xs={12}
-                                            sx={{ py: 2 }}
+                                            sx={{ p: 2 }}
                                             display={"flex"}
                                             justifyContent={"space-between"}
                                             alignItems={"center"}
@@ -153,6 +157,7 @@ export default function Conversations({
                             </Box>
                         </>
                     )}
+                    {!conversation && <Alert severity="info">Nenhuma conversa selecionada</Alert>}
                 </Box>
             </Box>
         </ConversationsLayout>

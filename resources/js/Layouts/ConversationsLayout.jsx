@@ -22,9 +22,9 @@ export default function ConversationsLayout({
                     height: {
                         xs: "calc(99vh - 51px)",
                         sm: "calc(99vh - 60px)",
-                        md: "calc(99vh - 72px)",
+                        md: "calc(99vh - 66px)",
                     },
-                    width: "100vw"
+                    width: "100vw",
                 }}
             >
                 {disableContainer && <>{children}</>}
