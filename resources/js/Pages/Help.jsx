@@ -8,7 +8,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import RemixIcon from "@/Components/RemixIcon";
-import AccordionActions from "@mui/material/AccordionActions"
+
 export default function Help({ auth }) {
 
     const [expanded, setExpanded] = useState(false);
@@ -28,7 +28,6 @@ export default function Help({ auth }) {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    p: 3
                 }}
             >
                 <Box sx={{ my: 1, width: '100%' }}>

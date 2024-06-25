@@ -17,7 +17,7 @@ const ConversationMessages = ({auth, messages}) => {
                 flexGrow: 1,
             }}
         >
-            <Container maxWidth="lg" disableGutters>
+            <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ width: "100%" }}>
                     {messages?.map((message, index) => (
                         <Grid

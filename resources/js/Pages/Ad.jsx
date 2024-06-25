@@ -61,7 +61,7 @@ export default function Ad({ ad, auth }) {
                     width: "100%",
                 }}
             >
-                {ad?.seller?.id === auth?.seller?.id && (
+                {ad?.seller?.id === auth?.user?.seller?.id && (
                     <Box sx={{ width: "100%", mb: 2 }}>
                         <Alert severity="info">
                             Seu anúncio é visto assim por possíveis clientes

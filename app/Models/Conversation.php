@@ -20,4 +20,9 @@ class Conversation extends Model
     {
         return $this->belongsTo(Seller::class);
     }
+
+    public function lastConversationEvent()
+    {
+        return $this->hasOne(ConversationsEvent::class)->latest();
+    }
 }
