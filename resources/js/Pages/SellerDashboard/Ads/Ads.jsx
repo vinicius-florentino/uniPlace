@@ -23,8 +23,15 @@ import {
     Alert,
     Tooltip,
     Typography,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    ToggleButton,
+    ToggleButtonGroup,
+    TextField
 } from "@mui/material";
-
+import QrCodeMensal from "../../../Assets/qrcode-pix-plano-mensal.png";
 import ReenableAdDialog from "./components/ReenableAdDialog";
 import CreateAdDialog from "./components/CreateAdDialog";
 import EditAdDialog from "./components/EditAdDialog";
@@ -33,10 +40,35 @@ import DeleteAdDialog from "./components/DeleteAdDialog";
 import UpAdDialog from "./components/UpAdDialog";
 
 export default function Ads({ auth, ads }) {
-    
+
     const { user } = auth;
 
     const [openCreateAdDialog, setOpenCreateAdDialog] = useState(false);
+
+    const [openDialogBuyUp, setOpenDialogBuyUp] = useState(false);
+    const [copied, setCopied] = useState(false);
+    const [textTooltip, setTextTooltip] = useState("Copiar código");
+    const [paymentMethod, setPaymentMethod] = useState("Pix");
+    const [upPrice, setUpPrice] = useState(6.25);
+    const [quantity, setQuantity] = useState(1);
+    const [showQrCode, setShowQrCode] = useState(false);
+    const textCodigo = "00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8";
+
+    const adsAble = ads.filter((ad) => ad.enabled);
+    const adsUnable = ads.filter((ad) => !ad.enabled);
+
+
+    const handleOpenBuyUp = () => {
+        setOpenDialogBuyUp(true);
+        setPaymentMethod("Pix");
+    };
+
+    const handleCloseBuyUp = () => {
+        setOpenDialogBuyUp(false);
+        setPaymentMethod(null);
+        setCopied(false);
+        setTextTooltip("Copiar código");
+    };
 
     const handleOpenCreateAdDialog = () => {
         setOpenCreateAdDialog(true);
@@ -46,8 +78,30 @@ export default function Ads({ auth, ads }) {
         setOpenCreateAdDialog(false);
     };
 
-    const adsAble = ads.filter((ad) => ad.enabled);
-    const adsUnable = ads.filter((ad) => !ad.enabled);
+
+    const handleQuantityChange = (event) => {
+        let newQuantity = event.target.value;
+
+        if (newQuantity < 0 || !Number.isInteger(Number(newQuantity))) {
+            newQuantity = 1;
+        }
+        setQuantity(newQuantity);
+        setUpPrice(6.25 * newQuantity);
+    };
+
+    const handlePaymentMethod = (event, newPaymentMethod) => {
+        if (newPaymentMethod !== null) {
+            setPaymentMethod(newPaymentMethod);
+        }
+    };
+
+    const handleCopyToClipboard = () => {
+        navigator.clipboard.writeText(textCodigo).then(() => {
+            setCopied(true);
+            setTextTooltip("Código copiado");
+        });
+    };
+
 
     return (
         <NavigationLayout user={user}>
@@ -146,11 +200,135 @@ export default function Ads({ auth, ads }) {
                                                 md: "auto",
                                             },
                                         }}
-                                        onClick={() => console.log("a")}
+                                        onClick={() => handleOpenBuyUp()}
                                     >
                                         Adquirir UP's
                                     </Button>
                                 </Grid>
+                                <Dialog
+                                    open={openDialogBuyUp}
+                                    onClose={handleCloseBuyUp}
+                                >
+                                    <DialogTitle>Comprar UP'S ({formatPrice(upPrice)})</DialogTitle>
+                                    <IconButton
+                                        aria-label="close"
+                                        onClick={handleCloseBuyUp}
+                                        sx={{ position: "absolute", right: 16, top: 12 }}
+                                    >
+                                        <RemixIcon className="ri-close-line" />
+                                    </IconButton>
+                                    <DialogContent dividers>
+                                        <Box sx={{ width: "100%" }} noValidate>
+                                            <Grid container spacing={0} rowSpacing={2}>
+                                                <Grid item xs={12}>
+                                                    <ToggleButtonGroup
+                                                        value={paymentMethod}
+                                                        exclusive
+                                                        onChange={handlePaymentMethod}
+                                                        fullWidth
+                                                    >
+                                                        <ToggleButton
+                                                            value="Pix"
+                                                            aria-label="Pix"
+                                                        >
+                                                            Pix
+                                                        </ToggleButton>
+                                                        <ToggleButton
+                                                            value="Cartao"
+                                                            aria-label="Cartão"
+                                                            disabled
+                                                        >
+                                                            Cartão
+                                                        </ToggleButton>
+                                                    </ToggleButtonGroup>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField
+                                                        variant="outlined"
+                                                        id="quantity"
+                                                        type="number"
+                                                        name="quantity"
+                                                        label="Quantidade"
+                                                        value={quantity}
+                                                        onChange={handleQuantityChange}
+                                                        fullWidth
+                                                        inputProps={{ min: 1, step: 1 }}
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        display: 'flex',
+                                                    }}
+                                                    justifyContent="center"
+                                                >
+                                                    <Button
+                                                        variant="contained"
+                                                        disableElevation
+                                                        onClick={() => setShowQrCode(true)}
+                                                        disabled={quantity < 1}
+                                                    >
+                                                        Gerar QR Code
+                                                    </Button>
+                                                </Grid> 
+                                                {paymentMethod === "Pix" && showQrCode && (
+                                                    <>
+                                                        <Grid item xs={12}>
+                                                            <Image
+                                                                src={QrCodeMensal}
+                                                                alt={`QR Code for Up`}
+                                                                style={{
+                                                                    objectFit: "contain",
+                                                                    width: "100%",
+                                                                    height: "300px",
+                                                                }}
+                                                            />
+                                                        </Grid>
+                                                        <Grid
+                                                            item
+                                                            xs={12}
+                                                            display="flex"
+                                                            gap="8px"
+                                                        >
+                                                            <Tooltip title={textTooltip}>
+                                                                <IconButton
+                                                                    onClick={handleCopyToClipboard}
+                                                                >
+                                                                    <RemixIcon
+                                                                        className={
+                                                                            copied
+                                                                                ? "ri-file-copy-fill"
+                                                                                : "ri-file-copy-line"
+                                                                        }
+                                                                    />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <TextField
+                                                                variant="outlined"
+                                                                type="text"
+                                                                label="Código copia e cola"
+                                                                value={textCodigo}
+                                                                fullWidth
+                                                                InputProps={{
+                                                                    readOnly: true,
+                                                                }}
+                                                            />
+                                                        </Grid>
+                                                    </>
+                                                )}
+                                            </Grid>
+                                        </Box>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button
+                                            variant="containedLight"
+                                            disableElevation
+                                            onClick={handleCloseBuyUp}
+                                        >
+                                            Cancelar
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </Grid>
                         </PageBox>
                     </Grid>
@@ -213,9 +391,9 @@ export default function Ads({ auth, ads }) {
                                                                 key={index}
                                                                 sx={{
                                                                     "&:last-child td, &:last-child th":
-                                                                        {
-                                                                            border: 0,
-                                                                        },
+                                                                    {
+                                                                        border: 0,
+                                                                    },
                                                                 }}
                                                             >
                                                                 <TableCell
@@ -265,7 +443,7 @@ export default function Ads({ auth, ads }) {
                                                                         ad.created_at
                                                                     )}
                                                                 </TableCell>
-                                                                <TableCell align="left" sx={{color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : ""}}>
+                                                                <TableCell align="left" sx={{ color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : "" }}>
                                                                     {formatDate(
                                                                         ad?.up_usage?.expires_at
                                                                     )}
@@ -325,12 +503,12 @@ export default function Ads({ auth, ads }) {
                                                                         categoryId={
                                                                             ad?.category_id
                                                                         }
-                                                                        availableCount={
-                                                                            user
-                                                                                .seller
-                                                                                .up
-                                                                                .available_count
-                                                                        }
+                                                                    availableCount={
+                                                                        user
+                                                                            .seller
+                                                                            .up
+                                                                            .available_count
+                                                                    }
                                                                     />
                                                                     {ad.enabled && (
                                                                         <DisableAdDialog
@@ -467,9 +645,9 @@ export default function Ads({ auth, ads }) {
                                                                 key={index}
                                                                 sx={{
                                                                     "&:last-child td, &:last-child th":
-                                                                        {
-                                                                            border: 0,
-                                                                        },
+                                                                    {
+                                                                        border: 0,
+                                                                    },
                                                                 }}
                                                             >
                                                                 <TableCell
@@ -519,7 +697,7 @@ export default function Ads({ auth, ads }) {
                                                                         ad.created_at
                                                                     )}
                                                                 </TableCell>
-                                                                <TableCell align="left" sx={{color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : ""}}>
+                                                                <TableCell align="left" sx={{ color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : "" }}>
                                                                     {formatDate(
                                                                         ad?.up_usage?.expires_at
                                                                     )}
