@@ -74,6 +74,7 @@ export const Settings = ({ auth }) => {
                                     gap: "8px",
                                 }}
                             >
+                                {/* <RemixIcon className="ri-user-2-line" /> */}
                                 <AvatarWithName
                                     name={user.name}
                                     profileLink={`/user/${user.id}`}
@@ -119,11 +120,11 @@ export const Settings = ({ auth }) => {
                                 <MenuItem disabled>
                                     <ListItemText>Sobre</ListItemText>
                                 </MenuItem>
-                                <MenuItem disabled>
+                                <MenuItem>
                                     <ListItemIcon>
                                         <RemixIcon className="ri-article-line" />
                                     </ListItemIcon>
-                                    <ListItemText>
+                                    <ListItemText onClick={()=> router.visit('/privacy-terms')}>
                                         Termos de privacidade
                                     </ListItemText>
                                 </MenuItem>
