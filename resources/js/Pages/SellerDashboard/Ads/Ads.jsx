@@ -67,6 +67,7 @@ export default function Ads({ auth, ads }) {
         setOpenDialogBuyUp(false);
         setPaymentMethod(null);
         setCopied(false);
+        setShowQrCode(false);
         setTextTooltip("Copiar código");
     };
 
@@ -205,131 +206,127 @@ export default function Ads({ auth, ads }) {
                                         Adquirir UP's
                                     </Button>
                                 </Grid>
-                                <Dialog
-                                    open={openDialogBuyUp}
-                                    onClose={handleCloseBuyUp}
-                                >
-                                    <DialogTitle>Comprar UP'S ({formatPrice(upPrice)})</DialogTitle>
-                                    <IconButton
-                                        aria-label="close"
-                                        onClick={handleCloseBuyUp}
-                                        sx={{ position: "absolute", right: 16, top: 12 }}
+                                {openDialogBuyUp &&
+                                    <Dialog
+                                        open={openDialogBuyUp}
+                                        onClose={handleCloseBuyUp}
                                     >
-                                        <RemixIcon className="ri-close-line" />
-                                    </IconButton>
-                                    <DialogContent dividers>
-                                        <Box sx={{ width: "100%" }} noValidate>
-                                            <Grid container spacing={0} rowSpacing={2}>
-                                                <Grid item xs={12}>
-                                                    <ToggleButtonGroup
-                                                        value={paymentMethod}
-                                                        exclusive
-                                                        onChange={handlePaymentMethod}
-                                                        fullWidth
-                                                    >
-                                                        <ToggleButton
-                                                            value="Pix"
-                                                            aria-label="Pix"
-                                                        >
-                                                            Pix
-                                                        </ToggleButton>
-                                                        <ToggleButton
-                                                            value="Cartao"
-                                                            aria-label="Cartão"
-                                                            disabled
-                                                        >
-                                                            Cartão
-                                                        </ToggleButton>
-                                                    </ToggleButtonGroup>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField
-                                                        variant="outlined"
-                                                        id="quantity"
-                                                        type="number"
-                                                        name="quantity"
-                                                        label="Quantidade"
-                                                        value={quantity}
-                                                        onChange={handleQuantityChange}
-                                                        fullWidth
-                                                        inputProps={{ min: 1, step: 1 }}
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={6}
-                                                    sx={{
-                                                        alignItems: 'center',
-                                                        display: 'flex',
-                                                    }}
-                                                    justifyContent="center"
-                                                >
-                                                    <Button
-                                                        variant="contained"
-                                                        disableElevation
-                                                        onClick={() => setShowQrCode(true)}
-                                                        disabled={quantity < 1}
-                                                    >
-                                                        {paymentMethod === 'Pix' && ('Gerar QR Code')}
-                                                        {paymentMethod === 'Cartao' && ('Realizar compra')}
-                                                    </Button>
-                                                </Grid>
-                                                {paymentMethod === "Pix" && showQrCode && (
-                                                    <>
-                                                        <Grid item xs={12}>
-                                                            <Image
-                                                                src={QrCodeMensal}
-                                                                alt={`QR Code for Up`}
-                                                                style={{
-                                                                    objectFit: "contain",
-                                                                    width: "100%",
-                                                                    height: "300px",
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                        <Grid
-                                                            item
-                                                            xs={12}
-                                                            display="flex"
-                                                            gap="8px"
-                                                        >
-                                                            <Tooltip title={textTooltip}>
-                                                                <IconButton
-                                                                    onClick={handleCopyToClipboard}
-                                                                >
-                                                                    <RemixIcon
-                                                                        className={
-                                                                            copied
-                                                                                ? "ri-file-copy-fill"
-                                                                                : "ri-file-copy-line"
-                                                                        }
-                                                                    />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                            <TextField
-                                                                variant="outlined"
-                                                                type="text"
-                                                                label="Código copia e cola"
-                                                                value={textCodigo}
-                                                                fullWidth
-                                                                InputProps={{
-                                                                    readOnly: true,
-                                                                }}
-                                                            />
-                                                        </Grid>
-                                                    </>
-                                                )}
-                                            </Grid>
-                                        </Box>
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button
-                                            variant="containedLight"
-                                            disableElevation
+                                        <DialogTitle>Comprar UP'S ({formatPrice(upPrice)})</DialogTitle>
+                                        <IconButton
+                                            aria-label="close"
                                             onClick={handleCloseBuyUp}
+                                            sx={{ position: "absolute", right: 16, top: 12 }}
                                         >
-                                            Cancelar
-                                        </Button>
-                                    </DialogActions>
-                                </Dialog>
+                                            <RemixIcon className="ri-close-line" />
+                                        </IconButton>
+                                        <DialogContent dividers>
+                                            <Box sx={{ width: "100%" }} noValidate>
+                                                <Grid container spacing={0} rowSpacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <ToggleButtonGroup
+                                                            value={paymentMethod}
+                                                            exclusive
+                                                            onChange={handlePaymentMethod}
+                                                            fullWidth
+                                                        >
+                                                            <ToggleButton
+                                                                value="Pix"
+                                                                aria-label="Pix"
+                                                            >
+                                                                Pix
+                                                            </ToggleButton>
+                                                            <ToggleButton
+                                                                value="Cartao"
+                                                                aria-label="Cartão"
+                                                                disabled
+                                                            >
+                                                                Cartão
+                                                            </ToggleButton>
+                                                        </ToggleButtonGroup>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField
+                                                            variant="outlined"
+                                                            id="quantity"
+                                                            type="number"
+                                                            name="quantity"
+                                                            label="Quantidade"
+                                                            value={quantity}
+                                                            onChange={handleQuantityChange}
+                                                            fullWidth
+                                                            inputProps={{ min: 1, step: 1 }}
+                                                        />
+                                                    </Grid>
+                                                    {paymentMethod === "Pix" && showQrCode && (
+                                                        <>
+                                                            <Grid item xs={12}>
+                                                                <Image
+                                                                    src={QrCodeMensal}
+                                                                    alt={`QR Code for Up`}
+                                                                    style={{
+                                                                        objectFit: "contain",
+                                                                        width: "100%",
+                                                                        height: "300px",
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                            <Grid
+                                                                item
+                                                                xs={12}
+                                                                display="flex"
+                                                                gap="8px"
+                                                            >
+                                                                <Tooltip title={textTooltip}>
+                                                                    <IconButton
+                                                                        onClick={handleCopyToClipboard}
+                                                                    >
+                                                                        <RemixIcon
+                                                                            className={
+                                                                                copied
+                                                                                    ? "ri-file-copy-fill"
+                                                                                    : "ri-file-copy-line"
+                                                                            }
+                                                                        />
+                                                                    </IconButton>
+                                                                </Tooltip>
+                                                                <TextField
+                                                                    variant="outlined"
+                                                                    type="text"
+                                                                    label="Código copia e cola"
+                                                                    value={textCodigo}
+                                                                    fullWidth
+                                                                    InputProps={{
+                                                                        readOnly: true,
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                        </>
+                                                    )}
+                                                </Grid>
+                                            </Box>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button
+                                                variant="containedLight"
+                                                disableElevation
+                                                onClick={handleCloseBuyUp}
+                                            >
+                                                Cancelar
+                                            </Button>
+                                            {!showQrCode &&
+                                                <Button Button
+                                                    variant="contained"
+                                                    disableElevation
+                                                    onClick={() => setShowQrCode(true)}
+                                                    disabled={quantity < 1}
+                                                >
+                                                    {paymentMethod === 'Pix' && ('Gerar QR Code')}
+                                                    {paymentMethod === 'Cartao' && ('Realizar compra')}
+                                                </Button>
+                                            }
+                                        </DialogActions>
+                                    </Dialog>
+                                }
                             </Grid>
                         </PageBox>
                     </Grid>
@@ -816,7 +813,7 @@ export default function Ads({ auth, ads }) {
                         </PageBox>
                     </Grid>
                 </Grid>
-            </Box>
-        </NavigationLayout>
+            </Box >
+        </NavigationLayout >
     );
 }

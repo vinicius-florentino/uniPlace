@@ -157,101 +157,103 @@ function OfferCard({ name, description, price, benefits, processing }) {
                         Assinar
                     </Button>
                 </Box>
-                <Dialog
-                    open={openDialog}
-                    onClose={handleCloseDialogs}
-                >
-                    <DialogTitle>Assinar plano {name} ({formatPrice(price)})</DialogTitle>
-                    <IconButton
-                        aria-label="close"
-                        onClick={handleCloseDialogs}
-                        sx={{ position: "absolute", right: 16, top: 12 }}
+                {openDialog &&
+                    <Dialog
+                        open={openDialog}
+                        onClose={handleCloseDialogs}
                     >
-                        <RemixIcon className="ri-close-line" />
-                    </IconButton>
-                    <DialogContent dividers>
-                        <Box sx={{ width: "100%" }} noValidate>
-                            <Grid container spacing={0} rowSpacing={2}>
-                                <Grid item xs={12}>
-                                    <ToggleButtonGroup
-                                        value={paymentMethod}
-                                        exclusive
-                                        onChange={handlePaymentMethod}
-                                        fullWidth
-                                    >
-                                        <ToggleButton
-                                            value="Pix"
-                                            aria-label="Pix"
-                                        >
-                                            Pix
-                                        </ToggleButton>
-                                        <ToggleButton
-                                            value="Cartao"
-                                            aria-label="Cartão"
-                                            disabled
-                                        >
-                                            Cartão
-                                        </ToggleButton>
-                                    </ToggleButtonGroup>
-                                </Grid>
-                                {paymentMethod === "Pix" && (
-                                    <>
-                                        <Grid item xs={12}>
-                                            <Image
-                                                src={
-                                                    name === "Mensal"
-                                                        ? QrCodeMensal
-                                                        : QrCodeSemestral
-                                                }
-                                                alt={`QR Code for ${name} plan`}
-                                                style={{
-                                                    objectFit: "contain",
-                                                    width: "100%",
-                                                    height: "300px",
-                                                }}
-                                            />
-                                        </Grid>
-                                        <Grid
-                                            item
-                                            xs={12}
-                                            display="flex"
-                                            gap="8px"
-                                        >
-                                            <IconButton
-                                                onClick={handleCopyToClipboard}
-                                            >
-                                                <RemixIcon
-                                                    className={
-                                                        copied
-                                                            ? "ri-file-copy-fill"
-                                                            : "ri-file-copy-line"
-                                                    }
-                                                />
-                                            </IconButton>
-                                            <TextField
-                                                variant="outlined"
-                                                type="text"
-                                                label="Código copia e cola"
-                                                value={textCodigoMensal}
-                                                fullWidth
-                                                aria-readonly
-                                            />
-                                        </Grid>
-                                    </>
-                                )}
-                            </Grid>
-                        </Box>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            variant="containedLight"
-                            disableElevation
+                        <DialogTitle>Assinar plano {name} ({formatPrice(price)})</DialogTitle>
+                        <IconButton
+                            aria-label="close"
                             onClick={handleCloseDialogs}
+                            sx={{ position: "absolute", right: 16, top: 12 }}
                         >
-                            Cancelar
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                            <RemixIcon className="ri-close-line" />
+                        </IconButton>
+                        <DialogContent dividers>
+                            <Box sx={{ width: "100%" }} noValidate>
+                                <Grid container spacing={0} rowSpacing={2}>
+                                    <Grid item xs={12}>
+                                        <ToggleButtonGroup
+                                            value={paymentMethod}
+                                            exclusive
+                                            onChange={handlePaymentMethod}
+                                            fullWidth
+                                        >
+                                            <ToggleButton
+                                                value="Pix"
+                                                aria-label="Pix"
+                                            >
+                                                Pix
+                                            </ToggleButton>
+                                            <ToggleButton
+                                                value="Cartao"
+                                                aria-label="Cartão"
+                                                disabled
+                                            >
+                                                Cartão
+                                            </ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </Grid>
+                                    {paymentMethod === "Pix" && (
+                                        <>
+                                            <Grid item xs={12}>
+                                                <Image
+                                                    src={
+                                                        name === "Mensal"
+                                                            ? QrCodeMensal
+                                                            : QrCodeSemestral
+                                                    }
+                                                    alt={`QR Code for ${name} plan`}
+                                                    style={{
+                                                        objectFit: "contain",
+                                                        width: "100%",
+                                                        height: "300px",
+                                                    }}
+                                                />
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                xs={12}
+                                                display="flex"
+                                                gap="8px"
+                                            >
+                                                <IconButton
+                                                    onClick={handleCopyToClipboard}
+                                                >
+                                                    <RemixIcon
+                                                        className={
+                                                            copied
+                                                                ? "ri-file-copy-fill"
+                                                                : "ri-file-copy-line"
+                                                        }
+                                                    />
+                                                </IconButton>
+                                                <TextField
+                                                    variant="outlined"
+                                                    type="text"
+                                                    label="Código copia e cola"
+                                                    value={textCodigoMensal}
+                                                    fullWidth
+                                                    aria-readonly
+                                                />
+                                            </Grid>
+                                        </>
+                                    )}
+                                </Grid>
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                variant="containedLight"
+                                disableElevation
+                                onClick={handleCloseDialogs}
+                            >
+                                Cancelar
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                }
                 <Box
                     noValidate
                     sx={{
