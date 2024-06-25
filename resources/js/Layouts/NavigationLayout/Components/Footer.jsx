@@ -27,12 +27,12 @@ export default function Footer() {
         },
         {
             label: "Conselhos para Anúncios Eficazes",
-            to: "/dicas-anuncio",
+            to: "/",
             disabled: false,
         },
         {
             label: "Evitando Fraudes no WhatsApp",
-            to: "/golpes-whatsapp",
+            to: "/",
             disabled: false,
         },
     ];
@@ -40,22 +40,21 @@ export default function Footer() {
     const usefulLinks = [
         {
             label: "Ajuda Rápida",
-            to: "/ajuda-rapida",
+            to: "/",
             disabled: false,
         },
         {
             label: "Privacidade e Segurança",
-            to: "/privacidade-seguranca",
+            to: "/",
             disabled: false,
         },
         {
             label: "Tutorial de como fazer seus Anúncios",
-            to: "/tutorial-anuncios",
-            disabled: false,
+            to: "/privacy-terms",
         },
         {
-            label: "Proteção contra Golpes",
-            to: "/protecao-golpes",
+            label: "Termos de Privacidade",
+            to: "/",
             disabled: false,
         },
     ];
@@ -63,22 +62,22 @@ export default function Footer() {
     const mainCategories = [
         {
             label: "Suporte ao Cliente",
-            to: "/suporte",
+            to: "/",
             disabled: false,
         },
         {
             label: "Iniciar um Anúncio",
-            to: "/iniciar-anuncio",
+            to: "/",
             disabled: false,
         },
         {
             label: "Dicas de Marketing",
-            to: "/dicas-marketing",
+            to: "/",
             disabled: false,
         },
         {
             label: "Alerta de Golpes",
-            to: "/alerta-golpes",
+            to: "/",
             disabled: false,
         },
     ];

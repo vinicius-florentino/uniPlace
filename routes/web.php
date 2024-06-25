@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlansController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\ConversationsController;
+use App\Http\Controllers\PrivacyTermsController;
 
 use App\Http\Controllers\SellerDashboard\AdsController as SellerDashboardAdsController;
 
@@ -60,6 +61,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/settings/seller', [SettingsSellerController::class, 'update']);
     Route::delete('/settings/seller', [SettingsSellerController::class, 'destroy']);
 });
+
+Route::get('/privacy-terms', [PrivacyTermsController::class, 'index']);
 
 Route::get('/invalid-subscription', function () {
     return Inertia::render('Auth/InvalidSubscription');
