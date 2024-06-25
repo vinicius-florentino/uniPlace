@@ -268,9 +268,10 @@ export default function Ads({ auth, ads }) {
                                                         onClick={() => setShowQrCode(true)}
                                                         disabled={quantity < 1}
                                                     >
-                                                        Gerar QR Code
+                                                        {paymentMethod === 'Pix' && ('Gerar QR Code')}
+                                                        {paymentMethod === 'Cartao' && ('Realizar compra')}
                                                     </Button>
-                                                </Grid> 
+                                                </Grid>
                                                 {paymentMethod === "Pix" && showQrCode && (
                                                     <>
                                                         <Grid item xs={12}>
@@ -503,12 +504,12 @@ export default function Ads({ auth, ads }) {
                                                                         categoryId={
                                                                             ad?.category_id
                                                                         }
-                                                                    availableCount={
-                                                                        user
-                                                                            .seller
-                                                                            .up
-                                                                            .available_count
-                                                                    }
+                                                                        availableCount={
+                                                                            user
+                                                                                .seller
+                                                                                .up
+                                                                                .available_count
+                                                                        }
                                                                     />
                                                                     {ad.enabled && (
                                                                         <DisableAdDialog
