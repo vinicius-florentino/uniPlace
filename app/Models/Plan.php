@@ -9,7 +9,7 @@ class Plan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'buy_link', 'price', 'duration'];
+    protected $fillable = ['name', 'description', 'buy_link', 'price', 'duration', 'max_ads'];
 
     protected $casts = [
         'benefits' => 'json',
