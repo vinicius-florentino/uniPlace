@@ -120,11 +120,11 @@ export const Settings = ({ auth }) => {
                                 <MenuItem disabled>
                                     <ListItemText>Sobre</ListItemText>
                                 </MenuItem>
-                                <MenuItem>
+                                <MenuItem onClick={()=> router.visit('/privacy-terms')}>
                                     <ListItemIcon>
                                         <RemixIcon className="ri-article-line" />
                                     </ListItemIcon>
-                                    <ListItemText onClick={()=> router.visit('/privacy-terms')}>
+                                    <ListItemText>
                                         Termos de privacidade
                                     </ListItemText>
                                 </MenuItem>
