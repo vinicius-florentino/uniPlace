@@ -7,7 +7,7 @@ import Container from "@mui/material/Container";
 
 export default function Guest({ children }) {
     return (
-        <Container maxWidth="xs" disableGutters>
+        <Container maxWidth="xs">
             <Box
                 sx={{
                     width: "100%",
