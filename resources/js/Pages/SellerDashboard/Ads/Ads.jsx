@@ -136,7 +136,7 @@ export default function Ads({ auth, ads }) {
                                         }}
                                     >
                                         <RemixIcon className="ri-price-tag-3-line" />
-                                        Quantidade de anúncios criados: {ads.length} de {user.seller.plan.max_ads}
+                                        Quantidade de anúncios criados: {ads.length} de {user?.seller?.plan?.max_ads}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
