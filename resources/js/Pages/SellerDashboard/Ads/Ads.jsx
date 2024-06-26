@@ -314,7 +314,7 @@ export default function Ads({ auth, ads }) {
                                                 Cancelar
                                             </Button>
                                             {!showQrCode &&
-                                                <Button Button
+                                                <Button
                                                     variant="contained"
                                                     disableElevation
                                                     onClick={() => setShowQrCode(true)}
