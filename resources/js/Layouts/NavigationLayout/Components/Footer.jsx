@@ -12,72 +12,26 @@ import {
 import { router } from "@inertiajs/react";
 
 export default function Footer() {
-
     const [tabContent, setTabContent] = useState(0);
 
     const handleTabChange = (event, newValue) => {
         setTabContent(newValue);
     };
 
-    const mostSearched = [
-        {
-            label: "Anúncios com UP",
-            to: "/",
-            disabled: false,
-        },
-        {
-            label: "Conselhos para Anúncios Eficazes",
-            to: "/",
-            disabled: false,
-        },
-        {
-            label: "Evitando Fraudes no WhatsApp",
-            to: "/",
-            disabled: false,
-        },
-    ];
-
     const usefulLinks = [
         {
-            label: "Ajuda Rápida",
-            to: "/",
+            label: "Planos",
+            to: "/plans",
             disabled: false,
         },
         {
-            label: "Privacidade e Segurança",
-            to: "/",
+            label: "Ajuda",
+            to: "/help",
             disabled: false,
         },
         {
-            label: "Tutorial de como fazer seus Anúncios",
+            label: "Termos de privacidade",
             to: "/privacy-terms",
-        },
-        {
-            label: "Termos de Privacidade",
-            to: "/",
-            disabled: false,
-        },
-    ];
-
-    const mainCategories = [
-        {
-            label: "Suporte ao Cliente",
-            to: "/",
-            disabled: false,
-        },
-        {
-            label: "Iniciar um Anúncio",
-            to: "/",
-            disabled: false,
-        },
-        {
-            label: "Dicas de Marketing",
-            to: "/",
-            disabled: false,
-        },
-        {
-            label: "Alerta de Golpes",
-            to: "/",
             disabled: false,
         },
     ];
@@ -99,9 +53,7 @@ export default function Footer() {
                                 aria-label="basic tabs example"
                                 sx={{ borderBottom: 1, borderColor: "divider" }}
                             >
-                                <Tab label="Pesquisas populares" />
                                 <Tab label="Links úteis" />
-                                <Tab label="Categorias principais" />
                             </Tabs>
                         </Grid>
 
@@ -120,41 +72,13 @@ export default function Footer() {
                                                 "var(--white-color)",
                                         }}
                                     >
-                                        {mostSearched.map((ms, index) => (
-                                            <MenuItem
-                                                key={index}
-                                                onClick={ () => router.visit(ms.to)}
-                                                disabled={ms.disabled}
-                                                sx={{
-                                                    color: "var(--dark-color)",
-                                                    fontSize: 14,
-                                                }}
-                                            >
-                                                {ms.label}
-                                            </MenuItem>
-                                        ))}
-                                    </List>
-                                </Box>
-                            )}
-                            {tabContent === 1 && (
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        justifyContent: "start",
-                                    }}
-                                >
-                                    <List
-                                        sx={{
-                                            width: "100%",
-                                            backgroundColor:
-                                                "var(--white-color)",
-                                        }}
-                                    >
                                         {usefulLinks.map((ul, index) => (
                                             <MenuItem
                                                 variant="text"
                                                 key={index}
-                                                onClick={ () => router.visit(ul.to)}
+                                                onClick={() =>
+                                                    router.visit(ul.to)
+                                                }
                                                 disabled={ul.disabled}
                                                 sx={{
                                                     color: "var(--dark-color)",
@@ -162,37 +86,6 @@ export default function Footer() {
                                                 }}
                                             >
                                                 {ul.label}
-                                            </MenuItem>
-                                        ))}
-                                    </List>
-                                </Box>
-                            )}
-                            {tabContent === 2 && (
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        justifyContent: "start",
-                                    }}
-                                >
-                                    <List
-                                        sx={{
-                                            width: "100%",
-                                            backgroundColor:
-                                                "var(--white-color)",
-                                        }}
-                                    >
-                                        {mainCategories.map((mc, index) => (
-                                            <MenuItem
-                                                variant="text"
-                                                key={index}
-                                                onClick={ () => router.visit(mc.to)}
-                                                disabled={mc.disabled}
-                                                sx={{
-                                                    color: "var(--dark-color)",
-                                                    fontSize: 14,
-                                                }}
-                                            >
-                                                {mc.label}
                                             </MenuItem>
                                         ))}
                                     </List>
