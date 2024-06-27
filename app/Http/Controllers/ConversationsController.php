@@ -43,12 +43,7 @@ class ConversationsController extends Controller
         })
             ->first();
 
-        $conversationEvents = ConversationsEvent::where('conversation_id', $id)
-            ->where(function ($query) use ($userId) {
-                $query->where('sender_id', $userId)
-                    ->orWhere('recipient_id', $userId);
-            })
-            ->get();
+        $conversationEvents = ConversationsEvent::where('conversation_id', $conversation->id)->get();
 
         $conversationsWithUsers = Conversation::where('seller_id', $sellerId)->with(['user', 'lastConversationEvent'])->get();
         $conversationsWithSellers = Conversation::where('user_id', $userId)->with(['seller', 'lastConversationEvent'])->get();
@@ -65,27 +60,13 @@ class ConversationsController extends Controller
     {
         $user = $request->user();
         $userId = $user->id;
-        $sellerId = $user->seller?->id;
 
         $message = $request->message;
         $conversationId = $request->conversation_id;
 
-        $conversation = Conversation::find($conversationId)->where(function ($query) use ($userId, $sellerId) {
-            $query->where('user_id', $userId)
-                ->orWhere('seller_id', $sellerId);
-        })
-            ->first();
-
-        if ($userId == $conversation->user_id) {
-            $recipientId = $conversation->seller->user->id;
-        } else {
-            $recipientId = $conversation->user_id;
-        }
-
         $conversationEvent = ConversationsEvent::create([
             'message' => $message,
             'sender_id' => $userId,
-            'recipient_id' => $recipientId,
             'conversation_id' => $conversationId,
         ]);
 
@@ -106,7 +87,6 @@ class ConversationsController extends Controller
 
         $seller = Seller::findOrFail($id);
         $sellerId = $seller->id;
-        $sellerUserId = $seller->user->id;
 
         $conversation = Conversation::firstOrCreate(
             ['seller_id' => $sellerId, 'user_id' => $userId]
@@ -122,7 +102,6 @@ class ConversationsController extends Controller
             $conversationEvent = ConversationsEvent::create([
                 'message' => "Olá, iniciei uma conversa sobre o anúncio: " . $adTitle,
                 'sender_id' => $userId,
-                'recipient_id' => $sellerUserId,
                 'conversation_id' => $conversationId,
             ]);
 

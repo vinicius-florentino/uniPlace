@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import SearchField from "@/Layouts/NavigationLayout/Components/SearchField";
-import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
+import PageBoxInherit from "@/Components/pagebox/PageBoxInherit";
 
 import { Head, useForm } from "@inertiajs/react";
 import { Box, Paper, Container, Alert } from "@mui/material";
@@ -126,7 +126,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
 
             <Box sx={{ backgroundColor: "var(--white-color)", py: 4 }}>
                 <Container maxWidth="lg">
-                    <PageBoxInheritSection
+                    <PageBoxInherit
                         title="Promovidos"
                         subTitle="Anúncios promovidos por vendedores"
                     >
@@ -176,13 +176,13 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                 </Alert>
                             )}
                         </Swiper>
-                    </PageBoxInheritSection>
+                    </PageBoxInherit>
                 </Container>
             </Box>
 
             <Box sx={{ py: 4 }}>
                 <Container maxWidth="lg">
-                    <PageBoxInheritSection
+                    <PageBoxInherit
                         title="Mais recentes"
                         subTitle="Anúncios feitos recentemente por vendedores"
                     >
@@ -232,7 +232,7 @@ export default function Dashboard({ auth, recentAds, promotedAds }) {
                                 </Alert>
                             )}
                         </Swiper>
-                    </PageBoxInheritSection>
+                    </PageBoxInherit>
                 </Container>
             </Box>
         </DashboardLayout>

@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import RemixIcon from "@/Components/RemixIcon";
 import AdCard from "@/Components/cards/AdCard";
-import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
+import PageBoxInherit from "@/Components/pagebox/PageBoxInherit";
 import stringAvatar from "@/Utils/stringAvatar";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -191,7 +191,7 @@ export default function Seller({ seller, auth }) {
                         </PageBox>
                     </Grid>
                     <Grid item xs={12}>
-                        <PageBoxInheritSection
+                        <PageBoxInherit
                             title={`Anúncios de ${seller.name}`}
                             subTitle={"Todos os anúncios feitos pelo vendedor"}
                         >
@@ -241,7 +241,7 @@ export default function Seller({ seller, auth }) {
                                     </Alert>
                                 )}
                             </Swiper>
-                        </PageBoxInheritSection>
+                        </PageBoxInherit>
                     </Grid>
                 </Grid>
             </Box>

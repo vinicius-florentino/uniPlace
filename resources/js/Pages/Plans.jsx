@@ -5,14 +5,19 @@ import Stack from "@mui/material/Stack";
 import OfferCard from "@/Components/cards/OfferCard";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 
-import PageBoxInheritSection from "@/Components/pagebox/PageBoxInheritSection";
+import PageBoxInherit from "@/Components/pagebox/PageBoxInherit";
+import RemixIcon from "@/Components/RemixIcon";
 
 export default function Plans({ auth, plans }) {
     return (
-        <NavigationLayout user={auth.user}>
+        <NavigationLayout user={auth.user} disablePadding>
             <Head title="Planos" />
             <Box noValidate sx={{ width: "100%" }}>
-                <PageBoxInheritSection>
+                <PageBoxInherit
+                    title="Planos"
+                    subTitle="Aqui você encontra nossos planos para vendedores"
+                    prependTitleIcon={<RemixIcon className="ri-award-line"/>}
+                >
                     <Stack
                         direction="row"
                         spacing={5}
@@ -33,7 +38,7 @@ export default function Plans({ auth, plans }) {
                             />
                         ))}
                     </Stack>
-                </PageBoxInheritSection>
+                </PageBoxInherit>
             </Box>
         </NavigationLayout>
     );
