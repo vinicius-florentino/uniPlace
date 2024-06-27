@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password',
         'is_student',
         'university_id',
-        'plan_id'
+        'plan_id',
+        'email_verified_at'
     ];
 
     /**

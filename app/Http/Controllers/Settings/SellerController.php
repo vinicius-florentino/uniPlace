@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\Rule;
 use App\Models\Seller;
+use App\Models\Up;
+use App\Models\Plan;
 
 class SellerController extends Controller
 {
@@ -26,7 +28,7 @@ class SellerController extends Controller
         $userId = $user->id;
 
         if ($request->filled('phone')) {
-            $request->merge(['phone' => str_replace([' ', '+', '-'], '', $request->phone)]);
+            $request->merge(['phone' => preg_replace('/\D/', '', $request->phone)]);
         }
 
         $request->validate([
@@ -38,10 +40,16 @@ class SellerController extends Controller
             ]
         ]);
 
-        Seller::create([
+        $seller = Seller::create([
             'user_id' => $userId,
             'name' => $request->name,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'plan_id' => Plan::where('name', 'Aluno')->first()->id
+        ]);
+
+        Up::create([
+            'seller_id' => $seller->id,
+            'available_count' => 10
         ]);
 
         return back();
@@ -53,7 +61,7 @@ class SellerController extends Controller
         $userId = $user->id;
         
         if ($request->filled('phone')) {
-            $request->merge(['phone' => str_replace([' ', '+'], '', $request->phone)]);
+            $request->merge(['phone' => preg_replace('/\D/', '', $request->phone)]);
         }
 
         $request->validate([

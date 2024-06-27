@@ -10,7 +10,7 @@ class Up extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['seller_id', 'avaliable_count'];
+    protected $fillable = ['seller_id', 'available_count'];
 
     public function seller()
     {
