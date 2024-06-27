@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Head, router } from "@inertiajs/react";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import NavigationLayout from "@/Layouts/NavigationLayout";
 import PageBox from "@/Components/pagebox/PageBox";
 import formatPrice from "@/Utils/formatPrice";
@@ -29,7 +29,7 @@ import {
     DialogTitle,
     ToggleButton,
     ToggleButtonGroup,
-    TextField
+    TextField,
 } from "@mui/material";
 import QrCodeMensal from "../../../Assets/qrcode-pix-plano-mensal.png";
 import ReenableAdDialog from "./components/ReenableAdDialog";
@@ -40,7 +40,6 @@ import DeleteAdDialog from "./components/DeleteAdDialog";
 import UpAdDialog from "./components/UpAdDialog";
 
 export default function Ads({ auth, ads }) {
-
     const { user } = auth;
 
     const [openCreateAdDialog, setOpenCreateAdDialog] = useState(false);
@@ -52,11 +51,11 @@ export default function Ads({ auth, ads }) {
     const [upPrice, setUpPrice] = useState(6.25);
     const [quantity, setQuantity] = useState(1);
     const [showQrCode, setShowQrCode] = useState(false);
-    const textCodigo = "00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8";
+    const textCodigo =
+        "00020126360014BR.GOV.BCB.PIX0114+5512991875000520400005303986540539.905802BR5908Uniplace6006Lorena62070503***630466D8";
 
     const adsAble = ads.filter((ad) => ad.enabled);
     const adsUnable = ads.filter((ad) => !ad.enabled);
-
 
     const handleOpenBuyUp = () => {
         setOpenDialogBuyUp(true);
@@ -78,7 +77,6 @@ export default function Ads({ auth, ads }) {
     const handleCloseCreateAdDialog = () => {
         setOpenCreateAdDialog(false);
     };
-
 
     const handleQuantityChange = (event) => {
         let newQuantity = event.target.value;
@@ -102,7 +100,6 @@ export default function Ads({ auth, ads }) {
             setTextTooltip("Código copiado");
         });
     };
-
 
     return (
         <NavigationLayout user={user}>
@@ -136,7 +133,9 @@ export default function Ads({ auth, ads }) {
                                         }}
                                     >
                                         <RemixIcon className="ri-price-tag-3-line" />
-                                        Quantidade de anúncios criados: {ads.length} de {user?.seller?.plan?.max_ads}
+                                        Quantidade de anúncios criados:{" "}
+                                        {ads.length} de{" "}
+                                        {user?.seller?.plan?.max_ads}
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -206,27 +205,45 @@ export default function Ads({ auth, ads }) {
                                         Adquirir UP's
                                     </Button>
                                 </Grid>
-                                {openDialogBuyUp &&
+                                {openDialogBuyUp && (
                                     <Dialog
                                         open={openDialogBuyUp}
                                         onClose={handleCloseBuyUp}
                                     >
-                                        <DialogTitle>Comprar UP'S ({formatPrice(upPrice)})</DialogTitle>
+                                        <DialogTitle>
+                                            Comprar UP'S ({formatPrice(upPrice)}
+                                            )
+                                        </DialogTitle>
                                         <IconButton
                                             aria-label="close"
                                             onClick={handleCloseBuyUp}
-                                            sx={{ position: "absolute", right: 16, top: 12 }}
+                                            sx={{
+                                                position: "absolute",
+                                                right: 16,
+                                                top: 12,
+                                            }}
                                         >
                                             <RemixIcon className="ri-close-line" />
                                         </IconButton>
                                         <DialogContent dividers>
-                                            <Box sx={{ width: "100%" }} noValidate>
-                                                <Grid container spacing={0} rowSpacing={2}>
+                                            <Box
+                                                sx={{ width: "100%" }}
+                                                noValidate
+                                            >
+                                                <Grid
+                                                    container
+                                                    spacing={0}
+                                                    rowSpacing={2}
+                                                >
                                                     <Grid item xs={12}>
                                                         <ToggleButtonGroup
-                                                            value={paymentMethod}
+                                                            value={
+                                                                paymentMethod
+                                                            }
                                                             exclusive
-                                                            onChange={handlePaymentMethod}
+                                                            onChange={
+                                                                handlePaymentMethod
+                                                            }
                                                             fullWidth
                                                         >
                                                             <ToggleButton
@@ -252,56 +269,76 @@ export default function Ads({ auth, ads }) {
                                                             name="quantity"
                                                             label="Quantidade"
                                                             value={quantity}
-                                                            onChange={handleQuantityChange}
+                                                            onChange={
+                                                                handleQuantityChange
+                                                            }
                                                             fullWidth
-                                                            inputProps={{ min: 1, step: 1 }}
+                                                            inputProps={{
+                                                                min: 1,
+                                                                step: 1,
+                                                            }}
                                                         />
                                                     </Grid>
-                                                    {paymentMethod === "Pix" && showQrCode && (
-                                                        <>
-                                                            <Grid item xs={12}>
-                                                                <Image
-                                                                    src={QrCodeMensal}
-                                                                    alt={`QR Code for Up`}
-                                                                    style={{
-                                                                        objectFit: "contain",
-                                                                        width: "100%",
-                                                                        height: "300px",
-                                                                    }}
-                                                                />
-                                                            </Grid>
-                                                            <Grid
-                                                                item
-                                                                xs={12}
-                                                                display="flex"
-                                                                gap="8px"
-                                                            >
-                                                                <Tooltip title={textTooltip}>
-                                                                    <IconButton
-                                                                        onClick={handleCopyToClipboard}
+                                                    {paymentMethod === "Pix" &&
+                                                        showQrCode && (
+                                                            <>
+                                                                <Grid
+                                                                    item
+                                                                    xs={12}
+                                                                >
+                                                                    <Image
+                                                                        src={
+                                                                            QrCodeMensal
+                                                                        }
+                                                                        alt={`QR Code for Up`}
+                                                                        style={{
+                                                                            objectFit:
+                                                                                "contain",
+                                                                            width: "100%",
+                                                                            height: "300px",
+                                                                        }}
+                                                                    />
+                                                                </Grid>
+                                                                <Grid
+                                                                    item
+                                                                    xs={12}
+                                                                    display="flex"
+                                                                    gap="8px"
+                                                                >
+                                                                    <Tooltip
+                                                                        title={
+                                                                            textTooltip
+                                                                        }
                                                                     >
-                                                                        <RemixIcon
-                                                                            className={
-                                                                                copied
-                                                                                    ? "ri-file-copy-fill"
-                                                                                    : "ri-file-copy-line"
+                                                                        <IconButton
+                                                                            onClick={
+                                                                                handleCopyToClipboard
                                                                             }
-                                                                        />
-                                                                    </IconButton>
-                                                                </Tooltip>
-                                                                <TextField
-                                                                    variant="outlined"
-                                                                    type="text"
-                                                                    label="Código copia e cola"
-                                                                    value={textCodigo}
-                                                                    fullWidth
-                                                                    InputProps={{
-                                                                        readOnly: true,
-                                                                    }}
-                                                                />
-                                                            </Grid>
-                                                        </>
-                                                    )}
+                                                                        >
+                                                                            <RemixIcon
+                                                                                className={
+                                                                                    copied
+                                                                                        ? "ri-file-copy-fill"
+                                                                                        : "ri-file-copy-line"
+                                                                                }
+                                                                            />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                    <TextField
+                                                                        variant="outlined"
+                                                                        type="text"
+                                                                        label="Código copia e cola"
+                                                                        value={
+                                                                            textCodigo
+                                                                        }
+                                                                        fullWidth
+                                                                        InputProps={{
+                                                                            readOnly: true,
+                                                                        }}
+                                                                    />
+                                                                </Grid>
+                                                            </>
+                                                        )}
                                                 </Grid>
                                             </Box>
                                         </DialogContent>
@@ -313,20 +350,25 @@ export default function Ads({ auth, ads }) {
                                             >
                                                 Cancelar
                                             </Button>
-                                            {!showQrCode &&
+                                            {!showQrCode && (
                                                 <Button
                                                     variant="contained"
                                                     disableElevation
-                                                    onClick={() => setShowQrCode(true)}
+                                                    onClick={() =>
+                                                        setShowQrCode(true)
+                                                    }
                                                     disabled={quantity < 1}
                                                 >
-                                                    {paymentMethod === 'Pix' && ('Gerar QR Code')}
-                                                    {paymentMethod === 'Cartao' && ('Realizar compra')}
+                                                    {paymentMethod === "Pix" &&
+                                                        "Gerar QR Code"}
+                                                    {paymentMethod ===
+                                                        "Cartao" &&
+                                                        "Realizar compra"}
                                                 </Button>
-                                            }
+                                            )}
                                         </DialogActions>
                                     </Dialog>
-                                }
+                                )}
                             </Grid>
                         </PageBox>
                     </Grid>
@@ -389,9 +431,9 @@ export default function Ads({ auth, ads }) {
                                                                 key={index}
                                                                 sx={{
                                                                     "&:last-child td, &:last-child th":
-                                                                    {
-                                                                        border: 0,
-                                                                    },
+                                                                        {
+                                                                            border: 0,
+                                                                        },
                                                                 }}
                                                             >
                                                                 <TableCell
@@ -417,11 +459,10 @@ export default function Ads({ auth, ads }) {
                                                                     ></Image>
                                                                 </TableCell>
                                                                 <TableCell align="left">
-                                                                    {
-                                                                        ad
-                                                                            ?.category
-                                                                            ?.name || "Sem categoria"
-                                                                    }
+                                                                    {ad
+                                                                        ?.category
+                                                                        ?.name ||
+                                                                        "Sem categoria"}
                                                                 </TableCell>
                                                                 <TableCell align="left">
                                                                     {ad.title}
@@ -441,75 +482,49 @@ export default function Ads({ auth, ads }) {
                                                                         ad.created_at
                                                                     )}
                                                                 </TableCell>
-                                                                <TableCell align="left" sx={{ color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : "" }}>
+                                                                <TableCell
+                                                                    align="left"
+                                                                    sx={{
+                                                                        color:
+                                                                            dayjs(
+                                                                                ad
+                                                                                    ?.up_usage
+                                                                                    ?.expires_at
+                                                                            ) <
+                                                                            dayjs()
+                                                                                ? "red"
+                                                                                : "",
+                                                                    }}
+                                                                >
                                                                     {formatDate(
-                                                                        ad?.up_usage?.expires_at
+                                                                        ad
+                                                                            ?.up_usage
+                                                                            ?.expires_at
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">
-                                                                    <Tooltip
-                                                                        title="Visualizar"
-                                                                        placement="top"
-                                                                        arrow
+                                                                    <Box
+                                                                        sx={{
+                                                                            display:
+                                                                                "flex",
+                                                                        }}
                                                                     >
-                                                                        <IconButton
-                                                                            onClick={() =>
-                                                                                router.visit(
-                                                                                    `/ad/${ad.id}`
-                                                                                )
-                                                                            }
+                                                                        <Tooltip
+                                                                            title="Visualizar"
+                                                                            placement="top"
+                                                                            arrow
                                                                         >
-                                                                            <RemixIcon className="ri-eye-line"></RemixIcon>
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                    <EditAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                        imageUrl={
-                                                                            ad.image_url
-                                                                        }
-                                                                        categoryId={
-                                                                            ad?.category_id
-                                                                        }
-                                                                    />
-                                                                    <UpAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                        imageUrl={
-                                                                            ad.image_url
-                                                                        }
-                                                                        categoryId={
-                                                                            ad?.category_id
-                                                                        }
-                                                                        availableCount={
-                                                                            user
-                                                                                .seller
-                                                                                .up
-                                                                                .available_count
-                                                                        }
-                                                                    />
-                                                                    {ad.enabled && (
-                                                                        <DisableAdDialog
+                                                                            <IconButton
+                                                                                onClick={() =>
+                                                                                    router.visit(
+                                                                                        `/ad/${ad.id}`
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <RemixIcon className="ri-eye-line"></RemixIcon>
+                                                                            </IconButton>
+                                                                        </Tooltip>
+                                                                        <EditAdDialog
                                                                             id={
                                                                                 ad.id
                                                                             }
@@ -529,9 +544,77 @@ export default function Ads({ auth, ads }) {
                                                                                 ad?.category_id
                                                                             }
                                                                         />
-                                                                    )}
-                                                                    {!ad.enabled && (
-                                                                        <ReenableAdDialog
+                                                                        <UpAdDialog
+                                                                            id={
+                                                                                ad.id
+                                                                            }
+                                                                            title={
+                                                                                ad.title
+                                                                            }
+                                                                            price={
+                                                                                ad.price
+                                                                            }
+                                                                            description={
+                                                                                ad.description
+                                                                            }
+                                                                            imageUrl={
+                                                                                ad.image_url
+                                                                            }
+                                                                            categoryId={
+                                                                                ad?.category_id
+                                                                            }
+                                                                            availableCount={
+                                                                                user
+                                                                                    .seller
+                                                                                    .up
+                                                                                    .available_count
+                                                                            }
+                                                                        />
+                                                                        {ad.enabled && (
+                                                                            <DisableAdDialog
+                                                                                id={
+                                                                                    ad.id
+                                                                                }
+                                                                                title={
+                                                                                    ad.title
+                                                                                }
+                                                                                price={
+                                                                                    ad.price
+                                                                                }
+                                                                                description={
+                                                                                    ad.description
+                                                                                }
+                                                                                imageUrl={
+                                                                                    ad.image_url
+                                                                                }
+                                                                                categoryId={
+                                                                                    ad?.category_id
+                                                                                }
+                                                                            />
+                                                                        )}
+                                                                        {!ad.enabled && (
+                                                                            <ReenableAdDialog
+                                                                                id={
+                                                                                    ad.id
+                                                                                }
+                                                                                title={
+                                                                                    ad.title
+                                                                                }
+                                                                                price={
+                                                                                    ad.price
+                                                                                }
+                                                                                description={
+                                                                                    ad.description
+                                                                                }
+                                                                                imageUrl={
+                                                                                    ad.image_url
+                                                                                }
+                                                                                categoryId={
+                                                                                    ad?.category_id
+                                                                                }
+                                                                            />
+                                                                        )}
+                                                                        <DeleteAdDialog
                                                                             id={
                                                                                 ad.id
                                                                             }
@@ -551,27 +634,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad?.category_id
                                                                             }
                                                                         />
-                                                                    )}
-                                                                    <DeleteAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                        imageUrl={
-                                                                            ad.image_url
-                                                                        }
-                                                                        categoryId={
-                                                                            ad?.category_id
-                                                                        }
-                                                                    />
+                                                                    </Box>
                                                                 </TableCell>
                                                             </TableRow>
                                                         )
@@ -643,9 +706,9 @@ export default function Ads({ auth, ads }) {
                                                                 key={index}
                                                                 sx={{
                                                                     "&:last-child td, &:last-child th":
-                                                                    {
-                                                                        border: 0,
-                                                                    },
+                                                                        {
+                                                                            border: 0,
+                                                                        },
                                                                 }}
                                                             >
                                                                 <TableCell
@@ -671,11 +734,10 @@ export default function Ads({ auth, ads }) {
                                                                     ></Image>
                                                                 </TableCell>
                                                                 <TableCell align="left">
-                                                                    {
-                                                                        ad
-                                                                            ?.category
-                                                                            ?.name || "Sem categoria"
-                                                                    }
+                                                                    {ad
+                                                                        ?.category
+                                                                        ?.name ||
+                                                                        "Sem categoria"}
                                                                 </TableCell>
                                                                 <TableCell align="left">
                                                                     {ad.title}
@@ -695,49 +757,49 @@ export default function Ads({ auth, ads }) {
                                                                         ad.created_at
                                                                     )}
                                                                 </TableCell>
-                                                                <TableCell align="left" sx={{ color: dayjs(ad?.up_usage?.expires_at) < dayjs() ? "red" : "" }}>
+                                                                <TableCell
+                                                                    align="left"
+                                                                    sx={{
+                                                                        color:
+                                                                            dayjs(
+                                                                                ad
+                                                                                    ?.up_usage
+                                                                                    ?.expires_at
+                                                                            ) <
+                                                                            dayjs()
+                                                                                ? "red"
+                                                                                : "",
+                                                                    }}
+                                                                >
                                                                     {formatDate(
-                                                                        ad?.up_usage?.expires_at
+                                                                        ad
+                                                                            ?.up_usage
+                                                                            ?.expires_at
                                                                     )}
                                                                 </TableCell>
                                                                 <TableCell align="right">
-                                                                    <Tooltip
-                                                                        title="Visualizar"
-                                                                        placement="top"
-                                                                        arrow
+                                                                    <Box
+                                                                        sx={{
+                                                                            display:
+                                                                                "flex",
+                                                                        }}
                                                                     >
-                                                                        <IconButton
-                                                                            onClick={() =>
-                                                                                router.visit(
-                                                                                    `/ad/${ad.id}`
-                                                                                )
-                                                                            }
+                                                                        <Tooltip
+                                                                            title="Visualizar"
+                                                                            placement="top"
+                                                                            arrow
                                                                         >
-                                                                            <RemixIcon className="ri-eye-line"></RemixIcon>
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                    <EditAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                        imageUrl={
-                                                                            ad.image_url
-                                                                        }
-                                                                        categoryId={
-                                                                            ad?.category_id
-                                                                        }
-                                                                    />
-                                                                    {ad.enabled && (
-                                                                        <DisableAdDialog
+                                                                            <IconButton
+                                                                                onClick={() =>
+                                                                                    router.visit(
+                                                                                        `/ad/${ad.id}`
+                                                                                    )
+                                                                                }
+                                                                            >
+                                                                                <RemixIcon className="ri-eye-line"></RemixIcon>
+                                                                            </IconButton>
+                                                                        </Tooltip>
+                                                                        <EditAdDialog
                                                                             id={
                                                                                 ad.id
                                                                             }
@@ -757,9 +819,51 @@ export default function Ads({ auth, ads }) {
                                                                                 ad?.category_id
                                                                             }
                                                                         />
-                                                                    )}
-                                                                    {!ad.enabled && (
-                                                                        <ReenableAdDialog
+                                                                        {ad.enabled && (
+                                                                            <DisableAdDialog
+                                                                                id={
+                                                                                    ad.id
+                                                                                }
+                                                                                title={
+                                                                                    ad.title
+                                                                                }
+                                                                                price={
+                                                                                    ad.price
+                                                                                }
+                                                                                description={
+                                                                                    ad.description
+                                                                                }
+                                                                                imageUrl={
+                                                                                    ad.image_url
+                                                                                }
+                                                                                categoryId={
+                                                                                    ad?.category_id
+                                                                                }
+                                                                            />
+                                                                        )}
+                                                                        {!ad.enabled && (
+                                                                            <ReenableAdDialog
+                                                                                id={
+                                                                                    ad.id
+                                                                                }
+                                                                                title={
+                                                                                    ad.title
+                                                                                }
+                                                                                price={
+                                                                                    ad.price
+                                                                                }
+                                                                                description={
+                                                                                    ad.description
+                                                                                }
+                                                                                imageUrl={
+                                                                                    ad.image_url
+                                                                                }
+                                                                                categoryId={
+                                                                                    ad?.category_id
+                                                                                }
+                                                                            />
+                                                                        )}
+                                                                        <DeleteAdDialog
                                                                             id={
                                                                                 ad.id
                                                                             }
@@ -779,27 +883,7 @@ export default function Ads({ auth, ads }) {
                                                                                 ad?.category_id
                                                                             }
                                                                         />
-                                                                    )}
-                                                                    <DeleteAdDialog
-                                                                        id={
-                                                                            ad.id
-                                                                        }
-                                                                        title={
-                                                                            ad.title
-                                                                        }
-                                                                        price={
-                                                                            ad.price
-                                                                        }
-                                                                        description={
-                                                                            ad.description
-                                                                        }
-                                                                        imageUrl={
-                                                                            ad.image_url
-                                                                        }
-                                                                        categoryId={
-                                                                            ad?.category_id
-                                                                        }
-                                                                    />
+                                                                    </Box>
                                                                 </TableCell>
                                                             </TableRow>
                                                         )
@@ -813,7 +897,7 @@ export default function Ads({ auth, ads }) {
                         </PageBox>
                     </Grid>
                 </Grid>
-            </Box >
-        </NavigationLayout >
+            </Box>
+        </NavigationLayout>
     );
 }
