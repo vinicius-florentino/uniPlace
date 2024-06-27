@@ -467,10 +467,22 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="left">
                                                                     {ad.title}
                                                                 </TableCell>
-                                                                <TableCell align="left">
-                                                                    {
+                                                                <TableCell
+                                                                    align="left"
+                                                                    title={
                                                                         ad.description
                                                                     }
+                                                                >
+                                                                    {ad
+                                                                        .description
+                                                                        .length <=
+                                                                    100
+                                                                        ? ad.description
+                                                                        : ad.description.substr(
+                                                                              0,
+                                                                              100
+                                                                          ) +
+                                                                          "..."}
                                                                 </TableCell>
                                                                 <TableCell align="left">
                                                                     {formatPrice(
@@ -742,10 +754,22 @@ export default function Ads({ auth, ads }) {
                                                                 <TableCell align="left">
                                                                     {ad.title}
                                                                 </TableCell>
-                                                                <TableCell align="left">
-                                                                    {
+                                                                <TableCell
+                                                                    align="left"
+                                                                    title={
                                                                         ad.description
                                                                     }
+                                                                >
+                                                                    {ad
+                                                                        .description
+                                                                        .length <=
+                                                                    100
+                                                                        ? ad.description
+                                                                        : ad.description.substr(
+                                                                              0,
+                                                                              100
+                                                                          ) +
+                                                                          "..."}
                                                                 </TableCell>
                                                                 <TableCell align="left">
                                                                     {formatPrice(
