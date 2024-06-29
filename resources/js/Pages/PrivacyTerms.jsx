@@ -114,24 +114,22 @@ export default function PrivacyTerms({ auth }) {
                             <AccordionDetails>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <ul>
-                                            <Typography component="li">
-                                                Ao utilizar nosso aplicativo,
-                                                coletamos as seguintes
-                                                informações pessoais:
-                                            </Typography>
-                                            <Typography component="li">
-                                                Dados de Contato: Nome, endereço
-                                                de e-mail, número de telefone e
-                                                instituição de ensino (se for
-                                                estudante).
-                                            </Typography>
-                                            <Typography component="li">
-                                                Informações de Navegação: Dados
-                                                de acesso e informações sobre
-                                                como você usa nosso aplicativo.
-                                            </Typography>
-                                        </ul>
+                                        <Typography component="li">
+                                            Ao utilizar nosso aplicativo,
+                                            coletamos as seguintes
+                                            informações pessoais:
+                                        </Typography>
+                                        <Typography component="li">
+                                            Dados de Contato: Nome, endereço
+                                            de e-mail, número de telefone e
+                                            instituição de ensino (se for
+                                            estudante).
+                                        </Typography>
+                                        <Typography component="li">
+                                            Informações de Navegação: Dados
+                                            de acesso e informações sobre
+                                            como você usa nosso aplicativo.
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </AccordionDetails>
@@ -168,28 +166,26 @@ export default function PrivacyTerms({ auth }) {
                             <AccordionDetails>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <ul>
-                                            <Typography component="li">
-                                                As informações coletadas são
-                                                usadas para:
-                                            </Typography>
-                                            <Typography component="li">
-                                                Facilitar a comunicação entre
-                                                compradores e vendedores.
-                                            </Typography>
-                                            <Typography component="li">
-                                                Fornecer suporte ao cliente.
-                                            </Typography>
-                                            <Typography component="li">
-                                                Personalizar sua experiência no
-                                                aplicativo.
-                                            </Typography>
-                                            <Typography component="li">
-                                                Enviar atualizações, ofertas
-                                                promocionais e outras
-                                                informações relevantes.
-                                            </Typography>
-                                        </ul>
+                                        <Typography component="li">
+                                            As informações coletadas são
+                                            usadas para:
+                                        </Typography>
+                                        <Typography component="li">
+                                            Facilitar a comunicação entre
+                                            compradores e vendedores.
+                                        </Typography>
+                                        <Typography component="li">
+                                            Fornecer suporte ao cliente.
+                                        </Typography>
+                                        <Typography component="li">
+                                            Personalizar sua experiência no
+                                            aplicativo.
+                                        </Typography>
+                                        <Typography component="li">
+                                            Enviar atualizações, ofertas
+                                            promocionais e outras
+                                            informações relevantes.
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </AccordionDetails>
@@ -226,24 +222,22 @@ export default function PrivacyTerms({ auth }) {
                             <AccordionDetails>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <ul>
-                                            <Typography component="li">
-                                                Não vendemos, trocamos ou
-                                                transferimos suas informações
-                                                pessoais para terceiros, exceto
-                                                nas seguintes circunstâncias:
-                                            </Typography>
-                                            <Typography component="li">
-                                                Para cumprir com a lei,
-                                                regulamentos ou solicitações
-                                                legais.
-                                            </Typography>
-                                            <Typography component="li">
-                                                Para proteger nossos direitos,
-                                                privacidade, segurança ou
-                                                propriedade.
-                                            </Typography>
-                                        </ul>
+                                        <Typography component="li">
+                                            Não vendemos, trocamos ou
+                                            transferimos suas informações
+                                            pessoais para terceiros, exceto
+                                            nas seguintes circunstâncias:
+                                        </Typography>
+                                        <Typography component="li">
+                                            Para cumprir com a lei,
+                                            regulamentos ou solicitações
+                                            legais.
+                                        </Typography>
+                                        <Typography component="li">
+                                            Para proteger nossos direitos,
+                                            privacidade, segurança ou
+                                            propriedade.
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </AccordionDetails>
